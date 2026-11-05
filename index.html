@@ -79,7 +79,7 @@
    <div class="bg-white rounded-xl border border-slate-200 p-4 space-y-3">
     <div>
      <h3 class="text-sm font-bold text-slate-900">Subir reunião</h3>
-     <p class="text-[11px] text-slate-500 mt-0.5">Transcrição em arquivo, texto colado ou áudio (até 20 MB). A IA lê e propõe as ações — nada entra no painel sem você aprovar.</p>
+     <p class="text-[11px] text-slate-500 mt-0.5">Transcrição em arquivo, texto colado ou áudio. A IA compara com o painel e separa o que mudou do que é novo.</p>
     </div>
     <div class="border-2 border-dashed border-slate-300 rounded-xl p-4 text-center hover:border-sky-400 transition-colors cursor-pointer" id="dropZone">
      <input type="file" id="audioFile" accept="audio/*,video/mp4,video/webm,text/plain,.txt,.md,.srt,.vtt,.csv" class="hidden">
@@ -92,19 +92,27 @@
      <div class="flex-1 h-px bg-slate-200"></div><span class="text-[10px] text-slate-400 uppercase">ou</span><div class="flex-1 h-px bg-slate-200"></div>
     </div>
     <textarea id="reuniaoTexto" rows="4" placeholder="Cole aqui a transcrição ou a pauta da reunião…" class="w-full text-xs border border-slate-300 rounded-lg p-2.5 bg-slate-50 focus:bg-white resize-y"></textarea>
-    <button id="btnProcessar" class="w-full px-4 py-2 bg-sky-700 hover:bg-sky-800 disabled:opacity-40 text-white text-sm font-medium rounded-lg">Processar e propor ações</button>
+    <button id="btnProcessar" class="w-full px-4 py-2 bg-sky-700 hover:bg-sky-800 disabled:opacity-40 text-white text-sm font-medium rounded-lg">Analisar reunião</button>
     <div id="procStatus" class="text-[11px] text-slate-500 min-h-[16px]"></div>
    </div>
    <div class="bg-white rounded-xl border border-slate-200 p-4 flex flex-col">
     <div class="flex items-center justify-between mb-2">
-     <h3 class="text-sm font-bold text-slate-900">Ações propostas</h3>
+     <h3 class="text-sm font-bold text-slate-900">O que a reunião mudou</h3>
      <span id="propCount" class="text-[11px] text-slate-500"></span>
     </div>
-    <div id="propList" class="flex-1 overflow-y-auto space-y-2 min-h-[240px] max-h-[380px]">
-     <div class="text-center py-10 text-xs text-slate-400">Nenhuma proposta ainda.<br>Suba um arquivo ou cole o texto ao lado.</div>
+    <div class="flex-1 overflow-y-auto space-y-3 min-h-[240px] max-h-[420px] pr-1">
+     <div id="atualBloco" style="display:none">
+      <div class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 mb-1.5">↻ Atualizações em ações existentes</div>
+      <div id="atualList" class="space-y-2"></div>
+     </div>
+     <div id="novasBloco" style="display:none">
+      <div class="text-[11px] font-bold uppercase tracking-wider text-sky-700 mb-1.5">+ Ações novas</div>
+      <div id="propList" class="space-y-2"></div>
+     </div>
+     <div id="vazioAnalise" class="text-center py-10 text-xs text-slate-400">Nada analisado ainda.<br>Suba um arquivo ou cole o texto.</div>
     </div>
-    <button id="btnAplicar" class="mt-3 w-full px-4 py-2 bg-emerald-700 hover:bg-emerald-800 disabled:opacity-40 text-white text-sm font-medium rounded-lg" disabled>Aprovar e adicionar ao painel</button>
-    <p class="text-[10px] text-slate-400 mt-1.5">Aprovar aqui gera o <code>data.json</code> novo para você baixar e subir no repositório.</p>
+    <button id="btnAplicar" class="mt-3 w-full px-4 py-2 bg-emerald-700 hover:bg-emerald-800 disabled:opacity-40 text-white text-sm font-medium rounded-lg" disabled>Aprovar selecionadas</button>
+    <p class="text-[10px] text-slate-400 mt-1.5">Gera o <code>data.json</code> novo para você baixar e subir no repositório.</p>
    </div>
   </div>
  </div>
@@ -267,7 +275,7 @@ var linhas=T.map(function(t){return"- ["+t.area+"] "+t.title+" | Resp: "+t.assig
 var ata=Object.keys(DADOS.ata||{}).sort(function(a,b){return a-b}).map(function(k){return"Topico "+k+": "+String(DADOS.ata[k]).replace(/<[^>]+>/g,"")}).join("\n");
 return"Painel de gestao de demandas Jussara & Ventura. Atualizado em "+(DADOS.atualizado||"")+".\nTotal: "+T.length+" acoes. Situacao: "+JSON.stringify(st)+".\n\nACOES:\n"+linhas+"\n\nATA POR TOPICO:\n"+ata}
 function renderChat(){var c=document.getElementById("chatMsgs");
-if(!HIST.length){c.innerHTML='<div class="text-center py-10 text-slate-400"><div class="text-3xl mb-2">💬</div><p class="text-sm font-medium text-slate-600">Pergunte sobre o painel</p><p class="text-xs mt-1">As 36 ações, os prazos e a ata estão no meu contexto.</p><div class="flex flex-wrap gap-1.5 justify-center mt-3">'+["O que vence amanhã?","Quem está mais sobrecarregado?","Resuma o MaxPro","O que está travado?"].map(function(s){return'<button onclick="sugerir(this.textContent)" class="px-2.5 py-1 text-[11px] bg-white border border-slate-200 rounded-full hover:border-sky-400 text-slate-600">'+s+'</button>'}).join("")+'</div></div>';return}
+if(!HIST.length){c.innerHTML='<div class="text-center py-10 text-slate-400"><div class="text-3xl mb-2">💬</div><p class="text-sm font-medium text-slate-600">Pergunte sobre o painel</p><p class="text-xs mt-1">As ações, os prazos e a ata estão no meu contexto.</p><div class="flex flex-wrap gap-1.5 justify-center mt-3">'+["O que vence amanhã?","Quem está mais sobrecarregado?","Resuma o MaxPro","O que está travado?"].map(function(s){return'<button onclick="sugerir(this.textContent)" class="px-2.5 py-1 text-[11px] bg-white border border-slate-200 rounded-full hover:border-sky-400 text-slate-600">'+s+'</button>'}).join("")+'</div></div>';return}
 c.innerHTML=HIST.map(function(m){var eu=m.role==="user";
 return'<div class="flex '+(eu?"justify-end":"justify-start")+'"><div class="max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm '+(eu?"bg-sky-700 text-white rounded-br-sm":"bg-slate-100 text-slate-800 rounded-bl-sm")+'">'+fmt(m.text)+'</div></div>'}).join("");
 c.scrollTop=c.scrollHeight}
@@ -318,8 +326,8 @@ document.getElementById("chatInput").addEventListener("keydown",function(e){if(e
 }
 function ciclo(id){var t=T.filter(function(x){return x.id===id})[0];if(!t)return;t.status=t.status==="Pendente"?"Em Andamento":t.status==="Em Andamento"?"Concluído":"Pendente";salvar();render()}
 
-/* ---------- REUNIÕES ---------- */
-var PROPOSTAS=[],arquivoSel=null;
+/* ---------- REUNIÕES: análise (atualizações + novas) ---------- */
+var PROPOSTAS=[],ATUALIZACOES=[],arquivoSel=null;
 function setStatus(txt,cls){var e=document.getElementById("procStatus");e.textContent=txt;e.className="text-[11px] min-h-[16px] "+(cls||"text-slate-500")}
 function b64(file){return new Promise(function(res,rej){var r=new FileReader();r.onload=function(){var s=String(r.result),i=s.indexOf(",");res({data:s.slice(i+1),mime:(s.slice(5,i).split(";")[0])||file.type||"audio/mp4"})};r.onerror=rej;r.readAsDataURL(file)})}
 function escolherArquivo(f){
@@ -327,7 +335,7 @@ if(!f)return;
 var nome=(f.name||"").toLowerCase();
 var ehTexto=/\.(txt|md|srt|vtt|csv|json|log)$/.test(nome)||(f.type||"").indexOf("text/")===0;
 if(ehTexto){
- if(f.size>5*1024*1024){setStatus("Arquivo de texto com "+(f.size/1048576).toFixed(1)+" MB. O limite é 5 MB — dá cerca de 100 mil linhas, bem mais que uma reunião.","text-rose-600");return}
+ if(f.size>5*1024*1024){setStatus("Arquivo de texto com "+(f.size/1048576).toFixed(1)+" MB. O limite é 5 MB.","text-rose-600");return}
  var r=new FileReader();
  r.onload=function(){
   var t=String(r.result||"");
@@ -336,7 +344,7 @@ if(ehTexto){
   document.getElementById("reuniaoTexto").value=t;
   arquivoSel=null;
   var palavras=t.split(/\s+/).filter(Boolean).length;
-  setStatus("Transcrição carregada: "+palavras.toLocaleString("pt-BR")+" palavras, ~"+Math.round(palavras/130)+" min de fala. Clique em Processar.","text-emerald-600");
+  setStatus("Transcrição carregada: "+palavras.toLocaleString("pt-BR")+" palavras, ~"+Math.round(palavras/130)+" min de fala. Clique em Analisar.","text-emerald-600");
  };
  r.onerror=function(){setStatus("Não consegui ler o arquivo.","text-rose-600")};
  r.readAsText(f,"utf-8");
@@ -344,7 +352,7 @@ if(ehTexto){
  return}
 arquivoSel=f;document.getElementById("fileName").textContent=f.name+" · "+(f.size/1048576).toFixed(1)+" MB";
 if(f.size>20*1024*1024){setStatus("Áudio de "+(f.size/1048576).toFixed(1)+" MB passa do limite de 20 MB. Divida o áudio ou suba a transcrição em .txt.","text-rose-600");var b=document.getElementById("btnProcessar");if(b)b.disabled=false;return}
-setStatus("Áudio pronto ("+(f.size/1048576).toFixed(1)+" MB). Clique em Processar.","text-emerald-600")}
+setStatus("Áudio pronto ("+(f.size/1048576).toFixed(1)+" MB). Clique em Analisar.","text-emerald-600")}
 function processar(){var txt=document.getElementById("reuniaoTexto").value.trim();
 if(!gkey()){abrirChave();setStatus("Configure a chave do Gemini primeiro.","text-amber-600");return}
 if(!arquivoSel&&!txt){setStatus("Escolha um arquivo ou cole o texto da reunião.","text-amber-600");return}
@@ -360,11 +368,10 @@ if(!c||!c.content){var m=(j.error&&j.error.message)||"Falha na transcrição";th
 var tr=c.content.parts.map(function(p){return p.text||""}).join("").trim();
 if(!tr)throw new Error("Transcrição vazia — tente subir um arquivo .txt");
 document.getElementById("reuniaoTexto").value=tr;
-setStatus("Transcrito ("+tr.length+" caracteres). Propondo ações…","text-slate-500");
+setStatus("Transcrito ("+tr.length+" caracteres). Analisando…","text-slate-500");
 processarTexto(tr,btn)})
 .catch(function(e){setStatus("Erro: "+e.message,"text-rose-600");btn.disabled=false})}}
 
-/* Divide o texto em blocos de ~28 mil caracteres, cortando em fim de parágrafo/frase */
 function emBlocos(txt,max){
 max=max||28000;
 if(txt.length<=max)return [txt];
@@ -379,57 +386,79 @@ while(resto.length>max){
 if(resto)blocos.push(resto);
 return blocos}
 
-/* Processa 1..N blocos em sequência, acumulando as propostas */
 function processarTexto(txt,btn){
 var blocos=emBlocos(txt,28000);
-PROPOSTAS=[];
+PROPOSTAS=[];ATUALIZACOES=[];
 var feitos=0,erros=[];
 function proximo(){
  if(feitos>=blocos.length){
   renderPropostas();
-  var dup=PROPOSTAS.filter(function(p){return p.duplicada_de}).length;
-  var msg=PROPOSTAS.length+" ações propostas";
-  if(blocos.length>1)msg+=" (texto dividido em "+blocos.length+" blocos)";
-  if(dup)msg+=", "+dup+" marcadas como duplicata (desmarcadas)";
+  var msg=ATUALIZACOES.length+" atualizações e "+PROPOSTAS.length+" ações novas";
+  if(blocos.length>1)msg+=" (texto em "+blocos.length+" blocos)";
   if(erros.length)msg+=" — "+erros.length+" bloco(s) falharam: "+erros.join("; ");
-  setStatus(msg+". Revise e aprove.",erros.length?"text-amber-600":"text-emerald-600");
+  setStatus(msg+". Revise e aprove.","text-emerald-600");
   btn.disabled=false;
   return}
  var b=blocos[feitos];
- setStatus("Processando bloco "+(feitos+1)+" de "+blocos.length+" ("+b.length.toLocaleString("pt-BR")+" caracteres)…","text-slate-500");
- extrairBloco(b).then(function(acoes){
-  acoes.forEach(function(a,i){
+ setStatus("Analisando bloco "+(feitos+1)+" de "+blocos.length+" ("+b.length.toLocaleString("pt-BR")+" caracteres)…","text-slate-500");
+ extrairBloco(b).then(function(r){
+  (r.atualizacoes||[]).forEach(function(a){
+   if(!a.id)return;
+   if(ATUALIZACOES.some(function(x){return x.id===a.id}))return;
+   var alvo=T.filter(function(t){return t.id===a.id})[0];
+   if(!alvo)return;
+   var mud={};
+   if(a.novo_status&&a.novo_status!==alvo.status)mud.status=a.novo_status;
+   if(a.novo_prazo&&a.novo_prazo!==alvo.deadline)mud.deadline=a.novo_prazo;
+   if(a.novo_responsavel&&a.novo_responsavel!==alvo.assignee)mud.assignee=a.novo_responsavel;
+   if(a.nova_prioridade&&a.nova_prioridade!==alvo.priority)mud.priority=a.nova_prioridade;
+   if(a.novo_contexto&&a.novo_contexto!==alvo.context)mud.context=a.novo_contexto;
+   if(a.nova_nota&&a.nova_nota!==(alvo.notes||""))mud.notes=a.nova_nota;
+   if(!Object.keys(mud).length)return;
+   ATUALIZACOES.push({id:a.id,titulo:alvo.title,de:{status:alvo.status,deadline:alvo.deadline,assignee:alvo.assignee,priority:alvo.priority,context:alvo.context,notes:alvo.notes}});
+   ATUALIZACOES[ATUALIZACOES.length-1].para=mud;
+   ATUALIZACOES[ATUALIZACOES.length-1].motivo=a.motivo||"";
+   ATUALIZACOES[ATUALIZACOES.length-1].sel=true});
+  (r.novas||[]).forEach(function(a){
    var dup=PROPOSTAS.some(function(p){return p.title.toLowerCase()===String(a.title||"").toLowerCase()});
-   PROPOSTAS.push({id:"NOVO-"+(PROPOSTAS.length+1),title:a.title||"(sem título)",assignee:a.assignee||"A definir",deadline:a.deadline||"A definir",priority:(a.priority||"Média"),area:a.area||"Institucional",context:a.context||"",topicTitle:a.topicTitle||"Itens de reunião",duplicada_de:a.duplicada_de||(dup?"mesma ação em outro bloco":""),sel:!(a.duplicada_de||dup)})});
+   if(dup)return;
+   PROPOSTAS.push({id:"NOVO-"+(PROPOSTAS.length+1),title:a.title||"(sem título)",assignee:a.assignee||"A definir",deadline:a.deadline||"A definir",priority:(a.priority||"Média"),area:a.area||"Institucional",context:a.context||"",topicTitle:a.topicTitle||"Itens de reunião",sel:true})});
   renderPropostas();feitos++;proximo()
  }).catch(function(e){erros.push("bloco "+(feitos+1)+": "+e.message);feitos++;proximo()})}
 proximo()}
 
 function extrairBloco(texto){
-var existentes=T.map(function(t){return t.title}).concat(PROPOSTAS.map(function(p){return p.title})).join("\n");
-var instrucao="Voce analisa reunioes da conta Jussara & Ventura (cliente: Jussara Laticinios; agencia: Ventura).\n"+
-"Da transcricao, extraia as ACOES concretas combinadas. Seja fiel ao que foi dito; nao invente nada.\n"+
-"Regras: title curto comecando com verbo; assignee = nome citado ou 'A definir'; deadline em DD/MM/AAAA "+
-"somente se a data foi dita, senao 'A definir'; priority em Critica/Alta/Media/Baixa; "+
-"area em MaxPro/Sonhos/SPRIM/Influencia/Institucional/RH/Planejamento; context com 1-2 frases do que foi dito; "+
-"topicTitle = assunto/tema; duplicada_de = titulo de acao ja existente que seja a mesma coisa, senao string vazia.\n"+
-"Se este trecho nao tiver nenhuma acao nova, devolva a lista vazia.\n\n"+
-"ACOES QUE JA EXISTEM:\n"+existentes;
-var SCHEMA={type:"OBJECT",properties:{acoes:{type:"ARRAY",items:{type:"OBJECT",properties:{
-title:{type:"STRING"},assignee:{type:"STRING"},deadline:{type:"STRING"},priority:{type:"STRING"},
-area:{type:"STRING"},context:{type:"STRING"},topicTitle:{type:"STRING"},duplicada_de:{type:"STRING"}},
-required:["title","assignee","deadline","priority","area","context","topicTitle"]}}},required:["acoes"]};
-var body={contents:[{role:"user",parts:[{text:instrucao},{text:"TRECHO DA TRANSCRICAO:\n\n"+texto}]}],generationConfig:{temperature:0.1,maxOutputTokens:8192,responseMimeType:"application/json",responseSchema:SCHEMA}};
+var lista=T.map(function(t){return t.id+" | "+t.title+" | resp: "+t.assignee+" | prazo: "+t.deadline+" | "+t.priority+" | "+t.status+(t.notes?" | nota: "+t.notes:"")}).join("\n");
+var instrucao="Voce analisa reunioes da conta Jussara & Ventura (Jussara Laticinios / agencia Ventura).\n\n"+
+"SUA TAREFA, NESTA ORDEM:\n"+
+"1) PRIMEIRO procure nos dados da reuniao o que MUDOU em acoes que ja existem: status que avancou (ex.: virou Concluido), prazo alterado, novo responsavel, prioridade revista, decisao tomada, correcao de informacao. Isso vai em 'atualizacoes'.\n"+
+"2) SO DEPOIS proponha o que for realmente NOVO e que ainda nao esta na lista. Isso vai em 'novas'. Se a reuniao nao trouxe nada novo, devolva lista vazia.\n\n"+
+"REGRA CRITICA: se o assunto da fala JA EXISTE na lista abaixo, NAO crie uma acao nova — registre a evolucao em 'atualizacoes'. Criar duplicata quando deveria atualizar e o pior erro possivel.\n\n"+
+"Nas atualizacoes use o ID exato da acao. Preencha SOMENTE os campos que mudaram; deixe string vazia nos que nao mudaram. "+
+"Nunca invente data: se a data nao foi dita, deixe vazio (nao escreva 'A definir' em campo de atualizacao).\n"+
+"Status permitidos: Pendente, Em Andamento, Concluido. Prioridade: Critica, Alta, Media, Baixa. Area: MaxPro, Sonhos, SPRIM, Influencia, Institucional, RH, Planejamento.\n\n"+
+"ACOES QUE JA EXISTEM (id | titulo | responsavel | prazo | prioridade | status | nota):\n"+lista;
+var SCHEMA={type:"OBJECT",properties:{
+ atualizacoes:{type:"ARRAY",items:{type:"OBJECT",properties:{
+  id:{type:"STRING"},novo_status:{type:"STRING"},novo_prazo:{type:"STRING"},novo_responsavel:{type:"STRING"},
+  nova_prioridade:{type:"STRING"},novo_contexto:{type:"STRING"},nova_nota:{type:"STRING"},motivo:{type:"STRING"}},
+  required:["id","motivo"]}},
+ novas:{type:"ARRAY",items:{type:"OBJECT",properties:{
+  title:{type:"STRING"},assignee:{type:"STRING"},deadline:{type:"STRING"},priority:{type:"STRING"},
+  area:{type:"STRING"},context:{type:"STRING"},topicTitle:{type:"STRING"}},
+  required:["title","assignee","deadline","priority","area","context","topicTitle"]}}
+},required:["atualizacoes","novas"]};
+var body={contents:[{role:"user",parts:[{text:instrucao},{text:"DADOS DA REUNIAO:\n\n"+texto}]}],generationConfig:{temperature:0.1,maxOutputTokens:8192,responseMimeType:"application/json",responseSchema:SCHEMA}};
 return fetch("https://generativelanguage.googleapis.com/v1beta/models/"+MODELOS[0]+":generateContent?key="+encodeURIComponent(gkey()),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)})
 .then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error((j.error&&j.error.message)||("HTTP "+r.status));return j})})
 .then(function(j){var c=j.candidates&&j.candidates[0];if(!c||!c.content)throw new Error("Sem resposta do modelo");
 var motivo=(c.finishReason||"");
 var raw=c.content.parts.map(function(p){return p.text||""}).join("").trim();
 var obj=parseTolerante(raw);
-if(!obj||!obj.acoes)throw new Error("Não consegui ler o JSON"+(motivo&&motivo!=="STOP"?" (motivo: "+motivo+")":""));
-return obj.acoes||[]})}
+if(!obj)throw new Error("Não consegui ler o JSON"+(motivo&&motivo!=="STOP"?" (motivo: "+motivo+")":""));
+return {atualizacoes:obj.atualizacoes||[],novas:obj.novas||obj.acoes||[]}})}
 
-/* Parser tolerante: limpa markdown, corrige vírgula sobrando e fecha o que ficou aberto */
+/* Parser tolerante */
 function parseTolerante(raw){
 if(!raw)return null;
 var s=String(raw).trim();
@@ -461,38 +490,65 @@ function fecharAte(pos){
  var fim="";
  for(var m=q.length-1;m>=0;m--){fim+=q[m]==="{"?"}":"]"}
  return txt.slice(0,pos+1)+fim}
-for(var b=bons.length-1;b>=0;b--){try{var r=JSON.parse(fecharAte(bons[b]));if(r&&r.acoes)return r}catch(e){}}
+for(var b=bons.length-1;b>=0;b--){try{var r=JSON.parse(fecharAte(bons[b]));if(r&&(r.atualizacoes||r.novas||r.acoes))return r}catch(e){}}
 try{return JSON.parse(fecharAte(txt.length-1))}catch(e){}
 return null}
-function renderPropostas(){var c=document.getElementById("propList");
-document.getElementById("propCount").textContent=PROPOSTAS.length?PROPOSTAS.filter(function(p){return p.sel}).length+" de "+PROPOSTAS.length+" selecionadas":"";
-document.getElementById("btnAplicar").disabled=!PROPOSTAS.some(function(p){return p.sel});
-if(!PROPOSTAS.length){c.innerHTML='<div class="text-center py-10 text-xs text-slate-400">Nenhuma proposta ainda.<br>Suba um arquivo ou cole o texto ao lado.</div>';return}
-c.innerHTML=PROPOSTAS.map(function(p,i){
-return'<div class="p-2.5 rounded-lg border '+(p.sel?"border-sky-300 bg-sky-50/40":"border-slate-200 bg-white opacity-60")+' text-xs">'+
-'<div class="flex items-start gap-2"><input type="checkbox" data-i="'+i+'" class="propChk mt-0.5 rounded text-sky-600 h-4 w-4 shrink-0" '+(p.sel?"checked":"")+'>'+
-'<div class="min-w-0 flex-1"><div class="font-semibold text-slate-900 leading-snug">'+esc(p.title)+'</div>'+
-'<div class="text-[11px] text-slate-500 mt-0.5">'+esc(p.assignee)+' · '+esc(p.deadline)+' · '+esc(p.area)+' · '+esc(p.priority)+'</div>'+
-'<div class="text-[11px] text-slate-500 mt-1 leading-snug">'+esc(p.context)+'</div>'+
-(p.duplicada_de?'<div class="text-[10px] text-amber-700 mt-1 font-medium">⚠ possível duplicata de: '+esc(p.duplicada_de)+'</div>':'')+
-'</div></div></div>'}).join("");
-c.querySelectorAll(".propChk").forEach(function(ch){ch.onchange=function(){PROPOSTAS[+this.dataset.i].sel=this.checked;renderPropostas()}})}
-function aplicar(){var sel=PROPOSTAS.filter(function(p){return p.sel});
-if(!sel.length)return;
+
+function rotuloCampo(k){return {status:"Status",deadline:"Prazo",assignee:"Responsável",priority:"Prioridade",context:"Contexto",notes:"Anotação"}[k]||k}
+function renderPropostas(){
+var cAt=document.getElementById("atualList"),cNo=document.getElementById("propList");
+var totSel=ATUALIZACOES.filter(function(a){return a.sel}).length+PROPOSTAS.filter(function(p){return p.sel}).length;
+document.getElementById("propCount").textContent=(ATUALIZACOES.length||PROPOSTAS.length)?totSel+" de "+(ATUALIZACOES.length+PROPOSTAS.length)+" selecionadas":"";
+document.getElementById("btnAplicar").disabled=!totSel;
+document.getElementById("atualBloco").style.display=ATUALIZACOES.length?"":"none";
+document.getElementById("novasBloco").style.display=PROPOSTAS.length?"":"none";
+var vz=document.getElementById("vazioAnalise");if(vz)vz.style.display=(ATUALIZACOES.length||PROPOSTAS.length)?"none":"";
+if(ATUALIZACOES.length){
+ cAt.innerHTML=ATUALIZACOES.map(function(a,i){
+  var linhas=Object.keys(a.para).map(function(k){
+   return '<div class="flex items-start gap-1.5 mt-1"><span class="text-slate-400 shrink-0">'+rotuloCampo(k)+':</span>'+
+   '<span class="text-slate-400 line-through truncate max-w-[45%]">'+esc(String(a.de[k]||"—").slice(0,60))+'</span>'+
+   '<span class="text-emerald-700 font-semibold shrink-0">→</span>'+
+   '<span class="text-emerald-800 font-semibold">'+esc(String(a.para[k]).slice(0,70))+'</span></div>'}).join("");
+  return '<div class="p-2.5 rounded-lg border '+(a.sel?"border-emerald-300 bg-emerald-50/40":"border-slate-200 bg-white opacity-60")+' text-xs">'+
+  '<div class="flex items-start gap-2"><input type="checkbox" data-at="'+i+'" class="atChk mt-0.5 rounded text-emerald-600 h-4 w-4 shrink-0" '+(a.sel?"checked":"")+'>'+
+  '<div class="min-w-0 flex-1"><div class="flex items-center gap-1.5 flex-wrap"><span class="text-[10px] font-mono px-1 py-0.5 rounded bg-slate-100 text-slate-600">'+esc(a.id)+'</span><span class="font-semibold text-slate-900 leading-snug">'+esc(a.titulo)+'</span></div>'+
+  linhas+
+  (a.motivo?'<div class="text-[11px] text-slate-500 mt-1 italic">'+esc(a.motivo)+'</div>':'')+
+  '</div></div></div>'}).join("");
+ cAt.querySelectorAll(".atChk").forEach(function(ch){ch.onchange=function(){ATUALIZACOES[+this.dataset.at].sel=this.checked;renderPropostas()}})}
+if(PROPOSTAS.length){
+ cNo.innerHTML=PROPOSTAS.map(function(p,i){
+  return'<div class="p-2.5 rounded-lg border '+(p.sel?"border-sky-300 bg-sky-50/40":"border-slate-200 bg-white opacity-60")+' text-xs">'+
+  '<div class="flex items-start gap-2"><input type="checkbox" data-i="'+i+'" class="propChk mt-0.5 rounded text-sky-600 h-4 w-4 shrink-0" '+(p.sel?"checked":"")+'>'+
+  '<div class="min-w-0 flex-1"><div class="font-semibold text-slate-900 leading-snug">'+esc(p.title)+'</div>'+
+  '<div class="text-[11px] text-slate-500 mt-0.5">'+esc(p.assignee)+' · '+esc(p.deadline)+' · '+esc(p.area)+' · '+esc(p.priority)+'</div>'+
+  '<div class="text-[11px] text-slate-500 mt-1 leading-snug">'+esc(p.context)+'</div>'+
+  '</div></div></div>'}).join("");
+ cNo.querySelectorAll(".propChk").forEach(function(ch){ch.onchange=function(){PROPOSTAS[+this.dataset.i].sel=this.checked;renderPropostas()}})}
+}
+function aplicar(){
+var at=ATUALIZACOES.filter(function(a){return a.sel});
+var nv=PROPOSTAS.filter(function(p){return p.sel});
+if(!at.length&&!nv.length)return;
+at.forEach(function(a){
+ var t=T.filter(function(x){return x.id===a.id})[0];
+ if(t)Object.keys(a.para).forEach(function(k){t[k]=a.para[k]})});
 var maxTop=0;T.forEach(function(t){if(t.topicNumber>maxTop)maxTop=t.topicNumber});
 var novoTopico=maxTop+1;
-var novas=sel.map(function(p,i){
+var criadas=nv.map(function(p,i){
 var topicoExistente=null;
 T.forEach(function(t){if((t.topicTitle||"").toLowerCase()===(p.topicTitle||"").toLowerCase())topicoExistente=t.topicNumber});
 return{id:"NOVO-"+Date.now()+"-"+i,topicNumber:topicoExistente||novoTopico,topicTitle:p.topicTitle,area:p.area,title:p.title,assignee:p.assignee,deadline:p.deadline,priority:p.priority,status:"Pendente",context:p.context,notes:""}});
-var todas=T.concat(novas);
-var out={acoes:todas.map(function(t){return{id:t.id,topicNumber:t.topicNumber,topicTitle:t.topicTitle,area:t.area,title:t.title,assignee:t.assignee,deadline:t.deadline,priority:t.priority,status:t.status,context:t.context,notes:t.notes}}),ata:DADOS.ata||{},atualizado:new Date().toLocaleDateString("pt-BR")};
+T=T.concat(criadas);
+var out={acoes:T.map(function(t){return{id:t.id,topicNumber:t.topicNumber,topicTitle:t.topicTitle,area:t.area,title:t.title,assignee:t.assignee,deadline:t.deadline,priority:t.priority,status:t.status,context:t.context,notes:t.notes}}),ata:DADOS.ata||{},atualizado:new Date().toLocaleDateString("pt-BR")};
 try{localStorage.setItem(KEY,JSON.stringify(T.map(function(t){return{id:t.id,status:t.status,notes:t.notes}})))}catch(e){}
 var blob=new Blob([JSON.stringify(out,null,2)],{type:"application/json"});
 var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="data.json";a.click();
-T=todas;renderPropostas();kpis();render();
-setStatus(sel.length+" ações adicionadas ao painel. O data.json foi baixado — suba no repositório para publicar.","text-emerald-600");
-toast(sel.length+" ações adicionadas","ok")}
+ATUALIZACOES=[];PROPOSTAS=[];
+renderPropostas();kpis();render();
+setStatus((at.length?at.length+" ação(ões) atualizada(s)":"")+(at.length&&nv.length?" e ":"")+(nv.length?nv.length+" nova(s)":"")+". O data.json foi baixado — suba no repositório para publicar.","text-emerald-600");
+toast((at.length+nv.length)+" alterações aplicadas","ok")}
 function bindReuniao(){
 var dz=document.getElementById("dropZone"),fi=document.getElementById("audioFile");
 dz.onclick=function(){fi.click()};
