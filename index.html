@@ -52,6 +52,7 @@
     <button data-v="kanban" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Kanban</button>
     <button data-v="pauta" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Ata / Tópicos</button>
     <button data-v="chat" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Chat</button>
+    <button data-v="reuniao" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Reuniões</button>
    </div>
   </div>
   <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
@@ -72,6 +73,41 @@
   <div class="bg-emerald-50/60 rounded-xl p-3 border border-emerald-200"><h3 class="font-bold text-sm text-emerald-900 mb-2">Concluído (<span id="kcD">0</span>)</h3><div id="kD" class="space-y-2"></div></div>
  </div>
  <div id="vPauta" class="hidden space-y-3"></div>
+
+ <div id="vReuniao" class="hidden">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+   <div class="bg-white rounded-xl border border-slate-200 p-4 space-y-3">
+    <div>
+     <h3 class="text-sm font-bold text-slate-900">Subir reunião</h3>
+     <p class="text-[11px] text-slate-500 mt-0.5">Áudio (até 20 MB) ou texto colado. A IA lê e propõe as ações — nada entra no painel sem você aprovar.</p>
+    </div>
+    <div class="border-2 border-dashed border-slate-300 rounded-xl p-4 text-center hover:border-sky-400 transition-colors cursor-pointer" id="dropZone">
+     <input type="file" id="audioFile" accept="audio/*,video/mp4,video/webm" class="hidden">
+     <div class="text-2xl mb-1">🎙️</div>
+     <p class="text-xs font-medium text-slate-700">Clique para escolher o áudio</p>
+     <p class="text-[10px] text-slate-400 mt-0.5">m4a, mp3, wav, ogg · ou arraste aqui</p>
+     <div id="fileName" class="text-[11px] text-sky-700 font-semibold mt-1.5 truncate"></div>
+    </div>
+    <div class="flex items-center gap-2">
+     <div class="flex-1 h-px bg-slate-200"></div><span class="text-[10px] text-slate-400 uppercase">ou</span><div class="flex-1 h-px bg-slate-200"></div>
+    </div>
+    <textarea id="reuniaoTexto" rows="4" placeholder="Cole aqui a transcrição ou a pauta da reunião…" class="w-full text-xs border border-slate-300 rounded-lg p-2.5 bg-slate-50 focus:bg-white resize-y"></textarea>
+    <button id="btnProcessar" class="w-full px-4 py-2 bg-sky-700 hover:bg-sky-800 disabled:opacity-40 text-white text-sm font-medium rounded-lg">Processar e propor ações</button>
+    <div id="procStatus" class="text-[11px] text-slate-500 min-h-[16px]"></div>
+   </div>
+   <div class="bg-white rounded-xl border border-slate-200 p-4 flex flex-col">
+    <div class="flex items-center justify-between mb-2">
+     <h3 class="text-sm font-bold text-slate-900">Ações propostas</h3>
+     <span id="propCount" class="text-[11px] text-slate-500"></span>
+    </div>
+    <div id="propList" class="flex-1 overflow-y-auto space-y-2 min-h-[240px] max-h-[380px]">
+     <div class="text-center py-10 text-xs text-slate-400">Nenhuma proposta ainda.<br>Suba um áudio ou cole o texto ao lado.</div>
+    </div>
+    <button id="btnAplicar" class="mt-3 w-full px-4 py-2 bg-emerald-700 hover:bg-emerald-800 disabled:opacity-40 text-white text-sm font-medium rounded-lg" disabled>Aprovar e adicionar ao painel</button>
+    <p class="text-[10px] text-slate-400 mt-1.5">Aprovar aqui gera o <code>data.json</code> novo para você baixar e subir no repositório.</p>
+   </div>
+  </div>
+ </div>
 
  <div id="vChat" class="hidden">
   <div class="bg-white rounded-xl border border-slate-200 overflow-hidden flex flex-col" style="height:60vh;min-height:420px">
@@ -215,11 +251,12 @@ function render(){var l=filtrados();
 document.getElementById("contador").textContent="Exibindo "+l.length+" de "+T.length+" ações";var tg=[],dp=document.getElementById("fPrazo"),ar=document.getElementById("fArea"),rs=document.getElementById("fResp"),st=document.getElementById("fStatus"),pr=document.getElementById("fPrio"),q=document.getElementById("q").value.trim();
 if(dp.value!=="ALL")tg.push("Prazo: "+dp.value);if(ar.value!=="ALL")tg.push("Área: "+ar.value);if(rs.value!=="ALL")tg.push("Resp: "+rs.value);if(st.value!=="ALL")tg.push("Status: "+st.value);if(pr.value!=="ALL")tg.push("Prioridade: "+pr.value);if(q)tg.push('"'+q+'"');
 document.getElementById("tags").innerHTML=tg.map(function(x){return '<span class="px-2 py-0.5 rounded-full bg-sky-100 text-sky-800">'+esc(x)+'</span>'}).join("");
-var vs=["vCards","vTable","vKanban","vPauta","vChat"];vs.forEach(function(id){document.getElementById(id).classList.add("hidden")});
+var vs=["vCards","vTable","vKanban","vPauta","vChat","vReuniao"];vs.forEach(function(id){document.getElementById(id).classList.add("hidden")});
 if(view==="cards"){document.getElementById("vCards").classList.remove("hidden");document.getElementById("vCards").classList.add("grid");cards(l)}
 else if(view==="table"){document.getElementById("vTable").classList.remove("hidden");tabela(l)}
 else if(view==="kanban"){var k=document.getElementById("vKanban");k.classList.remove("hidden");k.classList.add("grid");kanban(l)}
 else if(view==="chat"){document.getElementById("vChat").classList.remove("hidden");renderChat()}
+else if(view==="reuniao"){document.getElementById("vReuniao").classList.remove("hidden")}
 else{document.getElementById("vPauta").classList.remove("hidden");pauta(l)}}
 function toggle(id){var t=T.filter(function(x){return x.id===id})[0];if(!t)return;t.status=t.status==="Concluído"?"Em Andamento":"Concluído";salvar();render();toast(t.title.slice(0,28)+"… → "+t.status,"ok")}
 
@@ -280,6 +317,99 @@ document.getElementById("chatInput").addEventListener("input",function(){this.st
 document.getElementById("chatInput").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();enviarChat()}});
 }
 function ciclo(id){var t=T.filter(function(x){return x.id===id})[0];if(!t)return;t.status=t.status==="Pendente"?"Em Andamento":t.status==="Em Andamento"?"Concluído":"Pendente";salvar();render()}
+
+/* ---------- REUNIÕES: upload + extração ---------- */
+var PROPOSTAS=[],arquivoSel=null;
+function setStatus(txt,cls){var e=document.getElementById("procStatus");e.textContent=txt;e.className="text-[11px] min-h-[16px] "+(cls||"text-slate-500")}
+function b64(file){return new Promise(function(res,rej){var r=new FileReader();r.onload=function(){var s=String(r.result),i=s.indexOf(",");res({data:s.slice(i+1),mime:(s.slice(5,i).split(";")[0])||file.type||"audio/mp4"})};r.onerror=rej;r.readAsDataURL(file)})}
+function escolherArquivo(f){
+if(!f)return;
+if(f.size>20*1024*1024){setStatus("Arquivo de "+(f.size/1048576).toFixed(1)+" MB passa do limite de 20 MB. Divida o áudio ou cole a transcrição.","text-rose-600");return}
+arquivoSel=f;document.getElementById("fileName").textContent=f.name+" · "+(f.size/1048576).toFixed(1)+" MB";
+setStatus("Arquivo pronto. Clique em Processar.","text-emerald-600")}
+function processar(){var txt=document.getElementById("reuniaoTexto").value.trim();
+if(!gkey()){abrirChave();setStatus("Configure a chave do Gemini primeiro.","text-amber-600");return}
+if(!arquivoSel&&!txt){setStatus("Escolha um áudio ou cole o texto da reunião.","text-amber-600");return}
+var btn=document.getElementById("btnProcessar");btn.disabled=true;
+if(txt){setStatus("Analisando o texto…","text-slate-500");enviarExtrair([{text:txt}],"A reunião está transcrita abaixo:\n\n")}
+else{setStatus("Enviando o áudio ("+(arquivoSel.size/1048576).toFixed(1)+" MB)…","text-slate-500");
+b64(arquivoSel).then(function(f){
+setStatus("Áudio enviado. Transcrevendo — leva de 1 a 3 minutos…","text-slate-500");
+return fetch("https://generativelanguage.googleapis.com/v1beta/models/"+MODELOS[0]+":generateContent?key="+encodeURIComponent(gkey()),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({contents:[{role:"user",parts:[{text:"Transcreva este audio de reuniao em portugues do Brasil, palavra por palavra, com falantes identificados quando possivel. Devolva so a transcricao, sem comentarios."},{inline_data:{mime_type:f.mime,data:f.data}}]}]})})
+}).then(function(r){return r.json()}).then(function(j){
+var c=j.candidates&&j.candidates[0];
+if(!c||!c.content){var m=(j.error&&j.error.message)||"Falha na transcrição";throw new Error(m)}
+var tr=c.content.parts.map(function(p){return p.text||""}).join("").trim();
+if(!tr)throw new Error("Transcrição vazia — tente colar o texto");
+document.getElementById("reuniaoTexto").value=tr;
+setStatus("Transcrito ("+tr.length+" caracteres). Propondo ações…","text-slate-500");
+enviarExtrair([{text:tr}],"A reunião está transcrita abaixo:\n\n")})
+.catch(function(e){setStatus("Erro: "+e.message,"text-rose-600");btn.disabled=false})}}
+function enviarExtrair(parts,preambulo){
+var existentes=T.map(function(t){return t.title}).join("\n");
+var instrucao="Voce analisa reunioes da conta Jussara & Ventura (cliente: Jussara Laticinios; agencia: Ventura).\n"+
+"Da transcricao, extraia as ACOES concretas combinadas. Para cada uma devolva:\n"+
+"- title (curto, comecando com verbo)\n- assignee (quem ficou responsavel; use o nome citado, ou 'A definir')\n"+
+"- deadline (DD/MM/AAAA; se nao houver data explicita, use 'A definir' — NUNCA invente)\n"+
+"- priority (Critica|Alta|Media|Baixa)\n- area (MaxPro|Sonhos|SPRIM|Influencia|Institucional|RH|Planejamento)\n"+
+"- context (1-2 frases do que foi dito)\n- topicTitle (assunto/tema da acao)\n"+
+"- duplicada_de (se ja existir acao igual nesta lista, escreva o titulo dela; senao vazio)\n\n"+
+"ACOES QUE JA EXISTEM:\n"+existentes+"\n\n"+
+"Responda APENAS um JSON valido: {\"acoes\":[{...}]} sem markdown, sem texto antes ou depois.";
+parts=[{text:instrucao}].concat(parts);
+var body={contents:[{role:"user",parts:parts}],generationConfig:{temperature:0.1,maxOutputTokens:4000}};
+fetch("https://generativelanguage.googleapis.com/v1beta/models/"+MODELOS[0]+":generateContent?key="+encodeURIComponent(gkey()),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)})
+.then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error((j.error&&j.error.message)||("HTTP "+r.status));return j})})
+.then(function(j){var c=j.candidates&&j.candidates[0];if(!c||!c.content)throw new Error("Sem resposta do modelo");
+var raw=c.content.parts.map(function(p){return p.text||""}).join("").trim();
+raw=raw.replace(/^```(?:json)?/i,"").replace(/```$/,"").trim();
+var ini=raw.indexOf("{"),fim=raw.lastIndexOf("}");
+if(ini<0||fim<0)throw new Error("A resposta não veio em JSON");
+var obj=JSON.parse(raw.slice(ini,fim+1));
+PROPOSTAS=(obj.acoes||[]).map(function(a,i){return{id:"NOVO-"+(i+1),title:a.title||"(sem título)",assignee:a.assignee||"A definir",deadline:a.deadline||"A definir",priority:a.priority||"Média",area:a.area||"Institucional",context:a.context||"",topicTitle:a.topicTitle||"Itens de reunião",duplicada_de:a.duplicada_de||"",sel:!a.duplicada_de}});
+renderPropostas();
+var dup=PROPOSTAS.filter(function(p){return p.duplicada_de}).length;
+setStatus(PROPOSTAS.length+" ações propostas"+(dup?", "+dup+" marcadas como duplicata (desmarcadas)":"")+". Revise e aprove.","text-emerald-600");
+document.getElementById("btnProcessar").disabled=false})
+.catch(function(e){setStatus("Erro ao extrair: "+e.message,"text-rose-600");document.getElementById("btnProcessar").disabled=false})}
+function renderPropostas(){var c=document.getElementById("propList");
+document.getElementById("propCount").textContent=PROPOSTAS.length?PROPOSTAS.filter(function(p){return p.sel}).length+" de "+PROPOSTAS.length+" selecionadas":"";
+document.getElementById("btnAplicar").disabled=!PROPOSTAS.some(function(p){return p.sel});
+if(!PROPOSTAS.length){c.innerHTML='<div class="text-center py-10 text-xs text-slate-400">Nenhuma proposta ainda.<br>Suba um áudio ou cole o texto ao lado.</div>';return}
+c.innerHTML=PROPOSTAS.map(function(p,i){
+return'<div class="p-2.5 rounded-lg border '+(p.sel?"border-sky-300 bg-sky-50/40":"border-slate-200 bg-white opacity-60")+' text-xs">'+
+'<div class="flex items-start gap-2"><input type="checkbox" data-i="'+i+'" class="propChk mt-0.5 rounded text-sky-600 h-4 w-4 shrink-0" '+(p.sel?"checked":"")+'>'+
+'<div class="min-w-0 flex-1"><div class="font-semibold text-slate-900 leading-snug">'+esc(p.title)+'</div>'+
+'<div class="text-[11px] text-slate-500 mt-0.5">'+esc(p.assignee)+' · '+esc(p.deadline)+' · '+esc(p.area)+' · '+esc(p.priority)+'</div>'+
+'<div class="text-[11px] text-slate-500 mt-1 leading-snug">'+esc(p.context)+'</div>'+
+(p.duplicada_de?'<div class="text-[10px] text-amber-700 mt-1 font-medium">⚠ possível duplicata de: '+esc(p.duplicada_de)+'</div>':'')+
+'</div></div></div>'}).join("");
+c.querySelectorAll(".propChk").forEach(function(ch){ch.onchange=function(){PROPOSTAS[+this.dataset.i].sel=this.checked;renderPropostas()}})}
+function aplicar(){var sel=PROPOSTAS.filter(function(p){return p.sel});
+if(!sel.length)return;
+var maxTop=0;T.forEach(function(t){if(t.topicNumber>maxTop)maxTop=t.topicNumber});
+var novoTopico=maxTop+1;
+var novas=sel.map(function(p,i){
+var topicoExistente=null;
+T.forEach(function(t){if((t.topicTitle||"").toLowerCase()===(p.topicTitle||"").toLowerCase())topicoExistente=t.topicNumber});
+return{id:"NOVO-"+Date.now()+"-"+i,topicNumber:topicoExistente||novoTopico,topicTitle:p.topicTitle,area:p.area,title:p.title,assignee:p.assignee,deadline:p.deadline,priority:p.priority,status:"Pendente",context:p.context,notes:""}});
+var todas=T.concat(novas);
+var out={acoes:todas.map(function(t){return{id:t.id,topicNumber:t.topicNumber,topicTitle:t.topicTitle,area:t.area,title:t.title,assignee:t.assignee,deadline:t.deadline,priority:t.priority,status:t.status,context:t.context,notes:t.notes}}),ata:DADOS.ata||{},atualizado:new Date().toLocaleDateString("pt-BR")};
+try{localStorage.setItem(KEY,JSON.stringify(T.map(function(t){return{id:t.id,status:t.status,notes:t.notes}})))}catch(e){}
+var blob=new Blob([JSON.stringify(out,null,2)],{type:"application/json"});
+var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="data.json";a.click();
+T=todas;renderPropostas();kpis();render();
+setStatus(sel.length+" ações adicionadas ao painel. O data.json foi baixado — suba no repositório para publicar.","text-emerald-600");
+toast(sel.length+" ações adicionadas","ok")}
+function bindReuniao(){
+var dz=document.getElementById("dropZone"),fi=document.getElementById("audioFile");
+dz.onclick=function(){fi.click()};
+fi.onchange=function(){escolherArquivo(this.files[0])};
+dz.ondragover=function(e){e.preventDefault();dz.classList.add("border-sky-500")};
+dz.ondragleave=function(){dz.classList.remove("border-sky-500")};
+dz.ondrop=function(e){e.preventDefault();dz.classList.remove("border-sky-500");escolherArquivo(e.dataTransfer.files[0])};
+document.getElementById("btnProcessar").onclick=processar;
+document.getElementById("btnAplicar").onclick=aplicar}
 function abrir(id){var t=T.filter(function(x){return x.id===id})[0];if(!t)return;sel=id;
 document.getElementById("mTag").textContent="Item "+t.topicNumber+": "+t.topicTitle;
 document.getElementById("mTitle").textContent=t.title;
@@ -310,10 +440,10 @@ if(navigator.clipboard){navigator.clipboard.writeText(txt).then(function(){toast
 function fallback(){var ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();toast("Resumo copiado","ok")}};
 
 carregar().then(function(d){
-init();kpis();render();bindChat();
+init();kpis();render();bindChat();bindReuniao();
 var s=document.getElementById("dataStatus");s.textContent="dados de "+(d.atualizado||"—");s.className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-100 text-emerald-800";
 }).catch(function(e){
-init();kpis();render();bindChat();
+init();kpis();render();bindChat();bindReuniao();
 var s=document.getElementById("dataStatus");s.textContent="erro ao carregar dados";s.className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-rose-100 text-rose-800";
 console.error(e)});
 </script>
