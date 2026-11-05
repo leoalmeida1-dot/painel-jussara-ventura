@@ -13,11 +13,24 @@ Dashboard de gestão de demandas da conta Jussara–Ventura.
 
 ## Arquivos
 
-- `index.html` — o painel (HTML + JS, Tailwind via CDN). Quatro visões: Cards, Tabela, Kanban e Ata/Tópicos, com busca, cinco filtros, modal de detalhe, anotações e "Copiar Resumo".
+- `index.html` — o painel (HTML + JS, Tailwind via CDN). **Cinco visões**: Cards, Tabela, Kanban, Ata/Tópicos e Chat. Traz busca, cinco filtros, modal de detalhe com anotações e "Copiar Resumo".
 - `data.json` — os dados: as ações e o texto da ata por tópico.
 - `README.md` — este arquivo.
 
-## Como atualizar
+## O chat
+
+A aba **Chat** conversa com o Gemini sobre o conteúdo do painel — as 36 ações e a ata inteira vão no contexto de cada pergunta.
+
+**Como usar, na primeira vez:**
+1. Abra a aba Chat e clique em **Chave**.
+2. Cole sua chave do Google AI Studio (gratuita em https://aistudio.google.com/apikey).
+3. Clique em **Salvar** — ele testa a chave na hora e avisa se está válida.
+
+**Onde a chave fica:** apenas no `localStorage` do seu navegador. Ela não vai para o repositório nem para nenhum servidor nosso — a chamada sai do seu navegador direto para o Google. Em outro computador ou navegador, é preciso colar de novo.
+
+**O que ele não faz:** não grava nada no painel. Para marcar concluído e anotar, use as outras abas (isso grava no navegador, chave `jussara_dash_v5`). Para que o status valha para todo o time, o caminho é a planilha.
+
+## Como atualizar o conteúdo
 
 1. Substitua o `data.json` (ou peça à Lola para regenerar a partir da planilha/transcrição).
 2. Recarregue a página. O navegador busca o JSON com `cache: no-store`, então a mudança aparece na hora.
@@ -38,13 +51,15 @@ Dashboard de gestão de demandas da conta Jussara–Ventura.
 
 | | GitHub Pages (este repo) | Google Apps Script |
 |---|---|---|
-| O que faz | consulta rápida, compartilhável, estática | chat com Gemini + pedir ação à Lola + upload de reunião |
+| O que faz | consulta rápida e compartilhável + chat de leitura | chat + pedir ação à Lola + upload e transcrição de reunião |
 | De onde lê | `data.json` | planilha "Painel Jussara & Ventura — Dados" |
 | Quem atualiza | commit no `data.json` | a própria planilha |
+| Grava no painel? | não | sim, com aprovação |
 
 As duas convivem. O dado vivo mora na planilha; o Pages é a vitrine de leitura.
 
 ## Notas técnicas
 
-- Progresso e anotações marcam no `localStorage` do navegador (chave `jussara_dash_v5`), por pessoa. Não voltam para o servidor — é um painel de leitura.
+- Progresso e anotações marcam no `localStorage` do navegador (chave `jussara_dash_v5`), por pessoa. Não voltam para o servidor.
 - Tailwind e fontes vêm de CDN. Para uso 100% offline, existe a versão com Tailwind embutido (480KB) gerada por `work/painel/build_modelo.py`.
+- Nenhuma credencial fica no repositório. A chave do Gemini é digitada por cada usuário no próprio navegador.
