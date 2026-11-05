@@ -61,10 +61,22 @@
   </div>
   <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
    <select id="fPrazo" class="text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50"><option value="ALL">Todas as Datas</option><option>05/11/2026</option><option>12/11/2026</option></select>
-   <select id="fArea" class="text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50"><option value="ALL">Todas as Áreas</option><option>MaxPro</option><option>Sonhos</option><option>SPRIM</option><option>Influência</option><option>Institucional</option><option>RH</option><option>Planejamento</option></select>
-   <select id="fResp" class="text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50"><option value="ALL">Todos os Responsáveis</option><option>Ventura</option><option>Messias</option><option>Léo</option><option>Tchuco</option><option>Paulo</option><option>Gabriel</option><option>EDC</option><option>Danilo</option><option>Jurídico</option></select>
-   <select id="fStatus" class="text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50"><option value="ALL">Todos os Status</option><option>Pendente</option><option>Em Andamento</option><option>Concluído</option></select>
-   <select id="fPrio" class="text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50"><option value="ALL">Todas as Prioridades</option><option>Crítica</option><option>Alta</option><option>Média</option><option>Baixa</option></select>
+   <div class="msWrap relative" data-ms="area">
+    <button type="button" class="msBtn w-full text-left text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50 flex items-center justify-between gap-1"><span class="msLabel truncate">Todas as Áreas</span><span class="text-slate-400 text-[10px] shrink-0">▾</span></button>
+    <div class="msPanel hidden absolute z-40 mt-1 w-full max-h-64 overflow-y-auto bg-white border border-slate-200 rounded-lg shadow-lg p-1.5 space-y-0.5"></div>
+   </div>
+   <div class="msWrap relative" data-ms="resp">
+    <button type="button" class="msBtn w-full text-left text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50 flex items-center justify-between gap-1"><span class="msLabel truncate">Todos os Responsáveis</span><span class="text-slate-400 text-[10px] shrink-0">▾</span></button>
+    <div class="msPanel hidden absolute z-40 mt-1 w-full max-h-64 overflow-y-auto bg-white border border-slate-200 rounded-lg shadow-lg p-1.5 space-y-0.5"></div>
+   </div>
+   <div class="msWrap relative" data-ms="status">
+    <button type="button" class="msBtn w-full text-left text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50 flex items-center justify-between gap-1"><span class="msLabel truncate">Todos os Status</span><span class="text-slate-400 text-[10px] shrink-0">▾</span></button>
+    <div class="msPanel hidden absolute z-40 mt-1 w-full max-h-64 overflow-y-auto bg-white border border-slate-200 rounded-lg shadow-lg p-1.5 space-y-0.5"></div>
+   </div>
+   <div class="msWrap relative" data-ms="prio">
+    <button type="button" class="msBtn w-full text-left text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50 flex items-center justify-between gap-1"><span class="msLabel truncate">Todas as Prioridades</span><span class="text-slate-400 text-[10px] shrink-0">▾</span></button>
+    <div class="msPanel hidden absolute z-40 mt-1 w-full max-h-64 overflow-y-auto bg-white border border-slate-200 rounded-lg shadow-lg p-1.5 space-y-0.5"></div>
+   </div>
   </div>
   <div class="flex items-center justify-between text-[11px] text-slate-500"><span id="contador">—</span><span id="tags" class="flex flex-wrap gap-1"></span></div>
   <div class="flex flex-wrap gap-1.5 pt-1">
@@ -202,6 +214,7 @@ var DADOS={acoes:[],ata:{}},T=[],view="cards",sel=null;
 var KEY="jussara_dash_v5";
 var GKEY="jussara_gemini_key",HIST=[],enviando=false;
 var faltaFiltro="todos";
+var MULTI={area:[],resp:[],status:[],prio:[]};
 function semDono(t){var a=String(t.assignee||"").trim().toLowerCase();return !a||a==="a definir"||a==="definir"||a==="—"||a==="-"}
 function semPrazo(t){var p=String(t.deadline||"").trim().toLowerCase();return !p||p==="a definir"||p==="—"||p==="-"}
 function precisaAtencao(t){return semDono(t)||semPrazo(t)}
@@ -225,16 +238,16 @@ var el=document.getElementById("kFalta");if(el)el.textContent=falta;
 var kb=document.getElementById("kAlerta");
 if(kb){if(falta>0){kb.className="text-left bg-amber-50/60 p-3.5 rounded-xl border border-amber-300 hover:border-amber-500 hover:bg-amber-50 transition-colors cursor-pointer"}
 else{kb.className="text-left bg-white p-3.5 rounded-xl border border-slate-200 cursor-pointer"}}}
-function filtrados(){var q=document.getElementById("q").value.toLowerCase().trim(),dp=document.getElementById("fPrazo").value,ar=document.getElementById("fArea").value,rs=document.getElementById("fResp").value,st=document.getElementById("fStatus").value,pr=document.getElementById("fPrio").value;
+function filtrados(){var q=document.getElementById("q").value.toLowerCase().trim(),dp=document.getElementById("fPrazo").value;
 return T.filter(function(t){
 if(faltaFiltro==="semDono"&&!semDono(t))return false;
 if(faltaFiltro==="semPrazo"&&!semPrazo(t))return false;
 if(faltaFiltro==="qualquer"&&!precisaAtencao(t))return false;
+if(MULTI.area.length&&MULTI.area.indexOf(t.area)<0)return false;
+if(MULTI.resp.length&&!MULTI.resp.some(function(x){return (t.assignee||"").toLowerCase().indexOf(x.toLowerCase())>=0}))return false;
+if(MULTI.status.length&&MULTI.status.indexOf(t.status)<0)return false;
+if(MULTI.prio.length&&MULTI.prio.indexOf(t.priority)<0)return false;
 if(dp!=="ALL"&&t.deadline!==dp)return false;
-if(ar!=="ALL"&&t.area!==ar)return false;
-if(rs!=="ALL"&&(t.assignee||"").toLowerCase().indexOf(rs.toLowerCase())<0)return false;
-if(st!=="ALL"&&t.status!==st)return false;
-if(pr!=="ALL"&&t.priority!==pr)return false;
 if(q){var s=(t.title+" "+t.context+" "+t.assignee+" "+t.topicTitle).toLowerCase();if(s.indexOf(q)<0)return false}
 return true})}
 function cards(l){var c=document.getElementById("vCards");
@@ -281,9 +294,66 @@ return '<div class="bg-white rounded-xl border border-slate-200 overflow-hidden"
 '<div class="p-4 space-y-3">'+(txt?'<div class="text-xs text-slate-600 leading-relaxed bg-sky-50/50 border-l-2 border-sky-300 pl-3 py-2 rounded-r">'+txt+'</div>':'')+
 (t.acts.length?'<div><div class="text-[11px] font-bold uppercase text-slate-400 mb-1.5">Próximos passos</div><div class="grid grid-cols-1 md:grid-cols-2 gap-2">'+t.acts.map(function(a){var d=a.status==="Concluído";
 return '<div class="p-2.5 rounded-lg border '+(d?"border-emerald-200 bg-emerald-50/30":"border-slate-200")+' flex justify-between gap-2 text-xs"><div><div class="font-semibold '+(d?"line-through text-slate-400":"text-slate-900")+'">'+esc(a.title)+'</div><div class="text-[11px] text-slate-500 mt-0.5"><strong>Resp:</strong> '+esc(a.assignee)+' · <strong>Prazo:</strong> '+esc(a.deadline)+'</div></div><button onclick="toggle(\''+a.id+'\')" class="shrink-0 '+(d?"text-emerald-600":"text-slate-400 hover:text-emerald-600")+'">'+(d?"✓":"○")+'</button></div>'}).join("")+'</div></div>':'<div class="text-xs text-slate-400 italic">Sem ações nesta filtragem.</div>')+'</div></div>'}).join("")}
+
+/* ---------- MULTISELECT ---------- */
+var MULTI_CFG={
+ area:{rot:"Todas as Áreas",um:"área",muitos:"áreas",fn:function(){var v={};T.forEach(function(t){if(t.area)v[t.area]=1});return Object.keys(v).sort()}},
+ resp:{rot:"Todos os Responsáveis",um:"responsável",muitos:"responsáveis",fn:function(){var v={};T.forEach(function(t){String(t.assignee||"").split("/").forEach(function(n){n=n.trim();if(n&&n.toLowerCase()!=="a definir")v[n]=1})});return Object.keys(v).sort(function(a,b){return a.localeCompare(b,"pt-BR")})}},
+ status:{rot:"Todos os Status",um:"status",muitos:"status",fn:function(){return ["Pendente","Em Andamento","Concluído"]}},
+ prio:{rot:"Todas as Prioridades",um:"prioridade",muitos:"prioridades",fn:function(){return ["Crítica","Alta","Média","Baixa"]}}
+};
+function montaMulti(){
+Object.keys(MULTI_CFG).forEach(function(k){
+ var cfg=MULTI_CFG[k],wrap=document.querySelector('.msWrap[data-ms="'+k+'"]');
+ if(!wrap)return;
+ var painel=wrap.querySelector(".msPanel");
+ var ops=cfg.fn();
+ var marcadas=MULTI[k];
+ var html='';
+ if(ops.length){
+  var todas=(marcadas.length===0);
+  html+='<button type="button" data-todas="'+k+'" class="w-full text-left px-2 py-1.5 rounded text-[11px] font-semibold '+(todas?"text-sky-700 bg-sky-50":"text-slate-600 hover:bg-slate-50")+'">'+(todas?"✓ ":"")+cfg.rot+'</button>';
+  html+='<div class="h-px bg-slate-100 my-1"></div>';
+  html+=ops.map(function(o){
+   var on=marcadas.indexOf(o)>=0;
+   return '<label class="flex items-center gap-1.5 px-2 py-1 rounded hover:bg-slate-50 cursor-pointer text-[11px] text-slate-700"><input type="checkbox" data-mk="'+k+'" value="'+esc(o)+'" '+(on?"checked":"")+' class="rounded text-sky-600 h-3.5 w-3.5 shrink-0"><span class="truncate">'+esc(o)+'</span></label>'}).join("");
+ }else{
+  html='<div class="px-2 py-2 text-[11px] text-slate-400">Nada disponível</div>';
+ }
+ painel.innerHTML=html;
+ var lab=wrap.querySelector(".msLabel");
+ if(!marcadas.length){lab.textContent=cfg.rot;lab.className="msLabel truncate text-slate-700"}
+ else if(marcadas.length===1){lab.textContent=marcadas[0];lab.className="msLabel truncate text-sky-800 font-semibold"}
+ else{lab.textContent=marcadas.length+" "+cfg.muitos;lab.className="msLabel truncate text-sky-800 font-semibold"}
+ var btn=wrap.querySelector(".msBtn");
+ btn.className="msBtn w-full text-left text-xs border rounded-lg py-2 px-2 flex items-center justify-between gap-1 "+(marcadas.length?"border-sky-400 bg-sky-50":"border-slate-300 bg-slate-50");
+ painel.querySelectorAll("[data-todas]").forEach(function(b){b.onclick=function(e){e.stopPropagation();MULTI[k]=[];montaMulti();render()}});
+ painel.querySelectorAll("[data-mk]").forEach(function(ch){ch.onchange=function(){
+  var v=this.value,arr=MULTI[k];
+  if(this.checked){if(arr.indexOf(v)<0)arr.push(v)}else{var i=arr.indexOf(v);if(i>=0)arr.splice(i,1)}
+  montaMulti();render()}});
+});
+}
+function bindMulti(){
+document.querySelectorAll(".msWrap").forEach(function(w){
+ var k=w.dataset.ms;
+ w.querySelector(".msBtn").onclick=function(e){
+  e.stopPropagation();
+  var p=w.querySelector(".msPanel"),aberto=!p.classList.contains("hidden");
+  document.querySelectorAll(".msPanel").forEach(function(x){x.classList.add("hidden")});
+  if(!aberto)p.classList.remove("hidden")};
+ w.querySelector(".msPanel").onclick=function(e){e.stopPropagation()};
+});
+document.addEventListener("click",function(){document.querySelectorAll(".msPanel").forEach(function(x){x.classList.add("hidden")})});
+}
 function render(){var l=filtrados();
-document.getElementById("contador").textContent="Exibindo "+l.length+" de "+T.length+" ações";var tg=[],dp=document.getElementById("fPrazo"),ar=document.getElementById("fArea"),rs=document.getElementById("fResp"),st=document.getElementById("fStatus"),pr=document.getElementById("fPrio"),q=document.getElementById("q").value.trim();
-if(dp.value!=="ALL")tg.push("Prazo: "+dp.value);if(ar.value!=="ALL")tg.push("Área: "+ar.value);if(rs.value!=="ALL")tg.push("Resp: "+rs.value);if(st.value!=="ALL")tg.push("Status: "+st.value);if(pr.value!=="ALL")tg.push("Prioridade: "+pr.value);if(q)tg.push('"'+q+'"');
+document.getElementById("contador").textContent="Exibindo "+l.length+" de "+T.length+" ações";var tg=[],dp=document.getElementById("fPrazo"),q=document.getElementById("q").value.trim();
+if(dp.value!=="ALL")tg.push("Prazo: "+dp.value);
+if(MULTI.area.length)tg.push("Área: "+MULTI.area.join(" ou "));
+if(MULTI.resp.length)tg.push("Resp: "+MULTI.resp.join(" ou "));
+if(MULTI.status.length)tg.push("Status: "+MULTI.status.join(" ou "));
+if(MULTI.prio.length)tg.push("Prioridade: "+MULTI.prio.join(" ou "));
+if(q)tg.push('"'+q+'"');
 if(faltaFiltro==="semDono")tg.push("⚠ sem responsável");if(faltaFiltro==="semPrazo")tg.push("⚠ sem prazo");if(faltaFiltro==="qualquer")tg.push("⚠ com lacuna");
 document.querySelectorAll(".faltaBtn").forEach(function(b){
 var ativo=(b.dataset.falta===faltaFiltro);
@@ -631,7 +701,7 @@ try{localStorage.setItem(KEY,JSON.stringify(T.map(function(t){return{id:t.id,sta
 var blob=new Blob([JSON.stringify(out,null,2)],{type:"application/json"});
 var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="data.json";a.click();
 ATUALIZACOES=[];PROPOSTAS=[];
-renderPropostas();kpis();render();
+montaMulti();renderPropostas();kpis();render();
 var msg=(at.length?at.length+" atualizada(s)":"")+(at.length&&nv.length?" e ":"")+(nv.length?nv.length+" nova(s)":"")+". Arquivo validado e baixado";
 if(san.relatorio.length)msg+=" ("+san.relatorio.length+" ajuste(s): "+san.relatorio.slice(0,3).join("; ")+(san.relatorio.length>3?"…":"")+")";
 setStatus(msg+". Suba no repositório para publicar.",san.relatorio.length?"text-amber-600":"text-emerald-600");
@@ -666,9 +736,10 @@ document.querySelectorAll(".vb").forEach(function(b){b.onclick=function(){
 document.querySelectorAll(".vb").forEach(function(x){x.className="vb px-2.5 py-1.5 rounded-md whitespace-nowrap"});
 b.className="vb px-2.5 py-1.5 rounded-md bg-white text-slate-900 shadow-sm font-bold whitespace-nowrap";
 view=b.dataset.v;render()}});
-["q","fPrazo","fArea","fResp","fStatus","fPrio"].forEach(function(id){var e=document.getElementById(id);e.addEventListener(id==="q"?"input":"change",render)});
+["q","fPrazo"].forEach(function(id){var e=document.getElementById(id);e.addEventListener(id==="q"?"input":"change",render)});
+bindMulti();
 document.querySelectorAll(".faltaBtn").forEach(function(b){b.onclick=function(){faltaFiltro=(faltaFiltro===b.dataset.falta)?"todos":b.dataset.falta;render()}});
-var ka=document.getElementById("kAlerta");if(ka)ka.onclick=function(){faltaFiltro=(faltaFiltro==="qualquer")?"todos":"qualquer";if(faltaFiltro==="qualquer"){document.getElementById("fPrio").value="ALL";document.getElementById("fStatus").value="ALL";document.getElementById("fArea").value="ALL";document.getElementById("fResp").value="ALL";document.getElementById("fPrazo").value="ALL";document.getElementById("q").value=""}render()};
+var ka=document.getElementById("kAlerta");if(ka)ka.onclick=function(){faltaFiltro=(faltaFiltro==="qualquer")?"todos":"qualquer";if(faltaFiltro==="qualquer"){MULTI.area=[];MULTI.resp=[];MULTI.status=[];MULTI.prio=[];montaMulti();document.getElementById("fPrazo").value="ALL";document.getElementById("q").value=""}render()};
 document.getElementById("btnResumo").onclick=function(){var l=filtrados();
 var out=["*RESUMO — JUSSARA & VENTURA* ("+new Date().toLocaleDateString("pt-BR")+")","Total filtrado: "+l.length,""];
 var nFalta=l.filter(function(t){return t.status!=="Concluído"&&precisaAtencao(t)}).length;
@@ -679,10 +750,10 @@ if(navigator.clipboard){navigator.clipboard.writeText(txt).then(function(){toast
 function fallback(){var ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();toast("Resumo copiado","ok")}};
 
 carregar().then(function(d){
-init();kpis();render();bindChat();bindReuniao();
+init();kpis();montaMulti();render();bindChat();bindReuniao();
 var s=document.getElementById("dataStatus");s.textContent="dados de "+(d.atualizado||"—");s.className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-100 text-emerald-800";
 }).catch(function(e){
-init();kpis();render();bindChat();bindReuniao();
+init();kpis();montaMulti();render();bindChat();bindReuniao();
 var s=document.getElementById("dataStatus");s.textContent="erro ao carregar dados";s.className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-rose-100 text-rose-800";
 console.error(e)});
 </script>
