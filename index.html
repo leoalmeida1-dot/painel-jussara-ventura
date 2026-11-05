@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gestão de Demandas | Jussara &amp; Ventura</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>body{font-family:'Inter',sans-serif}.fd{font-family:'Plus Jakarta Sans',sans-serif}::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:9px}</style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+<div id="toast" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+<header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="flex items-center justify-between h-16 sm:h-20 gap-2">
+   <div class="flex items-center gap-3 min-w-0">
+    <div class="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl bg-gradient-to-tr from-sky-900 via-sky-800 to-sky-600 flex items-center justify-center text-white">
+     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+    </div>
+    <div class="min-w-0">
+     <div class="flex items-center gap-2 flex-wrap">
+      <span id="dataStatus" class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-100 text-emerald-800">carregando…</span>
+      <span class="text-xs text-slate-500 hidden sm:inline">Ata de 30/10 + deliberações de 03/11</span>
+     </div>
+     <h1 class="text-base sm:text-xl font-bold fd tracking-tight text-slate-900 truncate">Gestão de Demandas: Jussara &amp; Ventura</h1>
+    </div>
+   </div>
+   <div class="flex items-center gap-2 shrink-0">
+    <a href="https://keep.google.com/?note=1zCpUwZux3Z1oXkISXnS9V0yeKosPZZRuBwQDmXK6J_BGRuAf0I6t16vwNVZuSQ" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg border border-slate-200">Google Keep</a>
+    <button id="btnResumo" class="inline-flex items-center px-3 py-2 text-xs font-medium text-white bg-sky-700 hover:bg-sky-800 rounded-lg">Copiar Resumo</button>
+   </div>
+  </div>
+ </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full flex flex-col gap-5">
+ <section class="grid grid-cols-2 lg:grid-cols-5 gap-3">
+  <div class="bg-white p-3.5 rounded-xl border border-slate-200"><div class="text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-1">Total de Ações</div><div class="flex items-baseline gap-1.5"><span id="kTotal" class="text-2xl font-extrabold fd">0</span><span class="text-[11px] text-slate-500">mapeadas</span></div></div>
+  <div class="bg-amber-50/40 p-3.5 rounded-xl border border-amber-200"><div class="text-[11px] font-semibold uppercase tracking-wider text-amber-800 mb-1">Prazo 05/11</div><div class="flex items-baseline gap-1.5"><span id="k05" class="text-2xl font-extrabold fd text-amber-900">0</span><span class="text-[11px] text-amber-700">iminentes</span></div></div>
+  <div class="bg-sky-50/40 p-3.5 rounded-xl border border-sky-200"><div class="text-[11px] font-semibold uppercase tracking-wider text-sky-800 mb-1">Prazo 12/11</div><div class="flex items-baseline gap-1.5"><span id="k12" class="text-2xl font-extrabold fd text-sky-900">0</span><span class="text-[11px] text-sky-700">médio prazo</span></div></div>
+  <div class="bg-emerald-50/40 p-3.5 rounded-xl border border-emerald-200"><div class="text-[11px] font-semibold uppercase tracking-wider text-emerald-800 mb-1">Concluídas</div><div class="flex items-baseline gap-1.5"><span id="kDone" class="text-2xl font-extrabold fd text-emerald-900">0</span><span id="kPct" class="text-[11px] text-emerald-700">0% pronto</span></div></div>
+  <div class="col-span-2 lg:col-span-1 bg-indigo-50/40 p-3.5 rounded-xl border border-indigo-200"><div class="text-[11px] font-semibold uppercase tracking-wider text-indigo-800 mb-1">Marcos Críticos</div><div class="text-[11px] text-indigo-950 space-y-0.5"><div class="flex justify-between gap-2"><span>Vendas Trade</span><strong class="text-rose-600">06/11 09h</strong></div><div class="flex justify-between gap-2"><span>EUA (Luana)</span><strong>15/11</strong></div><div class="flex justify-between gap-2"><span>SPRIM Nutri</span><strong>24/11</strong></div><div class="flex justify-between gap-2"><span>Férias Messias</span><strong>03–10/12</strong></div></div></div>
+ </section>
+
+ <section class="bg-white p-4 rounded-xl border border-slate-200 space-y-3">
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+   <input id="q" type="text" placeholder="Buscar por ação, responsável, tema…" class="flex-1 max-w-md text-sm border border-slate-300 rounded-lg px-3 py-2 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-sky-500">
+   <div class="bg-slate-100 p-1 rounded-lg flex gap-1 text-xs font-medium text-slate-600 overflow-x-auto">
+    <button data-v="cards" class="vb px-2.5 py-1.5 rounded-md bg-white text-slate-900 shadow-sm font-bold whitespace-nowrap">Cards</button>
+    <button data-v="table" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Tabela</button>
+    <button data-v="kanban" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Kanban</button>
+    <button data-v="pauta" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Ata / Tópicos</button>
+   </div>
+  </div>
+  <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
+   <select id="fPrazo" class="text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50"><option value="ALL">Todas as Datas</option><option>05/11/2026</option><option>12/11/2026</option></select>
+   <select id="fArea" class="text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50"><option value="ALL">Todas as Áreas</option><option>MaxPro</option><option>Sonhos</option><option>SPRIM</option><option>Influência</option><option>Institucional</option><option>RH</option><option>Planejamento</option></select>
+   <select id="fResp" class="text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50"><option value="ALL">Todos os Responsáveis</option><option>Ventura</option><option>Messias</option><option>Léo</option><option>Tchuco</option><option>Paulo</option><option>Gabriel</option><option>EDC</option><option>Danilo</option><option>Jurídico</option></select>
+   <select id="fStatus" class="text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50"><option value="ALL">Todos os Status</option><option>Pendente</option><option>Em Andamento</option><option>Concluído</option></select>
+   <select id="fPrio" class="text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50"><option value="ALL">Todas as Prioridades</option><option>Crítica</option><option>Alta</option><option>Média</option><option>Baixa</option></select>
+  </div>
+  <div class="flex items-center justify-between text-[11px] text-slate-500"><span id="contador">—</span><span id="tags" class="flex flex-wrap gap-1"></span></div>
+ </section>
+
+ <div id="vCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+ <div id="vTable" class="hidden bg-white border border-slate-200 rounded-xl overflow-hidden"><div class="overflow-x-auto"><table class="w-full text-left text-sm"><thead class="bg-slate-50 text-[11px] uppercase text-slate-500 border-b"><tr><th class="py-3 px-3 w-10">OK</th><th class="py-3 px-3">Ação</th><th class="py-3 px-3">Área</th><th class="py-3 px-3">Resp.</th><th class="py-3 px-3">Prazo</th><th class="py-3 px-3">Prior.</th><th class="py-3 px-3"></th></tr></thead><tbody id="tbody" class="divide-y divide-slate-100"></tbody></table></div></div>
+ <div id="vKanban" class="hidden grid grid-cols-1 md:grid-cols-3 gap-4">
+  <div class="bg-slate-100/70 rounded-xl p-3 border border-slate-200"><h3 class="font-bold text-sm text-slate-800 mb-2">Pendente (<span id="kcP">0</span>)</h3><div id="kP" class="space-y-2"></div></div>
+  <div class="bg-sky-50/60 rounded-xl p-3 border border-sky-200"><h3 class="font-bold text-sm text-sky-900 mb-2">Em Andamento (<span id="kcA">0</span>)</h3><div id="kA" class="space-y-2"></div></div>
+  <div class="bg-emerald-50/60 rounded-xl p-3 border border-emerald-200"><h3 class="font-bold text-sm text-emerald-900 mb-2">Concluído (<span id="kcD">0</span>)</h3><div id="kD" class="space-y-2"></div></div>
+ </div>
+ <div id="vPauta" class="hidden space-y-3"></div>
+</main>
+
+<footer class="bg-white border-t border-slate-200 py-3 text-[11px] text-slate-500">
+ <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-1">
+  <span><strong class="text-slate-700">Jussara &amp; Agência Ventura</strong> · Ata &amp; Gestão de Demandas</span>
+  <span>Prazos nas quintas (05/11 e 12/11) · metas 06/11, 15/11 e 24/11</span>
+ </div>
+</footer>
+
+<div id="modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden items-center justify-center p-4">
+ <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-xl">
+  <div class="px-5 py-4 border-b border-slate-100 flex items-start justify-between gap-3">
+   <div><div id="mTag" class="text-[11px] text-slate-400 font-medium"></div><h3 id="mTitle" class="text-base font-bold fd text-slate-900 mt-0.5"></h3></div>
+   <button id="mClose" class="text-slate-400 hover:text-slate-700 text-xl leading-none px-1">×</button>
+  </div>
+  <div class="p-5 space-y-3">
+   <div class="grid grid-cols-2 gap-3 p-3 bg-slate-50 rounded-xl text-xs">
+    <div><span class="text-slate-500 block">Responsável</span><strong id="mResp" class="text-slate-800 text-sm"></strong></div>
+    <div><span class="text-slate-500 block">Prazo</span><strong id="mPrazo" class="text-slate-800 text-sm"></strong></div>
+    <div><span class="text-slate-500 block">Prioridade</span><span id="mPrio" class="inline-block mt-0.5"></span></div>
+    <div><span class="text-slate-500 block">Status</span><span id="mStat" class="inline-block mt-0.5"></span></div>
+   </div>
+   <div><h4 class="text-[11px] font-semibold text-slate-500 uppercase mb-1">Contexto</h4><p id="mCtx" class="text-xs text-slate-600 leading-relaxed bg-white border border-slate-200 p-3 rounded-lg"></p></div>
+   <div><h4 class="text-[11px] font-semibold text-slate-500 uppercase mb-1">Anotações</h4><textarea id="mNotes" rows="2" class="w-full text-xs border border-slate-200 rounded-lg p-2.5 bg-slate-50 focus:bg-white" placeholder="Anotação de acompanhamento…"></textarea></div>
+  </div>
+  <div class="px-5 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+   <label class="inline-flex items-center gap-1.5 text-xs text-slate-700 cursor-pointer"><input type="checkbox" id="mDone" class="rounded text-sky-600 h-4 w-4"> Concluído</label>
+   <button id="mSave" class="px-4 py-2 bg-sky-700 hover:bg-sky-800 text-white text-xs font-medium rounded-lg">Salvar</button>
+  </div>
+ </div>
+</div>
+
+<script>
+var DADOS={acoes:[],ata:{}},T=[],view="cards",sel=null;
+var KEY="jussara_dash_v5";
+var AREA={MaxPro:"bg-red-50 text-red-700 border-red-200",Sonhos:"bg-amber-50 text-amber-800 border-amber-200",SPRIM:"bg-indigo-50 text-indigo-700 border-indigo-200","Influência":"bg-purple-50 text-purple-700 border-purple-200",Institucional:"bg-blue-50 text-blue-700 border-blue-200",RH:"bg-teal-50 text-teal-700 border-teal-200",Planejamento:"bg-slate-100 text-slate-800 border-slate-200"};
+var PRIO={"Crítica":"bg-rose-100 text-rose-800 border-rose-300 font-semibold",Alta:"bg-amber-100 text-amber-800 border-amber-300",Média:"bg-blue-100 text-blue-800 border-blue-300",Baixa:"bg-slate-100 text-slate-700 border-slate-300"};
+function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function toast(m,t){var c=document.getElementById("toast"),d=document.createElement("div");d.className="px-4 py-2.5 rounded-lg text-xs font-medium shadow-lg "+(t==="ok"?"bg-emerald-800":"bg-slate-800")+" text-white";d.textContent=m;c.appendChild(d);setTimeout(function(){d.remove()},2600)}
+function carregar(){return fetch("data.json",{cache:"no-store"}).then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}).then(function(d){DADOS=d;window.__OK=true;return d})}
+function init(){var raw=null;try{raw=localStorage.getItem(KEY)}catch(e){}var ov=raw?JSON.parse(raw):[];T=(DADOS.acoes||[]).map(function(a){var o=ov.filter(function(x){return x.id===a.id})[0];return o?{...a,status:o.status,notes:o.notes}:a})}
+function salvar(){try{localStorage.setItem(KEY,JSON.stringify(T.map(function(t){return{id:t.id,status:t.status,notes:t.notes}})))}catch(e){}kpis()}
+function kpis(){var d=T.filter(function(t){return t.status==="Concluído"}).length,p=Math.round(d/(T.length||1)*100);
+document.getElementById("kTotal").textContent=T.length;
+document.getElementById("k05").textContent=T.filter(function(t){return t.deadline==="05/11/2026"}).length;
+document.getElementById("k12").textContent=T.filter(function(t){return t.deadline==="12/11/2026"}).length;
+document.getElementById("kDone").textContent=d;
+document.getElementById("kPct").textContent=p+"% pronto"}
+function filtrados(){var q=document.getElementById("q").value.toLowerCase().trim(),dp=document.getElementById("fPrazo").value,ar=document.getElementById("fArea").value,rs=document.getElementById("fResp").value,st=document.getElementById("fStatus").value,pr=document.getElementById("fPrio").value;
+return T.filter(function(t){
+if(dp!=="ALL"&&t.deadline!==dp)return false;
+if(ar!=="ALL"&&t.area!==ar)return false;
+if(rs!=="ALL"&&(t.assignee||"").toLowerCase().indexOf(rs.toLowerCase())<0)return false;
+if(st!=="ALL"&&t.status!==st)return false;
+if(pr!=="ALL"&&t.priority!==pr)return false;
+if(q){var s=(t.title+" "+t.context+" "+t.assignee+" "+t.topicTitle).toLowerCase();if(s.indexOf(q)<0)return false}
+return true})}
+function cards(l){var c=document.getElementById("vCards");
+if(!l.length){c.innerHTML='<div class="col-span-full py-12 text-center bg-white rounded-xl border border-dashed border-slate-300 text-sm text-slate-600">Nenhuma ação para estes filtros.</div>';return}
+c.innerHTML=l.map(function(t){var d=t.status==="Concluído";
+return '<div class="bg-white rounded-xl border '+(d?"border-slate-200 opacity-75":"border-slate-200 hover:border-sky-300")+' p-4 flex flex-col justify-between">'+
+'<div><div class="flex items-center justify-between gap-2 mb-2"><div class="flex items-center gap-1.5 overflow-hidden"><span class="px-2 py-0.5 rounded text-[11px] font-semibold border '+(AREA[t.area]||"bg-slate-100")+'">'+esc(t.area)+'</span><span class="text-[11px] text-slate-400 truncate">Item '+t.topicNumber+'</span></div><span class="px-1.5 py-0.5 rounded text-[10px] uppercase border '+(PRIO[t.priority]||"")+'">'+esc(t.priority)+'</span></div>'+
+'<div class="flex items-start gap-2.5 mb-2"><button onclick="toggle(\''+t.id+'\')" class="mt-0.5 shrink-0 '+(d?"text-emerald-600":"text-slate-400 hover:text-emerald-600")+'" title="Alternar">'+(d?"✓":"○")+'</button>'+
+'<h4 class="text-xs sm:text-sm font-semibold '+(d?"line-through text-slate-400":"text-slate-900")+' leading-snug">'+esc(t.title)+'</h4></div>'+
+'<p class="text-xs text-slate-500 line-clamp-2 mb-3 pl-7">'+esc(t.context)+'</p></div>'+
+'<div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs pl-7">'+
+'<div><span class="text-[10px] text-slate-400 uppercase block">Resp.</span><span class="font-medium text-slate-800">'+esc(t.assignee)+'</span></div>'+
+'<div class="text-right"><span class="text-[10px] text-slate-400 uppercase block">Prazo</span><span class="font-semibold '+(t.deadline==="05/11/2026"?"text-amber-800":"text-slate-800")+'">'+esc(t.deadline)+'</span></div>'+
+'<button onclick="abrir(\''+t.id+'\')" class="text-sky-700 hover:underline text-[11px] font-semibold">Ver</button></div></div>'}).join("")}
+function tabela(l){var b=document.getElementById("tbody");
+if(!l.length){b.innerHTML='<tr><td colspan="7" class="text-center py-8 text-slate-500">Nenhum registro.</td></tr>';return}
+b.innerHTML=l.map(function(t){var d=t.status==="Concluído";
+return '<tr class="hover:bg-slate-50"><td class="py-3 px-3 text-center"><button onclick="toggle(\''+t.id+'\')" class="'+(d?"text-emerald-600":"text-slate-400")+'">'+(d?"✓":"○")+'</button></td>'+
+'<td class="py-3 px-3"><div class="font-medium '+(d?"line-through text-slate-400":"text-slate-900")+'">'+esc(t.title)+'</div><div class="text-[11px] text-slate-400">Item '+t.topicNumber+': '+esc(t.topicTitle)+'</div></td>'+
+'<td class="py-3 px-3"><span class="px-2 py-0.5 rounded text-xs border '+(AREA[t.area]||"")+'">'+esc(t.area)+'</span></td>'+
+'<td class="py-3 px-3 font-medium text-slate-800">'+esc(t.assignee)+'</td>'+
+'<td class="py-3 px-3 font-semibold '+(t.deadline==="05/11/2026"?"text-amber-800":"")+'">'+esc(t.deadline)+'</td>'+
+'<td class="py-3 px-3"><span class="px-2 py-0.5 rounded text-xs border '+(PRIO[t.priority]||"")+'">'+esc(t.priority)+'</span></td>'+
+'<td class="py-3 px-3 text-center"><button onclick="abrir(\''+t.id+'\')" class="text-sky-700 text-xs font-semibold hover:underline">Detalhes</button></td></tr>'}).join("")}
+function kanban(l){
+var p=l.filter(function(t){return t.status==="Pendente"}),a=l.filter(function(t){return t.status==="Em Andamento"}),d=l.filter(function(t){return t.status==="Concluído"});
+document.getElementById("kcP").textContent=p.length;document.getElementById("kcA").textContent=a.length;document.getElementById("kcD").textContent=d.length;
+function card(t){var done=t.status==="Concluído";
+return '<div class="bg-white p-3 rounded-lg border border-slate-200 space-y-1.5"><div class="flex justify-between text-[11px]"><span class="px-1.5 py-0.5 rounded border '+(AREA[t.area]||"")+'">'+esc(t.area)+'</span><span class="px-1.5 py-0.5 rounded border '+(PRIO[t.priority]||"")+'">'+esc(t.priority)+'</span></div>'+
+'<p class="text-xs font-semibold '+(done?"line-through text-slate-400":"text-slate-900")+' leading-snug">'+esc(t.title)+'</p>'+
+'<div class="flex justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-100"><span class="truncate max-w-[100px] font-medium text-slate-700">'+esc(t.assignee)+'</span><span class="font-bold text-slate-800">'+esc(t.deadline)+'</span></div>'+
+'<div class="flex justify-between pt-1 text-[11px]"><button onclick="ciclo(\''+t.id+'\')" class="text-sky-700 underline">Avançar</button><button onclick="abrir(\''+t.id+'\')" class="text-slate-400">Ver</button></div></div>'}
+document.getElementById("kP").innerHTML=p.length?p.map(card).join(""):'<div class="text-center py-6 text-xs text-slate-400">Nada pendente</div>';
+document.getElementById("kA").innerHTML=a.length?a.map(card).join(""):'<div class="text-center py-6 text-xs text-slate-400">Nada em andamento</div>';
+document.getElementById("kD").innerHTML=d.length?d.map(card).join(""):'<div class="text-center py-6 text-xs text-slate-400">Nada concluído</div>'}
+function pauta(l){var c=document.getElementById("vPauta"),map={};
+(DADOS.acoes||[]).forEach(function(a){if(!map[a.topicNumber])map[a.topicNumber]={n:a.topicNumber,title:a.topicTitle,area:a.area,acts:[]}});
+l.forEach(function(a){if(map[a.topicNumber])map[a.topicNumber].acts.push(a)});
+c.innerHTML=Object.keys(map).sort(function(x,y){return x-y}).map(function(k){var t=map[k],txt=(DADOS.ata||{})[k]||"";
+return '<div class="bg-white rounded-xl border border-slate-200 overflow-hidden"><div class="bg-slate-50 px-4 py-3 border-b border-slate-200 flex items-center justify-between gap-2"><div class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-sky-900 text-white flex items-center justify-center text-xs font-bold shrink-0">'+t.n+'</span><h3 class="text-sm font-bold text-slate-900">'+esc(t.title)+'</h3></div><span class="hidden sm:inline px-2 py-0.5 rounded text-xs border shrink-0 '+(AREA[t.area]||"")+'">'+esc(t.area)+'</span></div>'+
+'<div class="p-4 space-y-3">'+(txt?'<div class="text-xs text-slate-600 leading-relaxed bg-sky-50/50 border-l-2 border-sky-300 pl-3 py-2 rounded-r">'+txt+'</div>':'')+
+(t.acts.length?'<div><div class="text-[11px] font-bold uppercase text-slate-400 mb-1.5">Próximos passos</div><div class="grid grid-cols-1 md:grid-cols-2 gap-2">'+t.acts.map(function(a){var d=a.status==="Concluído";
+return '<div class="p-2.5 rounded-lg border '+(d?"border-emerald-200 bg-emerald-50/30":"border-slate-200")+' flex justify-between gap-2 text-xs"><div><div class="font-semibold '+(d?"line-through text-slate-400":"text-slate-900")+'">'+esc(a.title)+'</div><div class="text-[11px] text-slate-500 mt-0.5"><strong>Resp:</strong> '+esc(a.assignee)+' · <strong>Prazo:</strong> '+esc(a.deadline)+'</div></div><button onclick="toggle(\''+a.id+'\')" class="shrink-0 '+(d?"text-emerald-600":"text-slate-400 hover:text-emerald-600")+'">'+(d?"✓":"○")+'</button></div>'}).join("")+'</div></div>':'<div class="text-xs text-slate-400 italic">Sem ações nesta filtragem.</div>')+'</div></div>'}).join("")}
+function render(){var l=filtrados();
+document.getElementById("contador").textContent="Exibindo "+l.length+" de "+T.length+" ações";
+var tg=[],dp=document.getElementById("fPrazo"),ar=document.getElementById("fArea"),rs=document.getElementById("fResp"),st=document.getElementById("fStatus"),pr=document.getElementById("fPrio"),q=document.getElementById("q").value.trim();
+if(dp.value!=="ALL")tg.push("Prazo: "+dp.value);if(ar.value!=="ALL")tg.push("Área: "+ar.value);if(rs.value!=="ALL")tg.push("Resp: "+rs.value);if(st.value!=="ALL")tg.push("Status: "+st.value);if(pr.value!=="ALL")tg.push("Prioridade: "+pr.value);if(q)tg.push('"'+q+'"');
+document.getElementById("tags").innerHTML=tg.map(function(x){return '<span class="px-2 py-0.5 rounded-full bg-sky-100 text-sky-800">'+esc(x)+'</span>'}).join("");
+var vs=["vCards","vTable","vKanban","vPauta"];vs.forEach(function(id){document.getElementById(id).classList.add("hidden")});
+if(view==="cards"){document.getElementById("vCards").classList.remove("hidden");document.getElementById("vCards").classList.add("grid");cards(l)}
+else if(view==="table"){document.getElementById("vTable").classList.remove("hidden");tabela(l)}
+else if(view==="kanban"){var k=document.getElementById("vKanban");k.classList.remove("hidden");k.classList.add("grid");kanban(l)}
+else{document.getElementById("vPauta").classList.remove("hidden");pauta(l)}}
+function toggle(id){var t=T.filter(function(x){return x.id===id})[0];if(!t)return;t.status=t.status==="Concluído"?"Em Andamento":"Concluído";salvar();render();toast(t.title.slice(0,28)+"… → "+t.status,"ok")}
+function ciclo(id){var t=T.filter(function(x){return x.id===id})[0];if(!t)return;t.status=t.status==="Pendente"?"Em Andamento":t.status==="Em Andamento"?"Concluído":"Pendente";salvar();render()}
+function abrir(id){var t=T.filter(function(x){return x.id===id})[0];if(!t)return;sel=id;
+document.getElementById("mTag").textContent="Item "+t.topicNumber+": "+t.topicTitle;
+document.getElementById("mTitle").textContent=t.title;
+document.getElementById("mResp").textContent=t.assignee;
+document.getElementById("mPrazo").textContent=t.deadline;
+document.getElementById("mCtx").textContent=t.context;
+document.getElementById("mNotes").value=t.notes||"";
+var p=document.getElementById("mPrio");p.textContent=t.priority;p.className="inline-block px-2 py-0.5 rounded text-xs border "+(PRIO[t.priority]||"");
+var s=document.getElementById("mStat");s.textContent=t.status;s.className="inline-block px-2 py-0.5 rounded text-xs border "+(t.status==="Concluído"?"bg-emerald-100 text-emerald-800 border-emerald-300":t.status==="Em Andamento"?"bg-sky-100 text-sky-800 border-sky-300":"bg-slate-100 text-slate-700 border-slate-300");
+document.getElementById("mDone").checked=t.status==="Concluído";
+document.getElementById("modal").classList.remove("hidden");document.getElementById("modal").classList.add("flex")}
+function fechar(){document.getElementById("modal").classList.add("hidden");document.getElementById("modal").classList.remove("flex");sel=null}
+document.getElementById("mClose").onclick=fechar;
+document.getElementById("modal").onclick=function(e){if(e.target.id==="modal")fechar()};
+document.getElementById("mSave").onclick=function(){var t=T.filter(function(x){return x.id===sel})[0];if(!t)return;
+var d=document.getElementById("mDone").checked;t.status=d?"Concluído":(t.status==="Concluído"?"Em Andamento":t.status);
+t.notes=document.getElementById("mNotes").value.trim();salvar();render();fechar();toast("Alterações salvas","ok")};
+document.querySelectorAll(".vb").forEach(function(b){b.onclick=function(){
+document.querySelectorAll(".vb").forEach(function(x){x.className="vb px-2.5 py-1.5 rounded-md whitespace-nowrap"});
+b.className="vb px-2.5 py-1.5 rounded-md bg-white text-slate-900 shadow-sm font-bold whitespace-nowrap";
+view=b.dataset.v;render()}});
+["q","fPrazo","fArea","fResp","fStatus","fPrio"].forEach(function(id){var e=document.getElementById(id);e.addEventListener(id==="q"?"input":"change",render)});
+document.getElementById("btnResumo").onclick=function(){var l=filtrados();
+var out=["*RESUMO — JUSSARA & VENTURA* ("+new Date().toLocaleDateString("pt-BR")+")","Total filtrado: "+l.length,""];
+l.forEach(function(t,i){out.push((i+1)+". ["+t.area+"] "+t.title);out.push("   • "+t.assignee+" | "+t.deadline+" ("+t.priority+") | "+t.status)});
+var txt=out.join("\n");
+if(navigator.clipboard){navigator.clipboard.writeText(txt).then(function(){toast("Resumo copiado","ok")}).catch(fallback)}else fallback();
+function fallback(){var ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();toast("Resumo copiado","ok")}};
+
+carregar().then(function(d){
+init();kpis();render();
+var s=document.getElementById("dataStatus");s.textContent="dados de "+(d.atualizado||"—");s.className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-100 text-emerald-800";
+}).catch(function(e){
+init();kpis();render();
+var s=document.getElementById("dataStatus");s.textContent="erro ao carregar dados";s.className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-rose-100 text-rose-800";
+console.error(e)});
+</script>
+</body>
+</html>
