@@ -51,6 +51,7 @@
     <button data-v="table" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Tabela</button>
     <button data-v="kanban" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Kanban</button>
     <button data-v="pauta" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Ata / Tópicos</button>
+    <button data-v="chat" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Chat</button>
    </div>
   </div>
   <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
@@ -71,6 +72,45 @@
   <div class="bg-emerald-50/60 rounded-xl p-3 border border-emerald-200"><h3 class="font-bold text-sm text-emerald-900 mb-2">Concluído (<span id="kcD">0</span>)</h3><div id="kD" class="space-y-2"></div></div>
  </div>
  <div id="vPauta" class="hidden space-y-3"></div>
+
+ <div id="vChat" class="hidden">
+  <div class="bg-white rounded-xl border border-slate-200 overflow-hidden flex flex-col" style="height:60vh;min-height:420px">
+   <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between gap-2 bg-slate-50">
+    <div class="flex items-center gap-2 min-w-0">
+     <span class="w-7 h-7 rounded-lg bg-gradient-to-tr from-sky-900 to-sky-600 flex items-center justify-center text-white text-xs font-bold shrink-0">IA</span>
+     <div class="min-w-0"><div class="text-sm font-bold text-slate-900">Assistente do painel</div><div class="text-[11px] text-slate-500 truncate">Pergunta sobre as ações, prazos e responsáveis</div></div>
+    </div>
+    <div class="flex items-center gap-1.5 shrink-0">
+     <button id="chatConfig" class="px-2.5 py-1.5 text-[11px] font-medium text-slate-700 bg-white border border-slate-300 hover:bg-slate-100 rounded-lg">Chave</button>
+     <button id="chatLimpar" class="px-2.5 py-1.5 text-[11px] font-medium text-slate-500 hover:text-rose-600 rounded-lg">Limpar</button>
+    </div>
+   </div>
+   <div id="chatMsgs" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+   <div class="border-t border-slate-100 p-3 bg-slate-50">
+    <div class="flex gap-2 items-end">
+     <textarea id="chatInput" rows="1" placeholder="Ex.: o que vence amanhã? Quem está sobrecarregado? Resuma o MaxPro." class="flex-1 text-sm border border-slate-300 rounded-lg px-3 py-2 resize-none focus:ring-2 focus:ring-sky-500 bg-white" style="max-height:120px"></textarea>
+     <button id="chatEnviar" class="px-4 py-2 bg-sky-700 hover:bg-sky-800 disabled:opacity-40 text-white text-sm font-medium rounded-lg shrink-0">Enviar</button>
+    </div>
+    <div class="text-[10px] text-slate-400 mt-1.5">A chave do Gemini fica salva só neste navegador. Nada é enviado para o repositório.</div>
+   </div>
+  </div>
+ </div>
+
+ <div id="chatKeyModal" class="fixed inset-0 z-50 bg-slate-900/50 hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-md w-full p-5 shadow-xl">
+   <h3 class="text-base font-bold fd text-slate-900 mb-1">Sua chave do Gemini</h3>
+   <p class="text-xs text-slate-600 mb-3">Crie em <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener" class="text-sky-700 underline font-medium">aistudio.google.com/apikey</a> — é grátis. A chave fica guardada apenas neste navegador (localStorage) e vai direto para o Google.</p>
+   <input id="chatKeyInput" type="password" placeholder="AIza..." class="w-full text-sm border border-slate-300 rounded-lg px-3 py-2 mb-2 bg-slate-50 focus:bg-white">
+   <div id="chatKeyStatus" class="text-[11px] text-slate-500 mb-3">—</div>
+   <div class="flex justify-between gap-2">
+    <button id="chatKeyApagar" class="px-3 py-2 text-xs font-medium text-rose-600 hover:bg-rose-50 rounded-lg">Apagar chave</button>
+    <div class="flex gap-2">
+     <button id="chatKeyFechar" class="px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-lg">Fechar</button>
+     <button id="chatKeySalvar" class="px-4 py-2 text-xs font-medium bg-sky-700 hover:bg-sky-800 text-white rounded-lg">Salvar</button>
+    </div>
+   </div>
+  </div>
+ </div>
 </main>
 
 <footer class="bg-white border-t border-slate-200 py-3 text-[11px] text-slate-500">
@@ -106,6 +146,8 @@
 <script>
 var DADOS={acoes:[],ata:{}},T=[],view="cards",sel=null;
 var KEY="jussara_dash_v5";
+var GKEY="jussara_gemini_key",HIST=[],enviando=false;
+var MODELOS=["gemini-2.5-flash","gemini-2.0-flash","gemini-1.5-flash"];
 var AREA={MaxPro:"bg-red-50 text-red-700 border-red-200",Sonhos:"bg-amber-50 text-amber-800 border-amber-200",SPRIM:"bg-indigo-50 text-indigo-700 border-indigo-200","Influência":"bg-purple-50 text-purple-700 border-purple-200",Institucional:"bg-blue-50 text-blue-700 border-blue-200",RH:"bg-teal-50 text-teal-700 border-teal-200",Planejamento:"bg-slate-100 text-slate-800 border-slate-200"};
 var PRIO={"Crítica":"bg-rose-100 text-rose-800 border-rose-300 font-semibold",Alta:"bg-amber-100 text-amber-800 border-amber-300",Média:"bg-blue-100 text-blue-800 border-blue-300",Baixa:"bg-slate-100 text-slate-700 border-slate-300"};
 function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
@@ -170,16 +212,73 @@ return '<div class="bg-white rounded-xl border border-slate-200 overflow-hidden"
 (t.acts.length?'<div><div class="text-[11px] font-bold uppercase text-slate-400 mb-1.5">Próximos passos</div><div class="grid grid-cols-1 md:grid-cols-2 gap-2">'+t.acts.map(function(a){var d=a.status==="Concluído";
 return '<div class="p-2.5 rounded-lg border '+(d?"border-emerald-200 bg-emerald-50/30":"border-slate-200")+' flex justify-between gap-2 text-xs"><div><div class="font-semibold '+(d?"line-through text-slate-400":"text-slate-900")+'">'+esc(a.title)+'</div><div class="text-[11px] text-slate-500 mt-0.5"><strong>Resp:</strong> '+esc(a.assignee)+' · <strong>Prazo:</strong> '+esc(a.deadline)+'</div></div><button onclick="toggle(\''+a.id+'\')" class="shrink-0 '+(d?"text-emerald-600":"text-slate-400 hover:text-emerald-600")+'">'+(d?"✓":"○")+'</button></div>'}).join("")+'</div></div>':'<div class="text-xs text-slate-400 italic">Sem ações nesta filtragem.</div>')+'</div></div>'}).join("")}
 function render(){var l=filtrados();
-document.getElementById("contador").textContent="Exibindo "+l.length+" de "+T.length+" ações";
-var tg=[],dp=document.getElementById("fPrazo"),ar=document.getElementById("fArea"),rs=document.getElementById("fResp"),st=document.getElementById("fStatus"),pr=document.getElementById("fPrio"),q=document.getElementById("q").value.trim();
+document.getElementById("contador").textContent="Exibindo "+l.length+" de "+T.length+" ações";var tg=[],dp=document.getElementById("fPrazo"),ar=document.getElementById("fArea"),rs=document.getElementById("fResp"),st=document.getElementById("fStatus"),pr=document.getElementById("fPrio"),q=document.getElementById("q").value.trim();
 if(dp.value!=="ALL")tg.push("Prazo: "+dp.value);if(ar.value!=="ALL")tg.push("Área: "+ar.value);if(rs.value!=="ALL")tg.push("Resp: "+rs.value);if(st.value!=="ALL")tg.push("Status: "+st.value);if(pr.value!=="ALL")tg.push("Prioridade: "+pr.value);if(q)tg.push('"'+q+'"');
 document.getElementById("tags").innerHTML=tg.map(function(x){return '<span class="px-2 py-0.5 rounded-full bg-sky-100 text-sky-800">'+esc(x)+'</span>'}).join("");
-var vs=["vCards","vTable","vKanban","vPauta"];vs.forEach(function(id){document.getElementById(id).classList.add("hidden")});
+var vs=["vCards","vTable","vKanban","vPauta","vChat"];vs.forEach(function(id){document.getElementById(id).classList.add("hidden")});
 if(view==="cards"){document.getElementById("vCards").classList.remove("hidden");document.getElementById("vCards").classList.add("grid");cards(l)}
 else if(view==="table"){document.getElementById("vTable").classList.remove("hidden");tabela(l)}
 else if(view==="kanban"){var k=document.getElementById("vKanban");k.classList.remove("hidden");k.classList.add("grid");kanban(l)}
+else if(view==="chat"){document.getElementById("vChat").classList.remove("hidden");renderChat()}
 else{document.getElementById("vPauta").classList.remove("hidden");pauta(l)}}
 function toggle(id){var t=T.filter(function(x){return x.id===id})[0];if(!t)return;t.status=t.status==="Concluído"?"Em Andamento":"Concluído";salvar();render();toast(t.title.slice(0,28)+"… → "+t.status,"ok")}
+
+/* ---------- CHAT ---------- */
+function gkey(){try{return localStorage.getItem(GKEY)||""}catch(e){return""}}
+function ctxPainel(){var st={};T.forEach(function(t){st[t.status]=(st[t.status]||0)+1});
+var linhas=T.map(function(t){return"- ["+t.area+"] "+t.title+" | Resp: "+t.assignee+" | Prazo: "+t.deadline+" | "+t.priority+" | "+t.status+(t.notes?" | Nota: "+t.notes:"")}).join("\n");
+var ata=Object.keys(DADOS.ata||{}).sort(function(a,b){return a-b}).map(function(k){return"Topico "+k+": "+String(DADOS.ata[k]).replace(/<[^>]+>/g,"")}).join("\n");
+return"Painel de gestao de demandas Jussara & Ventura. Atualizado em "+(DADOS.atualizado||"")+".\nTotal: "+T.length+" acoes. Situacao: "+JSON.stringify(st)+".\n\nACOES:\n"+linhas+"\n\nATA POR TOPICO:\n"+ata}
+function renderChat(){var c=document.getElementById("chatMsgs");
+if(!HIST.length){c.innerHTML='<div class="text-center py-10 text-slate-400"><div class="text-3xl mb-2">💬</div><p class="text-sm font-medium text-slate-600">Pergunte sobre o painel</p><p class="text-xs mt-1">As 36 ações, os prazos e a ata estão no meu contexto.</p><div class="flex flex-wrap gap-1.5 justify-center mt-3">'+["O que vence amanhã?","Quem está mais sobrecarregado?","Resuma o MaxPro","O que está travado?"].map(function(s){return'<button onclick="sugerir(this.textContent)" class="px-2.5 py-1 text-[11px] bg-white border border-slate-200 rounded-full hover:border-sky-400 text-slate-600">'+s+'</button>'}).join("")+'</div></div>';return}
+c.innerHTML=HIST.map(function(m){var eu=m.role==="user";
+return'<div class="flex '+(eu?"justify-end":"justify-start")+'"><div class="max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm '+(eu?"bg-sky-700 text-white rounded-br-sm":"bg-slate-100 text-slate-800 rounded-bl-sm")+'">'+fmt(m.text)+'</div></div>'}).join("");
+c.scrollTop=c.scrollHeight}
+function fmt(s){return esc(s).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/\n/g,"<br>")}
+function sugerir(t){document.getElementById("chatInput").value=t;enviarChat()}
+function addMsg(role,text){HIST.push({role:role,text:text});renderChat()}
+function enviarChat(){var inp=document.getElementById("chatInput"),txt=inp.value.trim();
+if(!txt||enviando)return;
+if(!gkey()){abrirChave();return}
+inp.value="";inp.style.height="auto";enviando=true;
+document.getElementById("chatEnviar").disabled=true;
+addMsg("user",txt);addMsg("model","…");
+fetchGemini(txt).then(function(r){HIST.pop();HIST.push({role:"model",text:r});renderChat()})
+.catch(function(e){HIST.pop();HIST.push({role:"model",text:"⚠️ "+(e.message||"Falha ao consultar o Gemini")});renderChat()})
+.then(function(){enviando=false;document.getElementById("chatEnviar").disabled=false})}
+function fetchGemini(pergunta){
+var msgs=HIST.filter(function(m){return m.text!=="…"}).slice(-8).map(function(m){return{role:m.role==="user"?"user":"model",parts:[{text:m.text}]}});
+var body={system_instruction:{parts:[{text:"Voce e o assistente de gestao do painel Jussara & Ventura. Responda em portugues do Brasil, curto e direto, baseado SOMENTE nos dados fornecidos. Se a informacao nao estiver nos dados, diga que nao consta no painel — nunca invente.\n\n"+ctxPainel()}]},contents:msgs,generationConfig:{temperature:0.2,maxOutputTokens:800}};
+function tentar(i){if(i>=MODELOS.length)return Promise.reject(new Error("Nenhum modelo respondeu. Verifique a chave."));
+return fetch("https://generativelanguage.googleapis.com/v1beta/models/"+MODELOS[i]+":generateContent?key="+encodeURIComponent(gkey()),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)})
+.then(function(r){if(!r.ok)return r.json().then(function(j){var m=(j.error&&j.error.message)||("HTTP "+r.status);if(r.status===400||r.status===403)throw new Error(m);return tentar(i+1)});
+return r.json()}).then(function(j){if(!j)return null;
+var c=j.candidates&&j.candidates[0];if(!c||!c.content||!c.content.parts)return tentar(i+1);
+return c.content.parts.map(function(p){return p.text||""}).join("").trim()}).catch(function(e){if(e.message&&e.message.indexOf("model")<0&&e.message.indexOf("API")<0&&e.message.indexOf("key")<0&&e.message.indexOf("quota")<0)return tentar(i+1);throw e})}
+return tentar(0)}
+function abrirChave(){var m=document.getElementById("chatKeyModal");m.classList.remove("hidden");m.classList.add("flex");
+document.getElementById("chatKeyInput").value=gkey();
+document.getElementById("chatKeyStatus").textContent=gkey()?"Chave salva neste navegador":"Nenhuma chave configurada"}
+function fecharChave(){document.getElementById("chatKeyModal").classList.add("hidden");document.getElementById("chatKeyModal").classList.remove("flex")}
+function bindChat(){
+document.getElementById("chatEnviar").onclick=enviarChat;
+document.getElementById("chatConfig").onclick=abrirChave;
+document.getElementById("chatKeyFechar").onclick=fecharChave;
+document.getElementById("chatLimpar").onclick=function(){HIST=[];renderChat();toast("Conversa limpa")};
+document.getElementById("chatKeySalvar").onclick=function(){var v=document.getElementById("chatKeyInput").value.trim();
+if(!v){toast("Cole a chave","warn");return}
+try{localStorage.setItem(GKEY,v)}catch(e){}
+document.getElementById("chatKeyStatus").textContent="Chave salva — testando…";
+fetch("https://generativelanguage.googleapis.com/v1beta/models/"+MODELOS[0]+":generateContent?key="+encodeURIComponent(v),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({contents:[{role:"user",parts:[{text:"ok"}]}]})})
+.then(function(r){return r.json().then(function(j){
+if(r.ok){document.getElementById("chatKeyStatus").textContent="✅ Chave válida — pode conversar";document.getElementById("chatKeyStatus").className="text-[11px] text-emerald-600 mb-3"}
+else{var m=(j.error&&j.error.message)||("HTTP "+r.status);document.getElementById("chatKeyStatus").textContent="❌ "+m;document.getElementById("chatKeyStatus").className="text-[11px] text-rose-600 mb-3"}})})
+.catch(function(e){document.getElementById("chatKeyStatus").textContent="❌ "+e.message})};
+document.getElementById("chatKeyApagar").onclick=function(){try{localStorage.removeItem(GKEY)}catch(e){}
+document.getElementById("chatKeyInput").value="";document.getElementById("chatKeyStatus").textContent="Chave apagada";toast("Chave removida")};
+document.getElementById("chatInput").addEventListener("input",function(){this.style.height="auto";this.style.height=Math.min(this.scrollHeight,120)+"px"});
+document.getElementById("chatInput").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();enviarChat()}});
+}
 function ciclo(id){var t=T.filter(function(x){return x.id===id})[0];if(!t)return;t.status=t.status==="Pendente"?"Em Andamento":t.status==="Em Andamento"?"Concluído":"Pendente";salvar();render()}
 function abrir(id){var t=T.filter(function(x){return x.id===id})[0];if(!t)return;sel=id;
 document.getElementById("mTag").textContent="Item "+t.topicNumber+": "+t.topicTitle;
@@ -211,10 +310,10 @@ if(navigator.clipboard){navigator.clipboard.writeText(txt).then(function(){toast
 function fallback(){var ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();toast("Resumo copiado","ok")}};
 
 carregar().then(function(d){
-init();kpis();render();
+init();kpis();render();bindChat();
 var s=document.getElementById("dataStatus");s.textContent="dados de "+(d.atualizado||"—");s.className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-100 text-emerald-800";
 }).catch(function(e){
-init();kpis();render();
+init();kpis();render();bindChat();
 var s=document.getElementById("dataStatus");s.textContent="erro ao carregar dados";s.className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-rose-100 text-rose-800";
 console.error(e)});
 </script>
