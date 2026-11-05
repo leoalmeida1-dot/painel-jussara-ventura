@@ -545,6 +545,45 @@
       "status": "Pendente",
       "context": "Contatar seguidores da academia Velocity e enviar kits para gerar conteúdo espontâneo com pessoas mais reais.",
       "notes": ""
+    },
+    {
+      "id": "SON-01",
+      "topicNumber": 6,
+      "topicTitle": "Projeto Sonhos — Governança Jurídica e Alvarás",
+      "area": "Sonhos",
+      "title": "Cobrar documentos de imagem e voz do Francisco (Wilker/Carine)",
+      "assignee": "Joelma",
+      "deadline": "A definir",
+      "priority": "Alta",
+      "status": "Pendente",
+      "context": "Bia registrou em 29/09 que faltavam documentos do Wilker/Francisco para completar a pasta de termos de uso de imagem e voz — é o único dos quatro sem documentação completa. Sem isso o jurídico não fecha a cessão de direitos.",
+      "notes": "Pendente desde 29/09/2026."
+    },
+    {
+      "id": "SON-02",
+      "topicNumber": 24,
+      "topicTitle": "Projeto Sonhos — Kit de Boas-Vindas e Livros",
+      "area": "Sonhos",
+      "title": "Fechar produção e definir entrega do kit de boas-vindas às 4 crianças",
+      "assignee": "Messias / Tchuco",
+      "deadline": "A definir",
+      "priority": "Média",
+      "status": "Em Andamento",
+      "context": "Camiseta, moletom, boné e garrafa já estão produzidos e fotografados (22/10); Messias levaria à produtora em 23/10 para o Felipe avaliar como gerar conteúdo. Falta definir quando e como cada criança recebe.",
+      "notes": "Itens com a marca Sonhos já aplicada."
+    },
+    {
+      "id": "SON-03",
+      "topicNumber": 24,
+      "topicTitle": "Projeto Sonhos — Kit de Boas-Vindas e Livros",
+      "area": "Sonhos",
+      "title": "Definir os livros de cada criança para compor o kit",
+      "assignee": "Joelma",
+      "deadline": "A definir",
+      "priority": "Baixa",
+      "status": "Pendente",
+      "context": "Joelma entregou em 23/09 o resumo com opções por criança: Malu (espaço/astronomia), João (pop-up e natureza), Luana (fantasia e romance) e Francisco (ciência). Falta a escolha final e a compra.",
+      "notes": "Resumo enviado em 23/09 — aguardando definição."
     }
   ],
   "ata": {
@@ -565,7 +604,8 @@
     "15": "Deck institucional de 20 minutos sobre autoridade láctea, saudabilidade e inovação para o público médico/nutricional.",
     "16": "Vídeos de chão de fábrica entregues, aguardando devolutiva da Camila (RH). Banner Trabalhe Conosco publicado.",
     "17": "Abertura do Planejamento 2027. Stand-by: Gerações, Websérie, Assessoria de Imprensa e Reciclagem. <b>Fyt Reset: cancelado.</b>",
-    "18": "Itens que estavam abertos na pauta de 30/10 e não foram citados em 03/11 — ficam aqui para não desaparecerem."
+    "18": "Itens que estavam abertos na pauta de 30/10 e não foram citados em 03/11 — ficam aqui para não desaparecerem.",
+    "24": "Caixa de boas-vindas às quatro crianças, proposta pelo Messias em 09/09: itens de vestuário e garrafa já produzidos com a marca Sonhos, mais um livro escolhido para o perfil de cada criança. A seleção dos títulos é da Joelma."
   },
   "atualizado": "05/11/2026"
 }
