@@ -399,7 +399,7 @@
       "assignee": "Ian / Ventura",
       "deadline": "12/11/2026",
       "priority": "Média",
-      "status": "Pendente",
+      "status": "Em Andamento",
       "context": "Ventura precisa fechar a arte para subir na Tetra Pak; a reunião de 23/10 não registrou entrega formal.",
       "notes": "Carregado da pauta de 30/10."
     },
@@ -467,6 +467,84 @@
       "status": "Pendente",
       "context": "Unboxing da mochila é conteúdo obrigatório; famílias e tutores passam a produzir. Bia apoia o incentivo.",
       "notes": "Carregado da pauta de 30/10."
+    },
+    {
+      "id": "NOVO-01",
+      "topicNumber": 19,
+      "topicTitle": "Organização da pauta",
+      "area": "Planejamento",
+      "title": "Filtrar prioridades máximas da pauta",
+      "assignee": "Carol",
+      "deadline": "A definir",
+      "priority": "Alta",
+      "status": "Pendente",
+      "context": "Carol precisa pilotar a pauta e filtrar as prioridades máximas para não deixar demandas importantes escaparem.",
+      "notes": ""
+    },
+    {
+      "id": "NOVO-02",
+      "topicNumber": 20,
+      "topicTitle": "Agendamento de reunião",
+      "area": "Planejamento",
+      "title": "Verificar disponibilidade de Guilherme",
+      "assignee": "A definir",
+      "deadline": "A definir",
+      "priority": "Média",
+      "status": "Pendente",
+      "context": "O orador vai verificar com Guilherme se há possibilidade de reunião depois do almoço.",
+      "notes": ""
+    },
+    {
+      "id": "NOVO-03",
+      "topicNumber": 21,
+      "topicTitle": "Documento de lançamento MaxPro",
+      "area": "MaxPro",
+      "title": "Enviar documento para revisão e impressão",
+      "assignee": "A definir",
+      "deadline": "A definir",
+      "priority": "Alta",
+      "status": "Pendente",
+      "context": "O orador vai enviar um documento que foi copiado e colado para revisão e impressão.",
+      "notes": ""
+    },
+    {
+      "id": "NOVO-04",
+      "topicNumber": 22,
+      "topicTitle": "Análise de perfis de influenciadores",
+      "area": "Influência",
+      "title": "Pegar dados de perfis e passar números",
+      "assignee": "A definir",
+      "deadline": "A definir",
+      "priority": "Alta",
+      "status": "Pendente",
+      "context": "Pegar dados de perfis de influenciadores para analisar números e agilizar o contato.",
+      "notes": ""
+    },
+    {
+      "id": "NOVO-05",
+      "topicNumber": 23,
+      "topicTitle": "Estratégia de Influência MaxPro",
+      "area": "MaxPro",
+      "title": "Propor aula MaxPro para Velocity",
+      "assignee": "A definir",
+      "deadline": "A definir",
+      "priority": "Média",
+      "status": "Pendente",
+      "context": "Propor uma aula temática MaxPro para a academia Velocity, visando engajamento espontâneo com influenciadores locais.",
+      "notes": ""
+    },
+    {
+      "id": "NOVO-06",
+      "topicNumber": 23,
+      "topicTitle": "Estratégia de Influência MaxPro",
+      "area": "Influência",
+      "title": "Enviar kits para seguidores da Velocity",
+      "assignee": "A definir",
+      "deadline": "A definir",
+      "priority": "Média",
+      "status": "Pendente",
+      "context": "Contatar seguidores da academia Velocity e enviar kits para gerar conteúdo espontâneo com pessoas mais reais.",
+      "notes": ""
     }
   ],
   "ata": {
