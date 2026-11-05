@@ -1,1 +1,258 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Gestão de Demandas | Jussara &amp; Ventura</title><script src="https://cdn.tailwindcss.com/3.4.17"></script><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><style>body{font-family:'Inter',sans-serif}.fd{font-family:'Plus Jakarta Sans',sans-serif}::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:9px}</style></head><body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col"><div id="toast" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div><header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex items-center justify-between h-16 sm:h-20 gap-2"><div class="flex items-center gap-3 min-w-0"><div class="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl bg-gradient-to-tr from-sky-900 via-sky-800 to-sky-600 flex items-center justify-center text-white"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div><div class="min-w-0"><div class="flex items-center gap-2 flex-wrap"><span id="dataStatus" class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-100 text-emerald-800">carregando…</span> <span class="text-xs text-slate-500 hidden sm:inline">Ata de 30/10 + deliberações de 03/11</span></div><h1 class="text-base sm:text-xl font-bold fd tracking-tight text-slate-900 truncate">Gestão de Demandas: Jussara &amp; Ventura</h1></div></div><div class="flex items-center gap-2 shrink-0"><a href="https://keep.google.com/?note=1zCpUwZux3Z1oXkISXnS9V0yeKosPZZRuBwQDmXK6J_BGRuAf0I6t16vwNVZuSQ" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg border border-slate-200">Google Keep</a> <button id="btnSync" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-emerald-800 bg-emerald-100 hover:bg-emerald-200 rounded-lg border border-emerald-300" title="Enviar checklists e timelines para a planilha do time">↥ Enviar p/ planilha</button> <button id="btnResumo" class="inline-flex items-center px-3 py-2 text-xs font-medium text-white bg-sky-700 hover:bg-sky-800 rounded-lg">Copiar Resumo</button></div></div></div></header><main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full flex flex-col gap-5"><section class="grid grid-cols-2 lg:grid-cols-5 gap-3"><div class="bg-white p-3.5 rounded-xl border border-slate-200"><div class="text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-1">Total de Ações</div><div class="flex items-baseline gap-1.5"><span id="kTotal" class="text-2xl font-extrabold fd">0</span><span class="text-[11px] text-slate-500">mapeadas</span></div></div><div class="bg-amber-50/40 p-3.5 rounded-xl border border-amber-200"><div class="text-[11px] font-semibold uppercase tracking-wider text-amber-800 mb-1">Prazo 05/11</div><div class="flex items-baseline gap-1.5"><span id="k05" class="text-2xl font-extrabold fd text-amber-900">0</span><span class="text-[11px] text-amber-700">iminentes</span></div></div><div class="bg-sky-50/40 p-3.5 rounded-xl border border-sky-200"><div class="text-[11px] font-semibold uppercase tracking-wider text-sky-800 mb-1">Prazo 12/11</div><div class="flex items-baseline gap-1.5"><span id="k12" class="text-2xl font-extrabold fd text-sky-900">0</span><span class="text-[11px] text-sky-700">médio prazo</span></div></div><div class="bg-emerald-50/40 p-3.5 rounded-xl border border-emerald-200"><div class="text-[11px] font-semibold uppercase tracking-wider text-emerald-800 mb-1">Concluídas</div><div class="flex items-baseline gap-1.5"><span id="kDone" class="text-2xl font-extrabold fd text-emerald-900">0</span><span id="kPct" class="text-[11px] text-emerald-700">0% pronto</span></div></div><button id="kAlerta" type="button" class="text-left bg-amber-50/60 p-3.5 rounded-xl border border-amber-300 hover:border-amber-500 hover:bg-amber-50 transition-colors cursor-pointer" title="Clique para ver só as ações que precisam de atenção"><div class="flex items-center justify-between gap-1 mb-1"><span class="text-[11px] font-semibold uppercase tracking-wider text-amber-900">Precisa de atenção</span><span class="text-amber-600 text-xs">⚠</span></div><div class="flex items-baseline gap-1.5"><span id="kFalta" class="text-2xl font-extrabold fd text-amber-900">0</span><span class="text-[11px] text-amber-800">sem dono ou prazo</span></div></button><div class="col-span-2 lg:col-span-1 bg-indigo-50/40 p-3.5 rounded-xl border border-indigo-200"><div class="text-[11px] font-semibold uppercase tracking-wider text-indigo-800 mb-1">Marcos Críticos</div><div class="text-[11px] text-indigo-950 space-y-0.5"><div class="flex justify-between gap-2"><span>Vendas Trade</span><strong class="text-rose-600">06/11 09h</strong></div><div class="flex justify-between gap-2"><span>EUA (Luana)</span><strong>15/11</strong></div><div class="flex justify-between gap-2"><span>SPRIM Nutri</span><strong>24/11</strong></div><div class="flex justify-between gap-2"><span>Férias Messias</span><strong>03–10/12</strong></div></div></div></section><section class="bg-white p-4 rounded-xl border border-slate-200 space-y-3"><div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-slate-100"><input id="q" type="text" placeholder="Buscar por ação, responsável, tema…" class="flex-1 max-w-md text-sm border border-slate-300 rounded-lg px-3 py-2 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-sky-500"><div class="bg-slate-100 p-1 rounded-lg flex gap-1 text-xs font-medium text-slate-600 overflow-x-auto"><button data-v="cards" class="vb px-2.5 py-1.5 rounded-md bg-white text-slate-900 shadow-sm font-bold whitespace-nowrap">Cards</button> <button data-v="table" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Tabela</button> <button data-v="kanban" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Kanban</button> <button data-v="pauta" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Ata / Tópicos</button> <button data-v="chat" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Chat</button> <button data-v="reuniao" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Reuniões</button></div></div><div class="grid grid-cols-2 md:grid-cols-5 gap-2"><select id="fPrazo" class="text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50"><option value="ALL">Todas as Datas</option><option>05/11/2026</option><option>12/11/2026</option></select><div class="msWrap relative" data-ms="area"><button type="button" class="msBtn w-full text-left text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50 flex items-center justify-between gap-1"><span class="msLabel truncate">Todas as Áreas</span><span class="text-slate-400 text-[10px] shrink-0">▾</span></button><div class="msPanel hidden absolute z-40 mt-1 w-full max-h-64 overflow-y-auto bg-white border border-slate-200 rounded-lg shadow-lg p-1.5 space-y-0.5"></div></div><div class="msWrap relative" data-ms="resp"><button type="button" class="msBtn w-full text-left text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50 flex items-center justify-between gap-1"><span class="msLabel truncate">Todos os Responsáveis</span><span class="text-slate-400 text-[10px] shrink-0">▾</span></button><div class="msPanel hidden absolute z-40 mt-1 w-full max-h-64 overflow-y-auto bg-white border border-slate-200 rounded-lg shadow-lg p-1.5 space-y-0.5"></div></div><div class="msWrap relative" data-ms="status"><button type="button" class="msBtn w-full text-left text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50 flex items-center justify-between gap-1"><span class="msLabel truncate">Todos os Status</span><span class="text-slate-400 text-[10px] shrink-0">▾</span></button><div class="msPanel hidden absolute z-40 mt-1 w-full max-h-64 overflow-y-auto bg-white border border-slate-200 rounded-lg shadow-lg p-1.5 space-y-0.5"></div></div><div class="msWrap relative" data-ms="prio"><button type="button" class="msBtn w-full text-left text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50 flex items-center justify-between gap-1"><span class="msLabel truncate">Todas as Prioridades</span><span class="text-slate-400 text-[10px] shrink-0">▾</span></button><div class="msPanel hidden absolute z-40 mt-1 w-full max-h-64 overflow-y-auto bg-white border border-slate-200 rounded-lg shadow-lg p-1.5 space-y-0.5"></div></div></div><div class="flex items-center justify-between text-[11px] text-slate-500"><span id="contador">—</span><span id="tags" class="flex flex-wrap gap-1"></span></div><div class="flex flex-wrap gap-1.5 pt-1"><button data-falta="todos" class="faltaBtn px-2.5 py-1 rounded-full text-[11px] font-medium bg-slate-100 text-slate-600 hover:bg-slate-200">Todas</button> <button data-falta="semDono" class="faltaBtn px-2.5 py-1 rounded-full text-[11px] font-medium bg-amber-100 text-amber-900 hover:bg-amber-200 border border-amber-300">⚠ Sem responsável</button> <button data-falta="semPrazo" class="faltaBtn px-2.5 py-1 rounded-full text-[11px] font-medium bg-amber-100 text-amber-900 hover:bg-amber-200 border border-amber-300">⚠ Sem prazo</button> <button data-falta="qualquer" class="faltaBtn px-2.5 py-1 rounded-full text-[11px] font-medium bg-amber-100 text-amber-900 hover:bg-amber-200 border border-amber-300">⚠ Qualquer lacuna</button></div></section><div id="vCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div><div id="vTable" class="hidden bg-white border border-slate-200 rounded-xl overflow-hidden"><div class="overflow-x-auto"><table class="w-full text-left text-sm"><thead class="bg-slate-50 text-[11px] uppercase text-slate-500 border-b"><tr><th class="py-3 px-3 w-10">OK</th><th class="py-3 px-3">Ação</th><th class="py-3 px-3">Área</th><th class="py-3 px-3">Resp.</th><th class="py-3 px-3">Prazo</th><th class="py-3 px-3">Prior.</th><th class="py-3 px-3"></th></tr></thead><tbody id="tbody" class="divide-y divide-slate-100"></tbody></table></div></div><div id="vKanban" class="hidden grid grid-cols-1 md:grid-cols-3 gap-4"><div class="bg-slate-100/70 rounded-xl p-3 border border-slate-200"><h3 class="font-bold text-sm text-slate-800 mb-2">Pendente (<span id="kcP">0</span>)</h3><div id="kP" class="space-y-2"></div></div><div class="bg-sky-50/60 rounded-xl p-3 border border-sky-200"><h3 class="font-bold text-sm text-sky-900 mb-2">Em Andamento (<span id="kcA">0</span>)</h3><div id="kA" class="space-y-2"></div></div><div class="bg-emerald-50/60 rounded-xl p-3 border border-emerald-200"><h3 class="font-bold text-sm text-emerald-900 mb-2">Concluído (<span id="kcD">0</span>)</h3><div id="kD" class="space-y-2"></div></div></div><div id="vPauta" class="hidden space-y-3"></div><div id="vReuniao" class="hidden"><div class="grid grid-cols-1 lg:grid-cols-2 gap-4"><div class="bg-white rounded-xl border border-slate-200 p-4 space-y-3"><div><h3 class="text-sm font-bold text-slate-900">Subir reunião</h3><p class="text-[11px] text-slate-500 mt-0.5">Áudio (até 20 MB) ou texto colado. A IA lê e propõe as ações — nada entra no painel sem você aprovar.</p></div><div class="border-2 border-dashed border-slate-300 rounded-xl p-4 text-center hover:border-sky-400 transition-colors cursor-pointer" id="dropZone"><input type="file" id="audioFile" accept="audio/*,video/mp4,video/webm,text/plain,.txt,.md,.srt,.vtt,.csv" class="hidden"><div class="text-2xl mb-1">📄</div><p class="text-xs font-medium text-slate-700">Clique ou arraste aqui</p><p class="text-[10px] text-slate-400 mt-0.5">Áudio (até 20 MB) ou transcrição em .txt, .md, .srt</p><div id="fileName" class="text-[11px] text-sky-700 font-semibold mt-1.5 truncate"></div></div><div class="flex items-center gap-2"><div class="flex-1 h-px bg-slate-200"></div><span class="text-[10px] text-slate-400 uppercase">ou</span><div class="flex-1 h-px bg-slate-200"></div></div><textarea id="reuniaoTexto" rows="4" placeholder="Cole aqui a transcrição ou a pauta da reunião…" class="w-full text-xs border border-slate-300 rounded-lg p-2.5 bg-slate-50 focus:bg-white resize-y"></textarea> <button id="btnProcessar" class="w-full px-4 py-2 bg-sky-700 hover:bg-sky-800 disabled:opacity-40 text-white text-sm font-medium rounded-lg">Processar e propor ações</button><div id="procStatus" class="text-[11px] text-slate-500 min-h-[16px]"></div></div><div class="bg-white rounded-xl border border-slate-200 p-4 flex flex-col"><div class="flex items-center justify-between mb-2"><h3 class="text-sm font-bold text-slate-900">O que a reunião mudou</h3><span id="propCount" class="text-[11px] text-slate-500"></span></div><div class="flex-1 overflow-y-auto space-y-3 min-h-[240px] max-h-[420px] pr-1"><div id="atualBloco" style="display:none"><div class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 mb-1.5">↻ Atualizações em ações existentes</div><div id="atualList" class="space-y-2"></div></div><div id="novasBloco" style="display:none"><div class="text-[11px] font-bold uppercase tracking-wider text-sky-700 mb-1.5">+ Ações novas</div><div id="propList" class="space-y-2"></div></div><div id="vazioAnalise" class="text-center py-10 text-xs text-slate-400">Nada analisado ainda.<br>Suba um arquivo ou cole o texto.</div></div><button id="btnAplicar" class="mt-3 w-full px-4 py-2 bg-emerald-700 hover:bg-emerald-800 disabled:opacity-40 text-white text-sm font-medium rounded-lg" disabled="disabled">Aprovar selecionadas</button><p class="text-[10px] text-slate-400 mt-1.5">Gera o <code>data.json</code> novo para você baixar e subir no repositório.</p></div></div></div><div id="vChat" class="hidden"><div class="bg-white rounded-xl border border-slate-200 overflow-hidden flex flex-col" style="height:60vh;min-height:420px"><div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between gap-2 bg-slate-50"><div class="flex items-center gap-2 min-w-0"><span class="w-7 h-7 rounded-lg bg-gradient-to-tr from-sky-900 to-sky-600 flex items-center justify-center text-white text-xs font-bold shrink-0">IA</span><div class="min-w-0"><div class="text-sm font-bold text-slate-900">Assistente do painel</div><div class="text-[11px] text-slate-500 truncate">Pergunta sobre as ações, prazos e responsáveis</div></div></div><div class="flex items-center gap-1.5 shrink-0"><button id="chatConfig" class="px-2.5 py-1.5 text-[11px] font-medium text-slate-700 bg-white border border-slate-300 hover:bg-slate-100 rounded-lg">Chave</button> <button id="chatLimpar" class="px-2.5 py-1.5 text-[11px] font-medium text-slate-500 hover:text-rose-600 rounded-lg">Limpar</button></div></div><div id="chatMsgs" class="flex-1 overflow-y-auto p-4 space-y-3"></div><div class="border-t border-slate-100 p-3 bg-slate-50"><div class="flex gap-2 items-end"><textarea id="chatInput" rows="1" placeholder="Ex.: o que vence amanhã? Quem está sobrecarregado? Resuma o MaxPro." class="flex-1 text-sm border border-slate-300 rounded-lg px-3 py-2 resize-none focus:ring-2 focus:ring-sky-500 bg-white" style="max-height:120px"></textarea> <button id="chatEnviar" class="px-4 py-2 bg-sky-700 hover:bg-sky-800 disabled:opacity-40 text-white text-sm font-medium rounded-lg shrink-0">Enviar</button></div><div class="text-[10px] text-slate-400 mt-1.5">A chave do Gemini fica salva só neste navegador. Nada é enviado para o repositório.</div></div></div></div><div id="chatKeyModal" class="fixed inset-0 z-50 bg-slate-900/50 hidden items-center justify-center p-4"><div class="bg-white rounded-2xl max-w-md w-full p-5 shadow-xl"><h3 class="text-base font-bold fd text-slate-900 mb-1">Sua chave do Gemini</h3><p class="text-xs text-slate-600 mb-3">Crie em <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener" class="text-sky-700 underline font-medium">aistudio.google.com/apikey</a> — é grátis. A chave fica guardada apenas neste navegador (localStorage) e vai direto para o Google.</p><input id="chatKeyInput" type="password" placeholder="AIza..." class="w-full text-sm border border-slate-300 rounded-lg px-3 py-2 mb-2 bg-slate-50 focus:bg-white"><div id="chatKeyStatus" class="text-[11px] text-slate-500 mb-3">—</div><div class="flex justify-between gap-2"><button id="chatKeyApagar" class="px-3 py-2 text-xs font-medium text-rose-600 hover:bg-rose-50 rounded-lg">Apagar chave</button><div class="flex gap-2"><button id="chatKeyFechar" class="px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-lg">Fechar</button> <button id="chatKeySalvar" class="px-4 py-2 text-xs font-medium bg-sky-700 hover:bg-sky-800 text-white rounded-lg">Salvar</button></div></div></div></div></main><footer class="bg-white border-t border-slate-200 py-3 text-[11px] text-slate-500"><div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-1"><span><strong class="text-slate-700">Jussara &amp; Agência Ventura</strong> · Ata &amp; Gestão de Demandas</span> <span>Prazos nas quintas (05/11 e 12/11) · metas 06/11, 15/11 e 24/11</span></div></footer><div id="modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden items-center justify-center p-4"><div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-xl"><div class="px-5 py-4 border-b border-slate-100 flex items-start justify-between gap-3"><div><div id="mTag" class="text-[11px] text-slate-400 font-medium"></div><h3 id="mTitle" class="text-base font-bold fd text-slate-900 mt-0.5"></h3></div><button id="mClose" class="text-slate-400 hover:text-slate-700 text-xl leading-none px-1">×</button></div><div class="p-5 space-y-3"><div class="grid grid-cols-2 gap-3 p-3 bg-slate-50 rounded-xl text-xs"><div><span class="text-slate-500 block">Responsável</span><strong id="mResp" class="text-slate-800 text-sm"></strong></div><div><span class="text-slate-500 block">Prazo</span><strong id="mPrazo" class="text-slate-800 text-sm"></strong></div><div><span class="text-slate-500 block">Prioridade</span><span id="mPrio" class="inline-block mt-0.5"></span></div><div><span class="text-slate-500 block">Status</span><span id="mStat" class="inline-block mt-0.5"></span></div></div><div><h4 class="text-[11px] font-semibold text-slate-500 uppercase mb-1">Contexto</h4><p id="mCtx" class="text-xs text-slate-600 leading-relaxed bg-white border border-slate-200 p-3 rounded-lg"></p></div><div><h4 class="text-[11px] font-semibold text-slate-500 uppercase mb-1">Anotações</h4><textarea id="mNotes" rows="2" class="w-full text-xs border border-slate-200 rounded-lg p-2.5 bg-slate-50 focus:bg-white" placeholder="Anotação de acompanhamento…"></textarea></div><div class="rounded-xl border border-slate-200 overflow-hidden"><div class="px-3 py-2 bg-slate-50 border-b border-slate-200 flex items-center justify-between"><h4 class="text-[11px] font-semibold text-slate-600 uppercase">Checklist</h4><span id="mChkCount" class="text-[10px] text-slate-500"></span></div><div class="p-2.5 space-y-1.5"><div id="mChkList" class="space-y-1"></div><div class="flex gap-1.5 pt-1"><input id="mChkInput" type="text" placeholder="Nova tarefa do checklist…" class="flex-1 text-[11px] border border-slate-300 rounded-lg px-2 py-1.5 bg-white focus:ring-1 focus:ring-sky-500"> <button id="mChkAdd" class="px-2.5 py-1.5 bg-slate-700 hover:bg-slate-800 text-white text-[11px] font-medium rounded-lg shrink-0">+</button></div></div></div><div class="rounded-xl border border-slate-200 overflow-hidden"><div class="px-3 py-2 bg-slate-50 border-b border-slate-200 flex items-center justify-between"><h4 class="text-[11px] font-semibold text-slate-600 uppercase">Linha do tempo</h4><span id="mTlCount" class="text-[10px] text-slate-500"></span></div><div class="p-2.5 space-y-1.5"><div id="mTimeline" class="space-y-0 max-h-52 overflow-y-auto pr-0.5"></div><div class="flex gap-1.5 pt-1"><input id="mTlInput" type="text" placeholder="Registrar o que aconteceu…" class="flex-1 text-[11px] border border-slate-300 rounded-lg px-2 py-1.5 bg-white focus:ring-1 focus:ring-sky-500"> <button id="mTlAdd" class="px-2.5 py-1.5 bg-slate-700 hover:bg-slate-800 text-white text-[11px] font-medium rounded-lg shrink-0">+</button></div></div></div></div><div class="px-5 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between"><label class="inline-flex items-center gap-1.5 text-xs text-slate-700 cursor-pointer"><input type="checkbox" id="mDone" class="rounded text-sky-600 h-4 w-4"> Concluído</label> <button id="mSave" class="px-4 py-2 bg-sky-700 hover:bg-sky-800 text-white text-xs font-medium rounded-lg">Salvar</button></div></div></div><script src="app.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gestão de Demandas | Jussara &amp; Ventura</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>body{font-family:'Inter',sans-serif}.fd{font-family:'Plus Jakarta Sans',sans-serif}::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:9px}</style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+<div id="toast" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+<header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="flex items-center justify-between h-16 sm:h-20 gap-2">
+   <div class="flex items-center gap-3 min-w-0">
+    <div class="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl bg-gradient-to-tr from-sky-900 via-sky-800 to-sky-600 flex items-center justify-center text-white">
+     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+    </div>
+    <div class="min-w-0">
+     <div class="flex items-center gap-2 flex-wrap">
+      <span id="dataStatus" class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-100 text-emerald-800">carregando…</span>
+      <span class="text-xs text-slate-500 hidden sm:inline">Ata de 30/10 + deliberações de 03/11</span>
+     </div>
+     <h1 class="text-base sm:text-xl font-bold fd tracking-tight text-slate-900 truncate">Gestão de Demandas: Jussara &amp; Ventura</h1>
+    </div>
+   </div>
+   <div class="flex items-center gap-2 shrink-0">
+    <a href="https://keep.google.com/?note=1zCpUwZux3Z1oXkISXnS9V0yeKosPZZRuBwQDmXK6J_BGRuAf0I6t16vwNVZuSQ" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg border border-slate-200">Google Keep</a>
+    <button id="btnQuem" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg border border-slate-300" title="Dizer quem está usando este navegador">👤 <span id="quemLabel">Entrar</span></button>
+    <button id="btnSync" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-emerald-800 bg-emerald-100 hover:bg-emerald-200 rounded-lg border border-emerald-300" title="Enviar checklists, timelines e log para a planilha do time">↥ Enviar p/ planilha</button>
+    <button id="btnResumo" class="inline-flex items-center px-3 py-2 text-xs font-medium text-white bg-sky-700 hover:bg-sky-800 rounded-lg">Copiar Resumo</button>
+   </div>
+  </div>
+ </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full flex flex-col gap-5">
+ <section class="grid grid-cols-2 lg:grid-cols-5 gap-3">
+  <div class="bg-white p-3.5 rounded-xl border border-slate-200"><div class="text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-1">Total de Ações</div><div class="flex items-baseline gap-1.5"><span id="kTotal" class="text-2xl font-extrabold fd">0</span><span class="text-[11px] text-slate-500">mapeadas</span></div></div>
+  <div class="bg-amber-50/40 p-3.5 rounded-xl border border-amber-200"><div class="text-[11px] font-semibold uppercase tracking-wider text-amber-800 mb-1">Prazo 05/11</div><div class="flex items-baseline gap-1.5"><span id="k05" class="text-2xl font-extrabold fd text-amber-900">0</span><span class="text-[11px] text-amber-700">iminentes</span></div></div>
+  <div class="bg-sky-50/40 p-3.5 rounded-xl border border-sky-200"><div class="text-[11px] font-semibold uppercase tracking-wider text-sky-800 mb-1">Prazo 12/11</div><div class="flex items-baseline gap-1.5"><span id="k12" class="text-2xl font-extrabold fd text-sky-900">0</span><span class="text-[11px] text-sky-700">médio prazo</span></div></div>
+  <div class="bg-emerald-50/40 p-3.5 rounded-xl border border-emerald-200"><div class="text-[11px] font-semibold uppercase tracking-wider text-emerald-800 mb-1">Concluídas</div><div class="flex items-baseline gap-1.5"><span id="kDone" class="text-2xl font-extrabold fd text-emerald-900">0</span><span id="kPct" class="text-[11px] text-emerald-700">0% pronto</span></div></div>
+  <button id="kAlerta" type="button" class="text-left bg-amber-50/60 p-3.5 rounded-xl border border-amber-300 hover:border-amber-500 hover:bg-amber-50 transition-colors cursor-pointer" title="Clique para ver só as ações que precisam de atenção">
+   <div class="flex items-center justify-between gap-1 mb-1"><span class="text-[11px] font-semibold uppercase tracking-wider text-amber-900">Precisa de atenção</span><span class="text-amber-600 text-xs">⚠</span></div>
+   <div class="flex items-baseline gap-1.5"><span id="kFalta" class="text-2xl font-extrabold fd text-amber-900">0</span><span class="text-[11px] text-amber-800">sem dono ou prazo</span></div>
+  </button>
+  <div class="col-span-2 lg:col-span-1 bg-indigo-50/40 p-3.5 rounded-xl border border-indigo-200"><div class="text-[11px] font-semibold uppercase tracking-wider text-indigo-800 mb-1">Marcos Críticos</div><div class="text-[11px] text-indigo-950 space-y-0.5"><div class="flex justify-between gap-2"><span>Vendas Trade</span><strong class="text-rose-600">06/11 09h</strong></div><div class="flex justify-between gap-2"><span>EUA (Luana)</span><strong>15/11</strong></div><div class="flex justify-between gap-2"><span>SPRIM Nutri</span><strong>24/11</strong></div><div class="flex justify-between gap-2"><span>Férias Messias</span><strong>03–10/12</strong></div></div></div>
+ </section>
+
+ <section class="bg-white p-4 rounded-xl border border-slate-200 space-y-3">
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+   <input id="q" type="text" placeholder="Buscar por ação, responsável, tema…" class="flex-1 max-w-md text-sm border border-slate-300 rounded-lg px-3 py-2 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-sky-500">
+   <div class="bg-slate-100 p-1 rounded-lg flex gap-1 text-xs font-medium text-slate-600 overflow-x-auto">
+    <button data-v="cards" class="vb px-2.5 py-1.5 rounded-md bg-white text-slate-900 shadow-sm font-bold whitespace-nowrap">Cards</button>
+    <button data-v="table" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Tabela</button>
+    <button data-v="kanban" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Kanban</button>
+    <button data-v="pauta" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Ata / Tópicos</button>
+    <button data-v="chat" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Chat</button>
+    <button data-v="reuniao" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Reuniões</button>
+   </div>
+  </div>
+  <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
+   <select id="fPrazo" class="text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50"><option value="ALL">Todas as Datas</option><option>05/11/2026</option><option>12/11/2026</option></select>
+   <div class="msWrap relative" data-ms="area">
+    <button type="button" class="msBtn w-full text-left text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50 flex items-center justify-between gap-1"><span class="msLabel truncate">Todas as Áreas</span><span class="text-slate-400 text-[10px] shrink-0">▾</span></button>
+    <div class="msPanel hidden absolute z-40 mt-1 w-full max-h-64 overflow-y-auto bg-white border border-slate-200 rounded-lg shadow-lg p-1.5 space-y-0.5"></div>
+   </div>
+   <div class="msWrap relative" data-ms="resp">
+    <button type="button" class="msBtn w-full text-left text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50 flex items-center justify-between gap-1"><span class="msLabel truncate">Todos os Responsáveis</span><span class="text-slate-400 text-[10px] shrink-0">▾</span></button>
+    <div class="msPanel hidden absolute z-40 mt-1 w-full max-h-64 overflow-y-auto bg-white border border-slate-200 rounded-lg shadow-lg p-1.5 space-y-0.5"></div>
+   </div>
+   <div class="msWrap relative" data-ms="status">
+    <button type="button" class="msBtn w-full text-left text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50 flex items-center justify-between gap-1"><span class="msLabel truncate">Todos os Status</span><span class="text-slate-400 text-[10px] shrink-0">▾</span></button>
+    <div class="msPanel hidden absolute z-40 mt-1 w-full max-h-64 overflow-y-auto bg-white border border-slate-200 rounded-lg shadow-lg p-1.5 space-y-0.5"></div>
+   </div>
+   <div class="msWrap relative" data-ms="prio">
+    <button type="button" class="msBtn w-full text-left text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50 flex items-center justify-between gap-1"><span class="msLabel truncate">Todas as Prioridades</span><span class="text-slate-400 text-[10px] shrink-0">▾</span></button>
+    <div class="msPanel hidden absolute z-40 mt-1 w-full max-h-64 overflow-y-auto bg-white border border-slate-200 rounded-lg shadow-lg p-1.5 space-y-0.5"></div>
+   </div>
+  </div>
+  <div class="flex items-center justify-between text-[11px] text-slate-500"><span id="contador">—</span><span id="tags" class="flex flex-wrap gap-1"></span></div>
+  <div class="flex flex-wrap gap-1.5 pt-1">
+   <button data-falta="todos" class="faltaBtn px-2.5 py-1 rounded-full text-[11px] font-medium bg-slate-100 text-slate-600 hover:bg-slate-200">Todas</button>
+   <button data-falta="semDono" class="faltaBtn px-2.5 py-1 rounded-full text-[11px] font-medium bg-amber-100 text-amber-900 hover:bg-amber-200 border border-amber-300">⚠ Sem responsável</button>
+   <button data-falta="semPrazo" class="faltaBtn px-2.5 py-1 rounded-full text-[11px] font-medium bg-amber-100 text-amber-900 hover:bg-amber-200 border border-amber-300">⚠ Sem prazo</button>
+   <button data-falta="qualquer" class="faltaBtn px-2.5 py-1 rounded-full text-[11px] font-medium bg-amber-100 text-amber-900 hover:bg-amber-200 border border-amber-300">⚠ Qualquer lacuna</button>
+  </div>
+ </section>
+
+ <div id="vCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+ <div id="vTable" class="hidden bg-white border border-slate-200 rounded-xl overflow-hidden"><div class="overflow-x-auto"><table class="w-full text-left text-sm"><thead class="bg-slate-50 text-[11px] uppercase text-slate-500 border-b"><tr><th class="py-3 px-3 w-10">OK</th><th class="py-3 px-3">Ação</th><th class="py-3 px-3">Área</th><th class="py-3 px-3">Resp.</th><th class="py-3 px-3">Prazo</th><th class="py-3 px-3">Prior.</th><th class="py-3 px-3"></th></tr></thead><tbody id="tbody" class="divide-y divide-slate-100"></tbody></table></div></div>
+ <div id="vKanban" class="hidden grid grid-cols-1 md:grid-cols-3 gap-4">
+  <div class="bg-slate-100/70 rounded-xl p-3 border border-slate-200"><h3 class="font-bold text-sm text-slate-800 mb-2">Pendente (<span id="kcP">0</span>)</h3><div id="kP" class="space-y-2"></div></div>
+  <div class="bg-sky-50/60 rounded-xl p-3 border border-sky-200"><h3 class="font-bold text-sm text-sky-900 mb-2">Em Andamento (<span id="kcA">0</span>)</h3><div id="kA" class="space-y-2"></div></div>
+  <div class="bg-emerald-50/60 rounded-xl p-3 border border-emerald-200"><h3 class="font-bold text-sm text-emerald-900 mb-2">Concluído (<span id="kcD">0</span>)</h3><div id="kD" class="space-y-2"></div></div>
+ </div>
+ <div id="vPauta" class="hidden space-y-3"></div>
+
+ <div id="vReuniao" class="hidden">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+   <div class="bg-white rounded-xl border border-slate-200 p-4 space-y-3">
+    <div>
+     <h3 class="text-sm font-bold text-slate-900">Subir reunião</h3>
+     <p class="text-[11px] text-slate-500 mt-0.5">Áudio (até 20 MB) ou texto colado. A IA lê e propõe as ações — nada entra no painel sem você aprovar.</p>
+    </div>
+    <div class="border-2 border-dashed border-slate-300 rounded-xl p-4 text-center hover:border-sky-400 transition-colors cursor-pointer" id="dropZone">
+     <input type="file" id="audioFile" accept="audio/*,video/mp4,video/webm,text/plain,.txt,.md,.srt,.vtt,.csv" class="hidden">
+     <div class="text-2xl mb-1">📄</div>
+     <p class="text-xs font-medium text-slate-700">Clique ou arraste aqui</p>
+     <p class="text-[10px] text-slate-400 mt-0.5">Áudio (até 20 MB) ou transcrição em .txt, .md, .srt</p>
+     <div id="fileName" class="text-[11px] text-sky-700 font-semibold mt-1.5 truncate"></div>
+    </div>
+    <div class="flex items-center gap-2">
+     <div class="flex-1 h-px bg-slate-200"></div><span class="text-[10px] text-slate-400 uppercase">ou</span><div class="flex-1 h-px bg-slate-200"></div>
+    </div>
+    <textarea id="reuniaoTexto" rows="4" placeholder="Cole aqui a transcrição ou a pauta da reunião…" class="w-full text-xs border border-slate-300 rounded-lg p-2.5 bg-slate-50 focus:bg-white resize-y"></textarea>
+    <button id="btnProcessar" class="w-full px-4 py-2 bg-sky-700 hover:bg-sky-800 disabled:opacity-40 text-white text-sm font-medium rounded-lg">Processar e propor ações</button>
+    <div id="procStatus" class="text-[11px] text-slate-500 min-h-[16px]"></div>
+   </div>
+   <div class="bg-white rounded-xl border border-slate-200 p-4 flex flex-col">
+    <div class="flex items-center justify-between mb-2">
+     <h3 class="text-sm font-bold text-slate-900">O que a reunião mudou</h3>
+     <span id="propCount" class="text-[11px] text-slate-500"></span>
+    </div>
+    <div class="flex-1 overflow-y-auto space-y-3 min-h-[240px] max-h-[420px] pr-1">
+     <div id="atualBloco" style="display:none">
+      <div class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 mb-1.5">↻ Atualizações em ações existentes</div>
+      <div id="atualList" class="space-y-2"></div>
+     </div>
+     <div id="novasBloco" style="display:none">
+      <div class="text-[11px] font-bold uppercase tracking-wider text-sky-700 mb-1.5">+ Ações novas</div>
+      <div id="propList" class="space-y-2"></div>
+     </div>
+     <div id="vazioAnalise" class="text-center py-10 text-xs text-slate-400">Nada analisado ainda.<br>Suba um arquivo ou cole o texto.</div>
+    </div>
+    <button id="btnAplicar" class="mt-3 w-full px-4 py-2 bg-emerald-700 hover:bg-emerald-800 disabled:opacity-40 text-white text-sm font-medium rounded-lg" disabled>Aprovar selecionadas</button>
+    <p class="text-[10px] text-slate-400 mt-1.5">Gera o <code>data.json</code> novo para você baixar e subir no repositório.</p>
+   </div>
+  </div>
+ </div>
+
+ <div id="vChat" class="hidden">
+  <div class="bg-white rounded-xl border border-slate-200 overflow-hidden flex flex-col" style="height:60vh;min-height:420px">
+   <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between gap-2 bg-slate-50">
+    <div class="flex items-center gap-2 min-w-0">
+     <span class="w-7 h-7 rounded-lg bg-gradient-to-tr from-sky-900 to-sky-600 flex items-center justify-center text-white text-xs font-bold shrink-0">IA</span>
+     <div class="min-w-0"><div class="text-sm font-bold text-slate-900">Assistente do painel</div><div class="text-[11px] text-slate-500 truncate">Pergunta sobre as ações, prazos e responsáveis</div></div>
+    </div>
+    <div class="flex items-center gap-1.5 shrink-0">
+     <button id="chatConfig" class="px-2.5 py-1.5 text-[11px] font-medium text-slate-700 bg-white border border-slate-300 hover:bg-slate-100 rounded-lg">Chave</button>
+     <button id="chatLimpar" class="px-2.5 py-1.5 text-[11px] font-medium text-slate-500 hover:text-rose-600 rounded-lg">Limpar</button>
+    </div>
+   </div>
+   <div id="chatMsgs" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+   <div class="border-t border-slate-100 p-3 bg-slate-50">
+    <div class="flex gap-2 items-end">
+     <textarea id="chatInput" rows="1" placeholder="Ex.: o que vence amanhã? Quem está sobrecarregado? Resuma o MaxPro." class="flex-1 text-sm border border-slate-300 rounded-lg px-3 py-2 resize-none focus:ring-2 focus:ring-sky-500 bg-white" style="max-height:120px"></textarea>
+     <button id="chatEnviar" class="px-4 py-2 bg-sky-700 hover:bg-sky-800 disabled:opacity-40 text-white text-sm font-medium rounded-lg shrink-0">Enviar</button>
+    </div>
+    <div class="text-[10px] text-slate-400 mt-1.5">A chave do Gemini fica salva só neste navegador. Nada é enviado para o repositório.</div>
+   </div>
+  </div>
+ </div>
+
+ <div id="chatKeyModal" class="fixed inset-0 z-50 bg-slate-900/50 hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-md w-full p-5 shadow-xl">
+   <h3 class="text-base font-bold fd text-slate-900 mb-1">Sua chave do Gemini</h3>
+   <p class="text-xs text-slate-600 mb-3">Crie em <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener" class="text-sky-700 underline font-medium">aistudio.google.com/apikey</a> — é grátis. A chave fica guardada apenas neste navegador (localStorage) e vai direto para o Google.</p>
+   <input id="chatKeyInput" type="password" placeholder="AIza..." class="w-full text-sm border border-slate-300 rounded-lg px-3 py-2 mb-2 bg-slate-50 focus:bg-white">
+   <div id="chatKeyStatus" class="text-[11px] text-slate-500 mb-3">—</div>
+   <div class="flex justify-between gap-2">
+    <button id="chatKeyApagar" class="px-3 py-2 text-xs font-medium text-rose-600 hover:bg-rose-50 rounded-lg">Apagar chave</button>
+    <div class="flex gap-2">
+     <button id="chatKeyFechar" class="px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-lg">Fechar</button>
+     <button id="chatKeySalvar" class="px-4 py-2 text-xs font-medium bg-sky-700 hover:bg-sky-800 text-white rounded-lg">Salvar</button>
+    </div>
+   </div>
+  </div>
+ </div>
+</main>
+
+<div id="quemModal" class="fixed inset-0 z-50 bg-slate-900/50 hidden items-center justify-center p-4">
+ <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-xl">
+  <h3 class="text-base font-bold fd text-slate-900 mb-1">Quem está usando?</h3>
+  <p class="text-xs text-slate-600 mb-3">Seu nome fica gravado nas alterações que você fizer — é o que aparece no log do time.</p>
+  <input id="quemInput" type="text" placeholder="Seu nome (ex.: Tchuco)" class="w-full text-sm border border-slate-300 rounded-lg px-3 py-2 mb-2 bg-slate-50 focus:bg-white">
+  <div class="text-[11px] text-slate-500 mb-3" id="quemStatus">—</div>
+  <div class="flex justify-end gap-2">
+   <button id="quemCancelar" class="px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-lg">Cancelar</button>
+   <button id="quemSalvar" class="px-4 py-2 text-xs font-medium bg-sky-700 hover:bg-sky-800 text-white rounded-lg">Salvar</button>
+  </div>
+ </div>
+</div>
+
+<footer class="bg-white border-t border-slate-200 py-3 text-[11px] text-slate-500">
+ <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-1">
+  <span><strong class="text-slate-700">Jussara &amp; Agência Ventura</strong> · Ata &amp; Gestão de Demandas</span>
+  <span>Prazos nas quintas (05/11 e 12/11) · metas 06/11, 15/11 e 24/11</span>
+ </div>
+</footer>
+
+<div id="modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden items-center justify-center p-4">
+ <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-xl">
+  <div class="px-5 py-4 border-b border-slate-100 flex items-start justify-between gap-3">
+   <div><div id="mTag" class="text-[11px] text-slate-400 font-medium"></div><h3 id="mTitle" class="text-base font-bold fd text-slate-900 mt-0.5"></h3></div>
+   <button id="mClose" class="text-slate-400 hover:text-slate-700 text-xl leading-none px-1">×</button>
+  </div>
+  <div class="p-5 space-y-3">
+   <div class="grid grid-cols-2 gap-3 p-3 bg-slate-50 rounded-xl text-xs">
+    <div><span class="text-slate-500 block">Responsável</span><strong id="mResp" class="text-slate-800 text-sm"></strong></div>
+    <div><span class="text-slate-500 block">Prazo</span><strong id="mPrazo" class="text-slate-800 text-sm"></strong></div>
+    <div><span class="text-slate-500 block">Prioridade</span><span id="mPrio" class="inline-block mt-0.5"></span></div>
+    <div><span class="text-slate-500 block">Status</span><span id="mStat" class="inline-block mt-0.5"></span></div>
+   </div>
+   <div><h4 class="text-[11px] font-semibold text-slate-500 uppercase mb-1">Contexto</h4><p id="mCtx" class="text-xs text-slate-600 leading-relaxed bg-white border border-slate-200 p-3 rounded-lg"></p></div>
+   <div><h4 class="text-[11px] font-semibold text-slate-500 uppercase mb-1">Anotações</h4><textarea id="mNotes" rows="2" class="w-full text-xs border border-slate-200 rounded-lg p-2.5 bg-slate-50 focus:bg-white" placeholder="Anotação de acompanhamento…"></textarea></div>
+
+   <div class="rounded-xl border border-slate-200 overflow-hidden">
+    <div class="px-3 py-2 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+     <h4 class="text-[11px] font-semibold text-slate-600 uppercase">Checklist</h4>
+     <span id="mChkCount" class="text-[10px] text-slate-500"></span>
+    </div>
+    <div class="p-2.5 space-y-1.5">
+     <div id="mChkList" class="space-y-1"></div>
+     <div class="flex gap-1.5 pt-1">
+      <input id="mChkInput" type="text" placeholder="Nova tarefa do checklist…" class="flex-1 text-[11px] border border-slate-300 rounded-lg px-2 py-1.5 bg-white focus:ring-1 focus:ring-sky-500">
+      <button id="mChkAdd" class="px-2.5 py-1.5 bg-slate-700 hover:bg-slate-800 text-white text-[11px] font-medium rounded-lg shrink-0">+</button>
+     </div>
+    </div>
+   </div>
+
+   <div class="rounded-xl border border-slate-200 overflow-hidden">
+    <div class="px-3 py-2 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+     <h4 class="text-[11px] font-semibold text-slate-600 uppercase">Linha do tempo</h4>
+     <span id="mTlCount" class="text-[10px] text-slate-500"></span>
+    </div>
+    <div class="p-2.5 space-y-1.5">
+     <div id="mTimeline" class="space-y-0 max-h-52 overflow-y-auto pr-0.5"></div>
+     <div class="flex gap-1.5 pt-1">
+      <input id="mTlInput" type="text" placeholder="Registrar o que aconteceu…" class="flex-1 text-[11px] border border-slate-300 rounded-lg px-2 py-1.5 bg-white focus:ring-1 focus:ring-sky-500">
+      <button id="mTlAdd" class="px-2.5 py-1.5 bg-slate-700 hover:bg-slate-800 text-white text-[11px] font-medium rounded-lg shrink-0">+</button>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="px-5 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+   <label class="inline-flex items-center gap-1.5 text-xs text-slate-700 cursor-pointer"><input type="checkbox" id="mDone" class="rounded text-sky-600 h-4 w-4"> Concluído</label>
+   <button id="mSave" class="px-4 py-2 bg-sky-700 hover:bg-sky-800 text-white text-xs font-medium rounded-lg">Salvar</button>
+  </div>
+ </div>
+</div>
+
+<script src="app.js"></script>
+<script src="app-log.js"></script>
+</body>
+</html>
