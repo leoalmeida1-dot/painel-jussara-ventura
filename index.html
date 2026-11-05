@@ -35,11 +35,15 @@
 </header>
 
 <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full flex flex-col gap-5">
- <section class="grid grid-cols-2 lg:grid-cols-5 gap-3">
+ <section class="grid grid-cols-2 lg:grid-cols-6 gap-3">
   <div class="bg-white p-3.5 rounded-xl border border-slate-200"><div class="text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-1">Total de Ações</div><div class="flex items-baseline gap-1.5"><span id="kTotal" class="text-2xl font-extrabold fd">0</span><span class="text-[11px] text-slate-500">mapeadas</span></div></div>
   <div class="bg-amber-50/40 p-3.5 rounded-xl border border-amber-200"><div class="text-[11px] font-semibold uppercase tracking-wider text-amber-800 mb-1">Prazo 05/11</div><div class="flex items-baseline gap-1.5"><span id="k05" class="text-2xl font-extrabold fd text-amber-900">0</span><span class="text-[11px] text-amber-700">iminentes</span></div></div>
   <div class="bg-sky-50/40 p-3.5 rounded-xl border border-sky-200"><div class="text-[11px] font-semibold uppercase tracking-wider text-sky-800 mb-1">Prazo 12/11</div><div class="flex items-baseline gap-1.5"><span id="k12" class="text-2xl font-extrabold fd text-sky-900">0</span><span class="text-[11px] text-sky-700">médio prazo</span></div></div>
   <div class="bg-emerald-50/40 p-3.5 rounded-xl border border-emerald-200"><div class="text-[11px] font-semibold uppercase tracking-wider text-emerald-800 mb-1">Concluídas</div><div class="flex items-baseline gap-1.5"><span id="kDone" class="text-2xl font-extrabold fd text-emerald-900">0</span><span id="kPct" class="text-[11px] text-emerald-700">0% pronto</span></div></div>
+  <button id="kAlerta" type="button" class="text-left bg-amber-50/60 p-3.5 rounded-xl border border-amber-300 hover:border-amber-500 hover:bg-amber-50 transition-colors cursor-pointer" title="Clique para ver só as ações que precisam de atenção">
+   <div class="flex items-center justify-between gap-1 mb-1"><span class="text-[11px] font-semibold uppercase tracking-wider text-amber-900">Atenção</span><span class="text-amber-600 text-xs">⚠</span></div>
+   <div class="flex items-baseline gap-1.5"><span id="kFalta" class="text-2xl font-extrabold fd text-amber-900">0</span><span class="text-[11px] text-amber-800">sem dono ou prazo</span></div>
+  </button>
   <div class="col-span-2 lg:col-span-1 bg-indigo-50/40 p-3.5 rounded-xl border border-indigo-200"><div class="text-[11px] font-semibold uppercase tracking-wider text-indigo-800 mb-1">Marcos Críticos</div><div class="text-[11px] text-indigo-950 space-y-0.5"><div class="flex justify-between gap-2"><span>Vendas Trade</span><strong class="text-rose-600">06/11 09h</strong></div><div class="flex justify-between gap-2"><span>EUA (Luana)</span><strong>15/11</strong></div><div class="flex justify-between gap-2"><span>SPRIM Nutri</span><strong>24/11</strong></div><div class="flex justify-between gap-2"><span>Férias Messias</span><strong>03–10/12</strong></div></div></div>
  </section>
 
@@ -63,6 +67,12 @@
    <select id="fPrio" class="text-xs border border-slate-300 rounded-lg py-2 px-2 bg-slate-50"><option value="ALL">Todas as Prioridades</option><option>Crítica</option><option>Alta</option><option>Média</option><option>Baixa</option></select>
   </div>
   <div class="flex items-center justify-between text-[11px] text-slate-500"><span id="contador">—</span><span id="tags" class="flex flex-wrap gap-1"></span></div>
+  <div class="flex flex-wrap gap-1.5 pt-1">
+   <button data-falta="todos" class="faltaBtn px-2.5 py-1 rounded-full text-[11px] font-medium bg-slate-100 text-slate-600 hover:bg-slate-200">Todas</button>
+   <button data-falta="semDono" class="faltaBtn px-2.5 py-1 rounded-full text-[11px] font-medium bg-amber-100 text-amber-900 hover:bg-amber-200 border border-amber-300">⚠ Sem responsável</button>
+   <button data-falta="semPrazo" class="faltaBtn px-2.5 py-1 rounded-full text-[11px] font-medium bg-amber-100 text-amber-900 hover:bg-amber-200 border border-amber-300">⚠ Sem prazo</button>
+   <button data-falta="qualquer" class="faltaBtn px-2.5 py-1 rounded-full text-[11px] font-medium bg-amber-100 text-amber-900 hover:bg-amber-200 border border-amber-300">⚠ Qualquer lacuna</button>
+  </div>
  </section>
 
  <div id="vCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
@@ -79,7 +89,7 @@
    <div class="bg-white rounded-xl border border-slate-200 p-4 space-y-3">
     <div>
      <h3 class="text-sm font-bold text-slate-900">Subir reunião</h3>
-     <p class="text-[11px] text-slate-500 mt-0.5">Áudio (até 20 MB) ou texto colado. A IA lê e propõe as ações — nada entra no painel sem você aprovar.</p>
+     <p class="text-[11px] text-slate-500 mt-0.5">Áudio (até 20 MB) ou texto colado. A IA lê, atualiza o que existe e propõe o que é novo.</p>
     </div>
     <div class="border-2 border-dashed border-slate-300 rounded-xl p-4 text-center hover:border-sky-400 transition-colors cursor-pointer" id="dropZone">
      <input type="file" id="audioFile" accept="audio/*,video/mp4,video/webm,text/plain,.txt,.md,.srt,.vtt,.csv" class="hidden">
@@ -92,7 +102,7 @@
      <div class="flex-1 h-px bg-slate-200"></div><span class="text-[10px] text-slate-400 uppercase">ou</span><div class="flex-1 h-px bg-slate-200"></div>
     </div>
     <textarea id="reuniaoTexto" rows="4" placeholder="Cole aqui a transcrição ou a pauta da reunião…" class="w-full text-xs border border-slate-300 rounded-lg p-2.5 bg-slate-50 focus:bg-white resize-y"></textarea>
-    <button id="btnProcessar" class="w-full px-4 py-2 bg-sky-700 hover:bg-sky-800 disabled:opacity-40 text-white text-sm font-medium rounded-lg">Processar e propor ações</button>
+    <button id="btnProcessar" class="w-full px-4 py-2 bg-sky-700 hover:bg-sky-800 disabled:opacity-40 text-white text-sm font-medium rounded-lg">Analisar reunião</button>
     <div id="procStatus" class="text-[11px] text-slate-500 min-h-[16px]"></div>
    </div>
    <div class="bg-white rounded-xl border border-slate-200 p-4 flex flex-col">
@@ -191,6 +201,11 @@
 var DADOS={acoes:[],ata:{}},T=[],view="cards",sel=null;
 var KEY="jussara_dash_v5";
 var GKEY="jussara_gemini_key",HIST=[],enviando=false;
+var faltaFiltro="todos";
+function semDono(t){var a=String(t.assignee||"").trim().toLowerCase();return !a||a==="a definir"||a==="definir"||a==="—"||a==="-"}
+function semPrazo(t){var p=String(t.deadline||"").trim().toLowerCase();return !p||p==="a definir"||p==="—"||p==="-"}
+function precisaAtencao(t){return semDono(t)||semPrazo(t)}
+function lacunas(t){var l=[];if(semDono(t))l.push("responsável");if(semPrazo(t))l.push("prazo");return l}
 var MODELOS=["gemini-2.5-flash","gemini-2.0-flash","gemini-1.5-flash"];
 var AREA={MaxPro:"bg-red-50 text-red-700 border-red-200",Sonhos:"bg-amber-50 text-amber-800 border-amber-200",SPRIM:"bg-indigo-50 text-indigo-700 border-indigo-200","Influência":"bg-purple-50 text-purple-700 border-purple-200",Institucional:"bg-blue-50 text-blue-700 border-blue-200",RH:"bg-teal-50 text-teal-700 border-teal-200",Planejamento:"bg-slate-100 text-slate-800 border-slate-200"};
 var PRIO={"Crítica":"bg-rose-100 text-rose-800 border-rose-300 font-semibold",Alta:"bg-amber-100 text-amber-800 border-amber-300",Média:"bg-blue-100 text-blue-800 border-blue-300",Baixa:"bg-slate-100 text-slate-700 border-slate-300"};
@@ -204,9 +219,17 @@ document.getElementById("kTotal").textContent=T.length;
 document.getElementById("k05").textContent=T.filter(function(t){return t.deadline==="05/11/2026"}).length;
 document.getElementById("k12").textContent=T.filter(function(t){return t.deadline==="12/11/2026"}).length;
 document.getElementById("kDone").textContent=d;
-document.getElementById("kPct").textContent=p+"% pronto"}
+document.getElementById("kPct").textContent=p+"% pronto";
+var falta=T.filter(function(t){return t.status!=="Concluído"&&precisaAtencao(t)}).length;
+var el=document.getElementById("kFalta");if(el)el.textContent=falta;
+var kb=document.getElementById("kAlerta");
+if(kb){if(falta>0){kb.className="text-left bg-amber-50/60 p-3.5 rounded-xl border border-amber-300 hover:border-amber-500 hover:bg-amber-50 transition-colors cursor-pointer"}
+else{kb.className="text-left bg-white p-3.5 rounded-xl border border-slate-200 cursor-pointer"}}}
 function filtrados(){var q=document.getElementById("q").value.toLowerCase().trim(),dp=document.getElementById("fPrazo").value,ar=document.getElementById("fArea").value,rs=document.getElementById("fResp").value,st=document.getElementById("fStatus").value,pr=document.getElementById("fPrio").value;
 return T.filter(function(t){
+if(faltaFiltro==="semDono"&&!semDono(t))return false;
+if(faltaFiltro==="semPrazo"&&!semPrazo(t))return false;
+if(faltaFiltro==="qualquer"&&!precisaAtencao(t))return false;
 if(dp!=="ALL"&&t.deadline!==dp)return false;
 if(ar!=="ALL"&&t.area!==ar)return false;
 if(rs!=="ALL"&&(t.assignee||"").toLowerCase().indexOf(rs.toLowerCase())<0)return false;
@@ -217,10 +240,13 @@ return true})}
 function cards(l){var c=document.getElementById("vCards");
 if(!l.length){c.innerHTML='<div class="col-span-full py-12 text-center bg-white rounded-xl border border-dashed border-slate-300 text-sm text-slate-600">Nenhuma ação para estes filtros.</div>';return}
 c.innerHTML=l.map(function(t){var d=t.status==="Concluído";
-return '<div class="bg-white rounded-xl border '+(d?"border-slate-200 opacity-75":"border-slate-200 hover:border-sky-300")+' p-4 flex flex-col justify-between">'+
+var falta=d?"":(precisaAtencao(t)?'<div class="mt-2 ml-7 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 text-[10px] font-semibold">⚠ falta '+lacunas(t).join(" e ")+'</div>':"");
+var borda=d?"border-slate-200 opacity-75":(precisaAtencao(t)?"border-amber-300 hover:border-amber-400":"border-slate-200 hover:border-sky-300");
+return '<div class="bg-white rounded-xl border '+borda+' p-4 flex flex-col justify-between">'+
 '<div><div class="flex items-center justify-between gap-2 mb-2"><div class="flex items-center gap-1.5 overflow-hidden"><span class="px-2 py-0.5 rounded text-[11px] font-semibold border '+(AREA[t.area]||"bg-slate-100")+'">'+esc(t.area)+'</span><span class="text-[11px] text-slate-400 truncate">Item '+t.topicNumber+'</span></div><span class="px-1.5 py-0.5 rounded text-[10px] uppercase border '+(PRIO[t.priority]||"")+'">'+esc(t.priority)+'</span></div>'+
 '<div class="flex items-start gap-2.5 mb-2"><button onclick="toggle(\''+t.id+'\')" class="mt-0.5 shrink-0 '+(d?"text-emerald-600":"text-slate-400 hover:text-emerald-600")+'" title="Alternar">'+(d?"✓":"○")+'</button>'+
 '<h4 class="text-xs sm:text-sm font-semibold '+(d?"line-through text-slate-400":"text-slate-900")+' leading-snug">'+esc(t.title)+'</h4></div>'+
+falta+
 '<p class="text-xs text-slate-500 line-clamp-2 mb-3 pl-7">'+esc(t.context)+'</p></div>'+
 '<div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs pl-7">'+
 '<div><span class="text-[10px] text-slate-400 uppercase block">Resp.</span><span class="font-medium text-slate-800">'+esc(t.assignee)+'</span></div>'+
@@ -258,6 +284,10 @@ return '<div class="p-2.5 rounded-lg border '+(d?"border-emerald-200 bg-emerald-
 function render(){var l=filtrados();
 document.getElementById("contador").textContent="Exibindo "+l.length+" de "+T.length+" ações";var tg=[],dp=document.getElementById("fPrazo"),ar=document.getElementById("fArea"),rs=document.getElementById("fResp"),st=document.getElementById("fStatus"),pr=document.getElementById("fPrio"),q=document.getElementById("q").value.trim();
 if(dp.value!=="ALL")tg.push("Prazo: "+dp.value);if(ar.value!=="ALL")tg.push("Área: "+ar.value);if(rs.value!=="ALL")tg.push("Resp: "+rs.value);if(st.value!=="ALL")tg.push("Status: "+st.value);if(pr.value!=="ALL")tg.push("Prioridade: "+pr.value);if(q)tg.push('"'+q+'"');
+if(faltaFiltro==="semDono")tg.push("⚠ sem responsável");if(faltaFiltro==="semPrazo")tg.push("⚠ sem prazo");if(faltaFiltro==="qualquer")tg.push("⚠ com lacuna");
+document.querySelectorAll(".faltaBtn").forEach(function(b){
+var ativo=(b.dataset.falta===faltaFiltro);
+b.className="faltaBtn px-2.5 py-1 rounded-full text-[11px] font-medium "+(ativo?"bg-slate-800 text-white border border-slate-800":"bg-amber-100 text-amber-900 hover:bg-amber-200 border border-amber-300")});
 document.getElementById("tags").innerHTML=tg.map(function(x){return '<span class="px-2 py-0.5 rounded-full bg-sky-100 text-sky-800">'+esc(x)+'</span>'}).join("");
 var vs=["vCards","vTable","vKanban","vPauta","vChat","vReuniao"];vs.forEach(function(id){document.getElementById(id).classList.add("hidden")});
 if(view==="cards"){document.getElementById("vCards").classList.remove("hidden");document.getElementById("vCards").classList.add("grid");cards(l)}
@@ -344,7 +374,7 @@ if(ehTexto){
   document.getElementById("reuniaoTexto").value=t;
   arquivoSel=null;
   var palavras=t.split(/\s+/).filter(Boolean).length;
-  setStatus("Transcrição carregada: "+palavras.toLocaleString("pt-BR")+" palavras, ~"+Math.round(palavras/130)+" min de fala. Clique em Processar.","text-emerald-600");
+  setStatus("Transcrição carregada: "+palavras.toLocaleString("pt-BR")+" palavras, ~"+Math.round(palavras/130)+" min de fala. Clique em Analisar.","text-emerald-600");
  };
  r.onerror=function(){setStatus("Não consegui ler o arquivo.","text-rose-600")};
  r.readAsText(f,"utf-8");
@@ -352,7 +382,7 @@ if(ehTexto){
  return}
 arquivoSel=f;document.getElementById("fileName").textContent=f.name+" · "+(f.size/1048576).toFixed(1)+" MB";
 if(f.size>20*1024*1024){setStatus("Áudio de "+(f.size/1048576).toFixed(1)+" MB passa do limite de 20 MB. Divida o áudio ou suba a transcrição em .txt.","text-rose-600");var b=document.getElementById("btnProcessar");if(b)b.disabled=false;return}
-setStatus("Áudio pronto ("+(f.size/1048576).toFixed(1)+" MB). Clique em Processar.","text-emerald-600")}
+setStatus("Áudio pronto ("+(f.size/1048576).toFixed(1)+" MB). Clique em Analisar.","text-emerald-600")}
 function processar(){var txt=document.getElementById("reuniaoTexto").value.trim();
 if(!gkey()){abrirChave();setStatus("Configure a chave do Gemini primeiro.","text-amber-600");return}
 if(!arquivoSel&&!txt){setStatus("Escolha um arquivo ou cole o texto da reunião.","text-amber-600");return}
@@ -637,9 +667,13 @@ document.querySelectorAll(".vb").forEach(function(x){x.className="vb px-2.5 py-1
 b.className="vb px-2.5 py-1.5 rounded-md bg-white text-slate-900 shadow-sm font-bold whitespace-nowrap";
 view=b.dataset.v;render()}});
 ["q","fPrazo","fArea","fResp","fStatus","fPrio"].forEach(function(id){var e=document.getElementById(id);e.addEventListener(id==="q"?"input":"change",render)});
+document.querySelectorAll(".faltaBtn").forEach(function(b){b.onclick=function(){faltaFiltro=(faltaFiltro===b.dataset.falta)?"todos":b.dataset.falta;render()}});
+var ka=document.getElementById("kAlerta");if(ka)ka.onclick=function(){faltaFiltro=(faltaFiltro==="qualquer")?"todos":"qualquer";if(faltaFiltro==="qualquer"){document.getElementById("fPrio").value="ALL";document.getElementById("fStatus").value="ALL";document.getElementById("fArea").value="ALL";document.getElementById("fResp").value="ALL";document.getElementById("fPrazo").value="ALL";document.getElementById("q").value=""}render()};
 document.getElementById("btnResumo").onclick=function(){var l=filtrados();
 var out=["*RESUMO — JUSSARA & VENTURA* ("+new Date().toLocaleDateString("pt-BR")+")","Total filtrado: "+l.length,""];
-l.forEach(function(t,i){out.push((i+1)+". ["+t.area+"] "+t.title);out.push("   • "+t.assignee+" | "+t.deadline+" ("+t.priority+") | "+t.status)});
+var nFalta=l.filter(function(t){return t.status!=="Concluído"&&precisaAtencao(t)}).length;
+if(nFalta)out.push("⚠ "+nFalta+" ação(ões) sem responsável ou sem prazo","");
+l.forEach(function(t,i){out.push((i+1)+". ["+t.area+"] "+t.title);out.push("   • "+t.assignee+" | "+t.deadline+" ("+t.priority+") | "+t.status+(precisaAtencao(t)?" ⚠ falta "+lacunas(t).join(" e "):""))});
 var txt=out.join("\n");
 if(navigator.clipboard){navigator.clipboard.writeText(txt).then(function(){toast("Resumo copiado","ok")}).catch(fallback)}else fallback();
 function fallback(){var ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();toast("Resumo copiado","ok")}};
