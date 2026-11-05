@@ -348,30 +348,68 @@ enviarExtrair([{text:tr}],"A reunião está transcrita abaixo:\n\n")})
 function enviarExtrair(parts,preambulo){
 var existentes=T.map(function(t){return t.title}).join("\n");
 var instrucao="Voce analisa reunioes da conta Jussara & Ventura (cliente: Jussara Laticinios; agencia: Ventura).\n"+
-"Da transcricao, extraia as ACOES concretas combinadas. Para cada uma devolva:\n"+
-"- title (curto, comecando com verbo)\n- assignee (quem ficou responsavel; use o nome citado, ou 'A definir')\n"+
-"- deadline (DD/MM/AAAA; se nao houver data explicita, use 'A definir' — NUNCA invente)\n"+
-"- priority (Critica|Alta|Media|Baixa)\n- area (MaxPro|Sonhos|SPRIM|Influencia|Institucional|RH|Planejamento)\n"+
-"- context (1-2 frases do que foi dito)\n- topicTitle (assunto/tema da acao)\n"+
-"- duplicada_de (se ja existir acao igual nesta lista, escreva o titulo dela; senao vazio)\n\n"+
-"ACOES QUE JA EXISTEM:\n"+existentes+"\n\n"+
-"Responda APENAS um JSON valido: {\"acoes\":[{...}]} sem markdown, sem texto antes ou depois.";
+"Da transcricao, extraia as ACOES concretas combinadas. Seja fiel ao que foi dito; nao invente nada.\n"+
+"Regras: title curto comecando com verbo; assignee = nome citado ou 'A definir'; deadline em DD/MM/AAAA "+
+"somente se a data foi dita, senao 'A definir'; priority em Critica/Alta/Media/Baixa; "+
+"area em MaxPro/Sonhos/SPRIM/Influencia/Institucional/RH/Planejamento; context com 1-2 frases do que foi dito; "+
+"topicTitle = assunto/tema; duplicada_de = titulo de acao ja existente que seja a mesma coisa, senao string vazia.\n\n"+
+"ACOES QUE JA EXISTEM:\n"+existentes;
 parts=[{text:instrucao}].concat(parts);
-var body={contents:[{role:"user",parts:parts}],generationConfig:{temperature:0.1,maxOutputTokens:4000}};
+var SCHEMA={type:"OBJECT",properties:{acoes:{type:"ARRAY",items:{type:"OBJECT",properties:{
+title:{type:"STRING"},assignee:{type:"STRING"},deadline:{type:"STRING"},priority:{type:"STRING"},
+area:{type:"STRING"},context:{type:"STRING"},topicTitle:{type:"STRING"},duplicada_de:{type:"STRING"}},
+required:["title","assignee","deadline","priority","area","context","topicTitle"]}}},required:["acoes"]};
+var body={contents:[{role:"user",parts:parts}],generationConfig:{temperature:0.1,maxOutputTokens:8192,responseMimeType:"application/json",responseSchema:SCHEMA}};
 fetch("https://generativelanguage.googleapis.com/v1beta/models/"+MODELOS[0]+":generateContent?key="+encodeURIComponent(gkey()),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)})
 .then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error((j.error&&j.error.message)||("HTTP "+r.status));return j})})
 .then(function(j){var c=j.candidates&&j.candidates[0];if(!c||!c.content)throw new Error("Sem resposta do modelo");
+var motivo=(c.finishReason||"");
 var raw=c.content.parts.map(function(p){return p.text||""}).join("").trim();
-raw=raw.replace(/^```(?:json)?/i,"").replace(/```$/,"").trim();
-var ini=raw.indexOf("{"),fim=raw.lastIndexOf("}");
-if(ini<0||fim<0)throw new Error("A resposta não veio em JSON");
-var obj=JSON.parse(raw.slice(ini,fim+1));
-PROPOSTAS=(obj.acoes||[]).map(function(a,i){return{id:"NOVO-"+(i+1),title:a.title||"(sem título)",assignee:a.assignee||"A definir",deadline:a.deadline||"A definir",priority:a.priority||"Média",area:a.area||"Institucional",context:a.context||"",topicTitle:a.topicTitle||"Itens de reunião",duplicada_de:a.duplicada_de||"",sel:!a.duplicada_de}});
+var obj=parseTolerante(raw);
+if(!obj||!obj.acoes)throw new Error("Não consegui ler o JSON"+(motivo&&motivo!=="STOP"?" (motivo: "+motivo+")":""));
+PROPOSTAS=(obj.acoes||[]).map(function(a,i){return{id:"NOVO-"+(i+1),title:a.title||"(sem título)",assignee:a.assignee||"A definir",deadline:a.deadline||"A definir",priority:(a.priority||"Média"),area:a.area||"Institucional",context:a.context||"",topicTitle:a.topicTitle||"Itens de reunião",duplicada_de:a.duplicada_de||"",sel:!a.duplicada_de}});
 renderPropostas();
 var dup=PROPOSTAS.filter(function(p){return p.duplicada_de}).length;
 setStatus(PROPOSTAS.length+" ações propostas"+(dup?", "+dup+" marcadas como duplicata (desmarcadas)":"")+". Revise e aprove.","text-emerald-600");
 document.getElementById("btnProcessar").disabled=false})
 .catch(function(e){setStatus("Erro ao extrair: "+e.message,"text-rose-600");document.getElementById("btnProcessar").disabled=false})}
+
+/* Parser tolerante: limpa markdown, corrige vírgula sobrando e fecha o que ficou aberto */
+function parseTolerante(raw){
+if(!raw)return null;
+var s=String(raw).trim();
+s=s.replace(/^```(?:json)?/i,"").replace(/```\s*$/,"").trim();
+var ini=s.indexOf("{");if(ini<0)return null;
+s=s.slice(ini);
+try{return JSON.parse(s)}catch(e){}
+var t=s.replace(/,\s*([}\]])/g,"$1");
+try{return JSON.parse(t)}catch(e){}
+return repararJSON(t)}
+/* Fecha chaves/colchetes abertos respeitando strings, tentando do último item completo para trás */
+function repararJSON(txt){
+var pl=[],es=false,ec=false,bons=[];
+for(var i=0;i<txt.length;i++){var ch=txt[i];
+if(es){if(ec){ec=false}else if(ch==="\\"){ec=true}else if(ch==='"'){es=false}continue}
+if(ch==='"'){es=true;continue}
+if(ch==="{"||ch==="["){pl.push(ch);continue}
+if(ch==="}"||ch==="]"){
+ var topo=pl[pl.length-1];
+ if(topo&&((ch==="}"&&topo==="{")||(ch==="]"&&topo==="["))){pl.pop()}
+ if(ch==="}"&&pl.length===2&&pl[0]==="{"&&pl[1]==="["){bons.push(i)}
+}}
+function fecharAte(pos){
+ var q=[],st=false,sc=false;
+ for(var k=0;k<=pos&&k<txt.length;k++){var c=txt[k];
+  if(st){if(sc){sc=false}else if(c==="\\"){sc=true}else if(c==='"'){st=false}continue}
+  if(c==='"'){st=true;continue}
+  if(c==="{"||c==="[")q.push(c);
+  else if(c==="}"||c==="]"){if(q.length)q.pop()}}
+ var fim="";
+ for(var m=q.length-1;m>=0;m--){fim+=q[m]==="{"?"}":"]"}
+ return txt.slice(0,pos+1)+fim}
+for(var b=bons.length-1;b>=0;b--){try{var r=JSON.parse(fecharAte(bons[b]));if(r&&r.acoes)return r}catch(e){}}
+try{return JSON.parse(fecharAte(txt.length-1))}catch(e){}
+return null}
 function renderPropostas(){var c=document.getElementById("propList");
 document.getElementById("propCount").textContent=PROPOSTAS.length?PROPOSTAS.filter(function(p){return p.sel}).length+" de "+PROPOSTAS.length+" selecionadas":"";
 document.getElementById("btnAplicar").disabled=!PROPOSTAS.some(function(p){return p.sel});
