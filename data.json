@@ -804,7 +804,7 @@
       "priority": "Crítica",
       "status": "Pendente",
       "context": "Repetir o modelo 2026: 4-5 objetivos de negócio (rentabilidade, portfólio, redes) + pilares de comunicação (ex.: Sabor que conecta, Jussara cuida do futuro). Validar com Laércio e Bergson antes de avançar.",
-      "notes": "Modelo: slides 24 e 26 do deck 2026."
+      "notes": "Modelo: slides 24 e 26 do deck 2026. Validar com Laércio (diretoria Jussara) antes de avançar."
     },
     {
       "id": "PLN-04",
@@ -838,12 +838,12 @@
       "topicTitle": "Planejamento 2027 — Construção guiada",
       "area": "Planejamento",
       "title": "Etapa 5 — Orçamento 2027: verba por linha e cenários",
-      "assignee": "Léo / Bergson / Laércio",
+      "assignee": "Léo / Laércio",
       "deadline": "18/12/2026",
       "priority": "Crítica",
       "status": "Pendente",
       "context": "Montar tabela de investimento por linha (Trade, Ativação, Assessoria, Influenciadores, Mídia, Filmes, Conteúdos, Time, CRM, ESG, Eventos, Sonhos, IA/RA, Oportunidades) em 2 cenários: completo e reduzido. 2026: R$ 3,97M completo vs R$ 2,10M reduzido (corte R$ 1,88M ainda não decidido).",
-      "notes": "Modelo: slides 42-44. Decidir cedo qual cenário — impacta todo o cronograma."
+      "notes": "Modelo: slides 42-44. Decidir cedo qual cenário — impacta todo o cronograma. Aprovação de verba é da diretoria da Jussara (Laércio)."
     },
     {
       "id": "PLN-07",
@@ -855,7 +855,7 @@
       "deadline": "20/12/2026",
       "priority": "Alta",
       "status": "Pendente",
-      "context": "Apresentar o planejamento 2027 para diretoria (Laércio, Bergson, Dayanne). Após aprovação, carregar cada ação do cronograma na aba Ações do painel com área, responsável, prazo e prioridade — o painel passa a gerir o plano como geriu o 2026.",
+      "context": "Apresentar o planejamento 2027 para diretoria (Laércio e o time da Jussara). Após aprovação, carregar cada ação do cronograma na aba Ações do painel com área, responsável, prazo e prioridade — o painel passa a gerir o plano como geriu o 2026.",
       "notes": "O painel já está pronto: área 'Planejamento', tópicos por etapa, visão Frentes mostra o card macro."
     }
   ],
