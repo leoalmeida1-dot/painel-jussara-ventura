@@ -1,7 +1,10 @@
 /* ============================================================
    CAMADA DE IDENTIDADE E LOG  (carrega DEPOIS de app.js)
-   Registra quem fez o que e ENVIA AUTOMATICAMENTE a cada alteracao.
+   Registra quem fez o que e envia AUTOMATICAMENTE a cada alteracao.
    ============================================================ */
+
+/* ===== DESTINO DO ENVIO: Apps Script instalado em 06/11/2026 ===== */
+var SYNC_WEBHOOK = "https://script.google.com/macros/s/AKfycby1Lg-Fq7Pz37MPuz3uLEhmvaZoR2h-W3_D2sLuHLjPyU2__3GrhCypSMMun8PMDJ4IXw/exec";
 
 var UKEY="jussara_usuario";
 var LKEY="jussara_logfila";
@@ -52,7 +55,7 @@ agendaAuto();
 
 /* ---------- ENVIO AUTOMATICO ---------- */
 var AUTO_T=null;
-var AUTO_MS=2500;        /* espera 2,5s de silencio e manda */
+var AUTO_MS=2500;
 var AKEY="jussara_autoenvio";
 var ENVIANDO=false;
 
@@ -66,7 +69,7 @@ pintaAuto();
 function pintaAuto(){
 var b=document.getElementById("btnAuto"); if(!b) return;
 var on=autoLigado();
-b.textContent = on ? "⟳ automático" : "⟳ manual";
+b.textContent = on ? "\u27f3 automático" : "\u27f3 manual";
 b.title = on ? "As alterações são enviadas sozinhas. Clique para desligar." : "Envio só ao clicar em Enviar. Clique para ligar o automático.";
 b.className="inline-flex items-center gap-1.5 px-2.5 py-2 text-xs font-medium rounded-lg border "+
  (on?"text-emerald-800 bg-emerald-50 border-emerald-300":"text-slate-600 bg-slate-100 border-slate-300");
@@ -88,7 +91,7 @@ var payload={acao:"sync_painel",origem:"painel-jussara",enviado_em:agoraStr(),
  json:JSON.stringify({log:lote})};
 fetch(SYNC_WEBHOOK,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(payload)})
 .then(function(){
- LOGF=LOGF.slice(lote.length);   /* remove so o lote enviado */
+ LOGF=LOGF.slice(lote.length);
  salvaLog(); atualizaBadgeLog();
  ENVIANDO=false;
  marcaStatus("enviado");
@@ -106,7 +109,7 @@ var cor = txt==="offline" ? "text-amber-800 bg-amber-50 border-amber-300" :
           txt==="enviando" ? "text-sky-800 bg-sky-50 border-sky-300" :
           "text-emerald-800 bg-emerald-50 border-emerald-300";
 b.className="inline-flex items-center gap-1.5 px-2.5 py-2 text-xs font-medium rounded-lg border "+cor;
-b.textContent = txt==="offline" ? "⚠ sem rede" : "⟳ automático";
+b.textContent = txt==="offline" ? "\u26a0 sem rede" : "\u27f3 automático";
 if(txt!=="offline") setTimeout(pintaAuto,1800);
 }
 function bindAuto(){
@@ -189,7 +192,7 @@ box.innerHTML=e.chk.map(function(c,i){
  return '<div class="flex items-start gap-2 px-1 py-1 rounded hover:bg-slate-50 group">'+
  '<input type="checkbox" data-chk="'+i+'" '+(c.ok?"checked":"")+' class="mt-0.5 rounded text-emerald-600 h-3.5 w-3.5 shrink-0 cursor-pointer">'+
  '<span class="flex-1 text-[11px] leading-snug '+(c.ok?"line-through text-slate-400":"text-slate-700")+'">'+esc(c.t)+'</span>'+
- '<button data-chkdel="'+i+'" class="text-slate-300 hover:text-rose-600 text-xs shrink-0 opacity-0 group-hover:opacity-100">×</button></div>';
+ '<button data-chkdel="'+i+'" class="text-slate-300 hover:text-rose-600 text-xs shrink-0 opacity-0 group-hover:opacity-100">\u00d7</button></div>';
 }).join("");
 box.querySelectorAll("[data-chk]").forEach(function(cb){
  cb.onchange=function(){
@@ -271,7 +274,7 @@ fetch(SYNC_WEBHOOK,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/p
 .then(function(){
  btn.disabled=false;
  var n=loteLog.length;
- LOGF=LOGF.slice(n);   /* remove so o que foi neste envio */
+ LOGF=LOGF.slice(n);
  salvaLog(); atualizaBadgeLog();
  toast(chk.length+" itens + "+tl.length+" eventos + "+n+" registros de log enviados","ok");
  baixarSync(chk,tl,true);
