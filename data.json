@@ -791,7 +791,7 @@
       "priority": "Crítica",
       "status": "Pendente",
       "context": "Revisar o que executou bem e o que ficou em stand-by em 2026 (Gerações, Websérie, Assessoria, Reciclagem). Base: objetivos 2026 (rentabilidade, reduzir dependência UHT, redes médias/grandes, Creator Economy) vs realizado. Consolidar sell-out por campanha (ex.: Irmãos Patrocínio +150%).",
-      "notes": "Insumo: aba Ações do painel + relatórios de vendas."
+      "notes": "Insumo: aba Ações do painel (59 ações) + relatórios de vendas."
     },
     {
       "id": "PLN-03",
@@ -803,8 +803,8 @@
       "deadline": "27/11/2026",
       "priority": "Crítica",
       "status": "Pendente",
-      "context": "Repetir o modelo 2026: 4-5 objetivos de negócio (rentabilidade, portfólio, redes) + pilares de comunicação (ex.: Sabor que conecta, Jussara cuida do futuro). Validar com Laércio e Bergson antes de avançar.",
-      "notes": "Modelo: slides 24 e 26 do deck 2026. Validar com Laércio (diretoria Jussara) antes de avançar."
+      "context": "Repetir o modelo 2026: 4-5 objetivos de negócio (rentabilidade, portfólio, redes) + pilares de comunicação (ex.: Sabor que conecta, Jussara cuida do futuro). Fluxo de aprovação: 1º Messias, 2º Laércio.",
+      "notes": "Modelo: slides 24 e 26 do deck 2026. Fluxo de aprovação: 1º Messias, 2º Laércio. Guilherme não tem poder de decisão sobre o plano."
     },
     {
       "id": "PLN-04",
@@ -816,7 +816,7 @@
       "deadline": "04/12/2026",
       "priority": "Alta",
       "status": "Pendente",
-      "context": "Atualizar SWOT e mapear eventos do ano: férias, datas sazonais, eleições municipais, lançamentos de produto (whey, MaxPro linha completa).",
+      "context": "Atualizar SWOT (forças/fragilidades/oportunidades/ameaças) e mapear eventos do ano: férias, datas sazonais, Copa (se houver desdobramento), eleições municipais, lançamentos de produto (whey, MaxPro linha completa).",
       "notes": "Modelo: slides 28-29 do deck 2026."
     },
     {
@@ -829,7 +829,7 @@
       "deadline": "11/12/2026",
       "priority": "Crítica",
       "status": "Pendente",
-      "context": "Distribuir campanhas nos 12 meses seguindo o padrão 2026: JAN lançamento produto, FEV carnaval/volta às aulas, MAR consumidor/nutrição, ABR páscoa+evento esportivo, MAI mães/inverno, JUN junina, JUL férias, AGO pais, SET semana do brasil, OUT crianças, NOV black friday, DEZ natal. Cada ação com pilar, responsável e verba.",
+      "context": "Distribuir campanhas e ações nos 12 meses seguindo o padrão 2026: JAN lançamento produto, FEV carnaval/volta às aulas, MAR consumidor/nutrição, ABR páscoa+evento esportivo, MAI mães/inverno, JUN junina, JUL férias, AGO pais, SET semana do brasil, OUT crianças, NOV black friday, DEZ natal. Cada ação com pilar, responsável e verba.",
       "notes": "Modelo: slides 30-38 do deck 2026. Usar a aba Acoes do painel com área 'Planejamento'."
     },
     {
@@ -838,12 +838,12 @@
       "topicTitle": "Planejamento 2027 — Construção guiada",
       "area": "Planejamento",
       "title": "Etapa 5 — Orçamento 2027: verba por linha e cenários",
-      "assignee": "Léo / Laércio",
+      "assignee": "Léo / Ventura",
       "deadline": "18/12/2026",
       "priority": "Crítica",
       "status": "Pendente",
       "context": "Montar tabela de investimento por linha (Trade, Ativação, Assessoria, Influenciadores, Mídia, Filmes, Conteúdos, Time, CRM, ESG, Eventos, Sonhos, IA/RA, Oportunidades) em 2 cenários: completo e reduzido. 2026: R$ 3,97M completo vs R$ 2,10M reduzido (corte R$ 1,88M ainda não decidido).",
-      "notes": "Modelo: slides 42-44. Decidir cedo qual cenário — impacta todo o cronograma. Aprovação de verba é da diretoria da Jussara (Laércio)."
+      "notes": "Modelo: slides 42-44. Fluxo: 1º Messias aprova, 2º Laércio aprova, 3º TetraPak valida o orçamento. Guilherme não tem poder de decisão."
     },
     {
       "id": "PLN-07",
@@ -855,8 +855,8 @@
       "deadline": "20/12/2026",
       "priority": "Alta",
       "status": "Pendente",
-      "context": "Apresentar o planejamento 2027 para diretoria (Laércio e o time da Jussara). Após aprovação, carregar cada ação do cronograma na aba Ações do painel com área, responsável, prazo e prioridade — o painel passa a gerir o plano como geriu o 2026.",
-      "notes": "O painel já está pronto: área 'Planejamento', tópicos por etapa, visão Frentes mostra o card macro."
+      "context": "Apresentar o planejamento 2027 seguindo o fluxo de aprovação: Messias primeiro, Laércio depois, TetraPak valida o orçamento. Após aprovação, carregar cada ação do cronograma na aba Ações do painel com área, responsável, prazo e prioridade.",
+      "notes": "O painel já está pronto: área Planejamento, tópicos por etapa, visão Frentes mostra o card macro. Guilherme não decide o plano."
     }
   ],
   "ata": {
@@ -889,7 +889,7 @@
     "22": "Da transcrição 05/11: levantamento de perfis de influenciadores para o squad MaxPro (6 perfis pré-selecionados).",
     "23": "Da transcrição 05/11: estratégia de influência MaxPro — aula temática em academia e kits para pessoas reais (não só influenciadores).",
     "29": "Cronograma 2026 extraído do deck Canva (44 slides): 12 meses mapeados, de JAN (lançamento Vai de Leite) a DEZ (Natal + produção final de ano). Pautas da reunião 11/09 registradas no slide 40; ideias de campanha (bonequinhos, cristais, resgate nostálgico, drinks sem álcool) no slide 41.",
-    "30": "Estrutura guiada de construção do Planejamento 2027, espelhada no modelo 2026: 6 etapas — Diagnóstico (20/11) → Objetivos (27/11) → SWOT e contexto (04/12) → Cronograma (11/12) → Orçamento em 2 cenários (18/12) → Aprovação e carga no painel (20/12). Cada etapa vira ação com prazo e responsável."
+    "30": "Estrutura guiada de construção do Planejamento 2027, espelhada no modelo 2026: 6 etapas — Diagnóstico (20/11) → Objetivos (27/11) → SWOT e contexto (04/12) → Cronograma (11/12) → Orçamento em 2 cenários (18/12) → Aprovação e carga no painel (20/12). <b>Fluxo de aprovação:</b> Messias aprova primeiro → Laércio aprova depois → TetraPak valida o orçamento. Guilherme não tem poder de decisão sobre o plano."
   },
   "atualizado": "06/11/2026"
 }
