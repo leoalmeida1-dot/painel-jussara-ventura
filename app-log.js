@@ -1,6 +1,6 @@
 /* ============================================================
    CAMADA DE IDENTIDADE E LOG  (carrega DEPOIS de app.js)
-   Registra quem fez o que, e envia junto com o "Enviar p/ planilha".
+   Registra quem fez o que e ENVIA AUTOMATICAMENTE a cada alteracao.
    ============================================================ */
 
 var UKEY="jussara_usuario";
@@ -28,9 +28,11 @@ atualizaBadgeLog();
 function carregaLog(){
 try{ LOGF=JSON.parse(localStorage.getItem(LKEY)||"[]")||[]; }catch(e){ LOGF=[]; }
 atualizaBadgeLog();
+if(LOGF.length) agendaAuto();
 }
-function atualizaBadgeLog(){
+function atualizaBadgeLog(estado){
 var b=document.getElementById("btnSync"); if(!b) return;
+if(estado==="enviando"){ b.textContent="\u21a5 enviando…"; return; }
 b.textContent = LOGF.length ? ("\u21a5 Enviar p/ planilha ("+LOGF.length+")") : "\u21a5 Enviar p/ planilha";
 }
 function logEv(o){
@@ -45,6 +47,95 @@ LOGF.push({
  para: o.para==null?"":String(o.para)
 });
 salvaLog();
+agendaAuto();
+}
+
+/* ---------- ENVIO AUTOMATICO ---------- */
+var AUTO_T=null;
+var AUTO_MS=2500;        /* espera 2,5s de silencio e manda */
+var AKEY="jussara_autoenvio";
+var ENVIANDO=false;
+
+function autoLigado(){
+try{ var v=localStorage.getItem(AKEY); return v===null ? true : v==="1"; }catch(e){ return true; }
+}
+function ligaAuto(on){
+try{ localStorage.setItem(AKEY,on?"1":"0"); }catch(e){}
+pintaAuto();
+}
+function pintaAuto(){
+var b=document.getElementById("btnAuto"); if(!b) return;
+var on=autoLigado();
+b.textContent = on ? "⟳ automático" : "⟳ manual";
+b.title = on ? "As alterações são enviadas sozinhas. Clique para desligar." : "Envio só ao clicar em Enviar. Clique para ligar o automático.";
+b.className="inline-flex items-center gap-1.5 px-2.5 py-2 text-xs font-medium rounded-lg border "+
+ (on?"text-emerald-800 bg-emerald-50 border-emerald-300":"text-slate-600 bg-slate-100 border-slate-300");
+}
+function agendaAuto(){
+if(!autoLigado()){ atualizaBadgeLog(); return; }
+atualizaBadgeLog();
+if(AUTO_T) clearTimeout(AUTO_T);
+AUTO_T=setTimeout(function(){ AUTO_T=null; enviaPendentes(); }, AUTO_MS);
+}
+function enviaPendentes(){
+if(ENVIANDO) return;
+if(!LOGF.length) return;
+var lote=LOGF.slice();
+ENVIANDO=true;
+atualizaBadgeLog("enviando");
+var payload={acao:"sync_painel",origem:"painel-jussara",enviado_em:agoraStr(),
+ quem:quem(),checklist:[],timeline:[],log:lote,
+ json:JSON.stringify({log:lote})};
+fetch(SYNC_WEBHOOK,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(payload)})
+.then(function(){
+ LOGF=LOGF.slice(lote.length);   /* remove so o lote enviado */
+ salvaLog(); atualizaBadgeLog();
+ ENVIANDO=false;
+ marcaStatus("enviado");
+})
+.catch(function(e){
+ ENVIANDO=false;
+ atualizaBadgeLog();
+ marcaStatus("offline");
+ setTimeout(function(){ if(autoLigado()&&LOGF.length) enviaPendentes(); },20000);
+});
+}
+function marcaStatus(txt){
+var b=document.getElementById("btnAuto"); if(!b) return;
+var cor = txt==="offline" ? "text-amber-800 bg-amber-50 border-amber-300" :
+          txt==="enviando" ? "text-sky-800 bg-sky-50 border-sky-300" :
+          "text-emerald-800 bg-emerald-50 border-emerald-300";
+b.className="inline-flex items-center gap-1.5 px-2.5 py-2 text-xs font-medium rounded-lg border "+cor;
+b.textContent = txt==="offline" ? "⚠ sem rede" : "⟳ automático";
+if(txt!=="offline") setTimeout(pintaAuto,1800);
+}
+function bindAuto(){
+try{
+ if(!document.getElementById("btnAuto")){
+  var ref=document.getElementById("btnSync");
+  if(ref && ref.parentNode){
+   var nb=document.createElement("button");
+   nb.id="btnAuto"; nb.type="button";
+   nb.onclick=function(){
+    ligaAuto(!autoLigado());
+    toast(autoLigado()?"Envio automático ligado":"Envio só ao clicar","ok");
+    if(autoLigado()&&LOGF.length) agendaAuto();
+   };
+   ref.parentNode.insertBefore(nb, ref);
+  }
+ }
+}catch(e){}
+pintaAuto();
+window.addEventListener("beforeunload",function(){
+ if(autoLigado() && LOGF.length){
+  try{
+   var lote=LOGF.slice();
+   var corpo=JSON.stringify({acao:"sync_painel",origem:"painel-jussara",enviado_em:agoraStr(),quem:quem(),checklist:[],timeline:[],log:lote});
+   if(navigator.sendBeacon){ navigator.sendBeacon(SYNC_WEBHOOK, new Blob([corpo],{type:"text/plain"})); }
+  }catch(e){}
+ }
+});
+window.addEventListener("online",function(){ if(autoLigado()&&LOGF.length) enviaPendentes(); });
 }
 
 /* ---------- MODAL "QUEM ESTA USANDO" ---------- */
@@ -71,7 +162,7 @@ pintaQuem();
 if(!quem()) setTimeout(abre,700);
 }
 
-/* ---------- VERSOES COM LOG (sobrescrevem as do app.js) ---------- */
+/* ---------- VERSOES COM LOG ---------- */
 function toggle(id){
 var t=T.filter(function(x){return x.id===id})[0]; if(!t) return;
 var de=t.status;
@@ -166,20 +257,22 @@ b.onclick=function(){
 };
 }
 
-/* ---------- ENVIO LEVANDO O LOG ---------- */
+/* ---------- ENVIO MANUAL (manda tudo: checklist, timeline e log) ---------- */
 function enviarPlanilha(){
 var chk=todasChk(), tl=todasTl();
 if(!chk.length && !tl.length && !LOGF.length){ toast("Nada para enviar ainda — preencha um checklist primeiro","warn"); return; }
 var btn=document.getElementById("btnSync");
 btn.disabled=true; btn.textContent="enviando…";
+var loteLog=LOGF.slice();
 var payload={acao:"sync_painel",origem:"painel-jussara",enviado_em:agoraStr(),
- quem:quem(),checklist:chk,timeline:tl,log:LOGF.slice(),
- json:JSON.stringify({checklist:chk,timeline:tl,log:LOGF})};
+ quem:quem(),checklist:chk,timeline:tl,log:loteLog,
+ json:JSON.stringify({checklist:chk,timeline:tl,log:loteLog})};
 fetch(SYNC_WEBHOOK,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(payload)})
 .then(function(){
  btn.disabled=false;
- var n=LOGF.length;
- LOGF=[]; salvaLog(); atualizaBadgeLog();
+ var n=loteLog.length;
+ LOGF=LOGF.slice(n);   /* remove so o que foi neste envio */
+ salvaLog(); atualizaBadgeLog();
  toast(chk.length+" itens + "+tl.length+" eventos + "+n+" registros de log enviados","ok");
  baixarSync(chk,tl,true);
 })
@@ -194,6 +287,7 @@ fetch(SYNC_WEBHOOK,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/p
 document.addEventListener("DOMContentLoaded",function(){
 carregaLog();
 bindQuem();
+bindAuto();
 bindSalvarFicha();
 var bs=document.getElementById("btnSync"); if(bs) bs.onclick=enviarPlanilha;
 });
