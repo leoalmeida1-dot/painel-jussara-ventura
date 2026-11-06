@@ -9,9 +9,9 @@
       "assignee": "Culturall / Léo / Messias",
       "deadline": "05/11/2026",
       "priority": "Alta",
-      "status": "Pendente",
+      "status": "Concluído",
       "context": "Apresentação dos dados consolidados de tráfego, alcance, engajamento e métricas de conversão digital referentes ao mês de outubro.",
-      "notes": ""
+      "notes": "Reunião realizada em 05/11. Próximo: apresentar resultados na terça 10/11 (prévia de pauta)."
     },
     {
       "id": "ACT-02",
@@ -20,11 +20,11 @@
       "area": "Sonhos",
       "title": "Estruturar apresentação executiva dos 3 atos do formato cênico",
       "assignee": "Tchuco",
-      "deadline": "05/11/2026",
+      "deadline": "10/11/2026",
       "priority": "Alta",
       "status": "Em Andamento",
       "context": "Tchuco/Ventura desenvolvem apresentação executiva com moodboard (Granado, Capitão Fantástico, Wonka) e roteiro dos 3 atos para validação com família e diretoria.",
-      "notes": "Apresentação com moodboard para esta semana."
+      "notes": "João entrega a apresentação executiva na terça 10/11 (junto com cenografia)."
     },
     {
       "id": "ACT-03",
@@ -87,9 +87,9 @@
       "assignee": "Léo",
       "deadline": "05/11/2026",
       "priority": "Alta",
-      "status": "Em Andamento",
+      "status": "Concluído",
       "context": "Definir onde Malu vai tocar e com quem: avaliar mentoria com Fadu e apresentação no estúdio de Beto Eliezé (Cristais Paulista).",
-      "notes": "Deliberado na reunião de 03/11."
+      "notes": "Definido em 05/11: mentoria com Fadu (Olfador) ou Marquinhos Sabino; gravação final no estúdio do Beto Eliezé (amigo de Laércio). Beto Eliezé como espaço confirmado."
     },
     {
       "id": "ACT-08",
@@ -113,9 +113,9 @@
       "assignee": "Messias",
       "deadline": "05/11/2026",
       "priority": "Alta",
-      "status": "Em Andamento",
+      "status": "Concluído",
       "context": "Formalizar matrícula no curso de YouTuber com Fabrício, cotar kit de gravação e entregar mochila oficial com carta.",
-      "notes": ""
+      "notes": "Mundo Lúdico cancelado em 05/11 — não vai mais ter. Mochila com carta segue por conta própria."
     },
     {
       "id": "ACT-10",
@@ -152,9 +152,9 @@
       "assignee": "Gabriel",
       "deadline": "05/11/2026",
       "priority": "Alta",
-      "status": "Pendente",
+      "status": "Concluído",
       "context": "Retificação definitiva para 'Sabor que conecta aos sonhos'. Logo do Projeto Sonhos e QR Code das embalagens na folhinha de mesa.",
-      "notes": ""
+      "notes": "Concluído em 05/11 (Gabriel)."
     },
     {
       "id": "ACT-13",
@@ -167,7 +167,7 @@
       "priority": "Crítica",
       "status": "Em Andamento",
       "context": "Ventura finalizar o enxoval comercial de pré-venda, catálogo e lâminas para a Reunião de Vendas com a equipe de campo.",
-      "notes": "Item obrigatório para a reunião de sexta-feira."
+      "notes": "Tchuco apresentou em 05/11. Avança, mas não conclui: próximo passo é apresentar à equipe de vendas (06/11 09h)."
     },
     {
       "id": "ACT-14",
@@ -176,11 +176,11 @@
       "area": "MaxPro",
       "title": "Reunião de Vendas e Trade MaxPro com supervisores e equipe de campo",
       "assignee": "Ventura",
-      "deadline": "05/11/2026",
+      "deadline": "06/11/2026",
       "priority": "Crítica",
       "status": "Em Andamento",
       "context": "Reunião confirmada para sexta-feira (06/11 às 09h00) na Jussara com Guilherme, supervisores e equipe comercial.",
-      "notes": "Agendada em 03/11 para 06/11 às 09h00."
+      "notes": "Confirmada para 06/11 às 09h30 na Jussara (Leo tentará chegar 09h30)."
     },
     {
       "id": "ACT-15",
@@ -191,9 +191,9 @@
       "assignee": "Messias",
       "deadline": "05/11/2026",
       "priority": "Crítica",
-      "status": "Em Andamento",
+      "status": "Concluído",
       "context": "Messias compartilhou arquivo completo em PDF das embalagens no grupo (4 cores e variações) pronto para aprovação fabril.",
-      "notes": ""
+      "notes": "Concluído em 05/11 — arquivos e prova de cor validados."
     },
     {
       "id": "ACT-16",
@@ -202,11 +202,11 @@
       "area": "MaxPro",
       "title": "Desenvolver conjunto de imagens e criativos para Mercado Livre",
       "assignee": "Ventura",
-      "deadline": "05/11/2026",
+      "deadline": "26/11/2026",
       "priority": "Alta",
       "status": "Pendente",
       "context": "Enxoval no padrão YoPRO: imagem 1 fundo branco puro, 2 vídeo, 3 lifestyle, 4 benefícios nutricionais, com selos de packs de 12 e 24 unidades.",
-      "notes": ""
+      "notes": "Definido em 05/11: artes do Mercado Livre para 26/11 (depois do lançamento). Entrada como revenda; 1P com visibilidade garantida na 1ª pesquisa (92%)."
     },
     {
       "id": "ACT-17",
@@ -228,11 +228,11 @@
       "area": "MaxPro",
       "title": "Finalizar proposta visual e mockup de inserção do produto na mochila",
       "assignee": "Ventura",
-      "deadline": "05/11/2026",
+      "deadline": "12/11/2026",
       "priority": "Alta",
       "status": "Pendente",
       "context": "Lote de 300 mochilas executivas de fim de ano para clientes e compradores do varejo como degustação antecipada do MaxPro.",
-      "notes": ""
+      "notes": "Prazo movido para quinta 12/11 (produção da mochila)."
     },
     {
       "id": "ACT-19",
@@ -280,11 +280,11 @@
       "area": "SPRIM",
       "title": "Apresentar projeto de cenografia aramada e arte dos adereços interativos",
       "assignee": "Ventura",
-      "deadline": "05/11/2026",
+      "deadline": "10/11/2026",
       "priority": "Crítica",
       "status": "Em Andamento",
       "context": "Prioridade máxima. Cenografia aramada em metal (fornecedor em Franca) e adereços interativos (garrafa MaxPro 32g, copão, haltere, smartwatch).",
-      "notes": ""
+      "notes": "Entrega da apresentação de cenografia aramada + adereços na terça 10/11 (antes da reunião de quinta com a SPRIM). Menos de 20 dias para o evento 24/11."
     },
     {
       "id": "ACT-23",
@@ -295,9 +295,9 @@
       "assignee": "Danilo",
       "deadline": "05/11/2026",
       "priority": "Alta",
-      "status": "Pendente",
+      "status": "Concluído",
       "context": "Danilo alinha a lista de insumos e especificações dos potinhos para o mousse de 3 leites servido às 30 nutricionistas.",
-      "notes": ""
+      "notes": "Insumos já formalizados e compras em andamento (05/11)."
     },
     {
       "id": "ACT-24",
@@ -306,11 +306,11 @@
       "area": "SPRIM",
       "title": "Entregar roteiro e slides da apresentação conjunta institucional SPRIM",
       "assignee": "Tchuco",
-      "deadline": "05/11/2026",
+      "deadline": "10/11/2026",
       "priority": "Alta",
       "status": "Pendente",
       "context": "Deck institucional de 20 minutos abordando autoridade láctea, saudabilidade e inovação para o público médico/nutricional.",
-      "notes": ""
+      "notes": "Separado em 05/11: roteiro do vídeo da Heleni é do Paulo; slides da apresentação conjunta são do Tchuco. Entrega terça 10/11."
     },
     {
       "id": "ACT-25",
@@ -362,7 +362,7 @@
       "priority": "Alta",
       "status": "Pendente",
       "context": "Modelagem 3D aprovada pela equipe; faltam as lâminas executivas para validação diretiva.",
-      "notes": "Carregado da pauta de 30/10."
+      "notes": "Alterações do mascote 3D pedidas; responsável real é o Otávio (fornecedor). Semana que vem."
     },
     {
       "id": "CAD-02",
@@ -373,9 +373,9 @@
       "assignee": "Gabriel / Messias",
       "deadline": "12/11/2026",
       "priority": "Média",
-      "status": "Pendente",
+      "status": "Concluído",
       "context": "Case confirmado: +150% em vendas da linha MaxPro com o 'compre 2 leve 3' por 50–60 dias. Falta consolidar o material audiovisual.",
-      "notes": "Carregado da pauta de 30/10."
+      "notes": "Registros e balanço de sell-out consolidados e apresentados em 05/11. Concluído."
     },
     {
       "id": "CAD-03",
@@ -399,9 +399,9 @@
       "assignee": "Ian / Ventura",
       "deadline": "12/11/2026",
       "priority": "Média",
-      "status": "Em Andamento",
+      "status": "Concluído",
       "context": "Ventura precisa fechar a arte para subir na Tetra Pak; a reunião de 23/10 não registrou entrega formal.",
-      "notes": "Carregado da pauta de 30/10."
+      "notes": "Versão final da arte técnica enviada (05/11). Concluído."
     },
     {
       "id": "CAD-05",
@@ -414,7 +414,7 @@
       "priority": "Baixa",
       "status": "Pendente",
       "context": "9 de 10 kits entregues; busca do último destinatário via redes sociais.",
-      "notes": "Carregado da pauta de 30/10."
+      "notes": "Descoberto em 05/11: o destinatário é funcionário da Jussara. Pegar o endereço internamente (Camila) e entregar em casa."
     },
     {
       "id": "CAD-06",
@@ -466,7 +466,7 @@
       "priority": "Média",
       "status": "Pendente",
       "context": "Unboxing da mochila é conteúdo obrigatório; famílias e tutores passam a produzir. Bia apoia o incentivo.",
-      "notes": "Carregado da pauta de 30/10."
+      "notes": "Nova ideia em 05/11: embalagem temática por criança (imagem real da criança transposta para a ilustração da lateral — \"sonho virando realidade\"). Sem verba definida; viabilidade em avaliação."
     },
     {
       "id": "NOVO-01",
@@ -501,11 +501,11 @@
       "area": "MaxPro",
       "title": "Enviar documento para revisão e impressão",
       "assignee": "A definir",
-      "deadline": "A definir",
+      "deadline": "06/11/2026",
       "priority": "Alta",
-      "status": "Pendente",
+      "status": "Concluído",
       "context": "O orador vai enviar um documento que foi copiado e colado para revisão e impressão.",
-      "notes": ""
+      "notes": "30 cópias frente-verso em gramatura grossa solicitadas ao Gabriel para 06/11."
     },
     {
       "id": "NOVO-04",
@@ -513,12 +513,12 @@
       "topicTitle": "Análise de perfis de influenciadores",
       "area": "Influência",
       "title": "Pegar dados de perfis e passar números",
-      "assignee": "A definir",
-      "deadline": "A definir",
+      "assignee": "Léo",
+      "deadline": "12/11/2026",
       "priority": "Alta",
       "status": "Pendente",
       "context": "Pegar dados de perfis de influenciadores para analisar números e agilizar o contato.",
-      "notes": ""
+      "notes": "Levantar números dos 6 perfis pré-selecionados e enviar propostas."
     },
     {
       "id": "NOVO-05",
@@ -544,7 +544,7 @@
       "priority": "Média",
       "status": "Pendente",
       "context": "Contatar seguidores da academia Velocity e enviar kits para gerar conteúdo espontâneo com pessoas mais reais.",
-      "notes": ""
+      "notes": "Escala definida em 05/11: 40 kits (20 influenciadores + 20 pessoas reais que seguem o time), começando por Franca e Velocity Sorocaba."
     },
     {
       "id": "SON-01",
@@ -553,11 +553,11 @@
       "area": "Sonhos",
       "title": "Cobrar documentos de imagem e voz do Francisco (Wilker/Carine)",
       "assignee": "Joelma",
-      "deadline": "A definir",
+      "deadline": "12/11/2026",
       "priority": "Alta",
       "status": "Pendente",
       "context": "Bia registrou em 29/09 que faltavam documentos do Wilker/Francisco para completar a pasta de termos de uso de imagem e voz — é o único dos quatro sem documentação completa. Sem isso o jurídico não fecha a cessão de direitos.",
-      "notes": "Pendente desde 29/09/2026."
+      "notes": "Leo marcou reunião à parte com Bruno Borges (jurídico) para destravar as questões contratuais."
     },
     {
       "id": "SON-02",
@@ -583,7 +583,189 @@
       "priority": "Baixa",
       "status": "Pendente",
       "context": "Joelma entregou em 23/09 o resumo com opções por criança: Malu (espaço/astronomia), João (pop-up e natureza), Luana (fantasia e romance) e Francisco (ciência). Falta a escolha final e a compra.",
-      "notes": "Resumo enviado em 23/09 — aguardando definição."
+      "notes": "Alinhado em 05/11: avaliar também a embalagem temática por criança (imagem real transposta para ilustração da lateral)."
+    },
+    {
+      "id": "MAX-01",
+      "topicNumber": 25,
+      "topicTitle": "Lançamento MaxPro — Campanha e Reunião Comercial (06/11)",
+      "area": "MaxPro",
+      "title": "Apresentar campanha de lançamento MaxPro para a equipe comercial",
+      "assignee": "Léo / Ventura",
+      "deadline": "06/11/2026",
+      "priority": "Crítica",
+      "status": "Concluído",
+      "context": "Apresentação de 15 lâminas (PDF entregue) na reunião de 06/11 às 09h30 na Jussara: números do mercado (penetração 16%, crescimento 10x), posicionamento (marca Jussara em evidência), canais de divulgação e materiais de apoio (ficha cadastral impressa e digital, 4 materiais numerados).",
+      "notes": "PDF 'Lançamento Equipe Comercial' com 15 páginas. Slogan: 'Máx de sabor pro seu dia'."
+    },
+    {
+      "id": "MAX-02",
+      "topicNumber": 25,
+      "topicTitle": "Lançamento MaxPro — Campanha e Reunião Comercial (06/11)",
+      "area": "MaxPro",
+      "title": "Impulsionar redes sociais nas regiões dos clientes com negociação fechada",
+      "assignee": "Ventura",
+      "deadline": "12/11/2026",
+      "priority": "Alta",
+      "status": "Pendente",
+      "context": "Conforme as negociações fecharem, jogar mídia localizada na região do parceiro (mesmo modelo já feito com São Venado, com link da loja virtual). Anúncios geolocalizados a partir de R$ 200.",
+      "notes": "Tráfego pago localizado é a alavanca principal da campanha."
+    },
+    {
+      "id": "MAX-03",
+      "topicNumber": 25,
+      "topicTitle": "Lançamento MaxPro — Campanha e Reunião Comercial (06/11)",
+      "area": "MaxPro",
+      "title": "Produzir e distribuir 40 kits MaxPro (20 influenciadores + 20 pessoas reais)",
+      "assignee": "Messias / Ventura",
+      "deadline": "19/11/2026",
+      "priority": "Alta",
+      "status": "Pendente",
+      "context": "Escala fechada em 05/11: 20 kits para influenciadores do squad + 20 para pessoas reais que seguem o time (começando por Franca e Velocity Sorocaba). Objetivo: conteúdo espontâneo sem contrato formal.",
+      "notes": "Estratégia de ampliar alcance sem subir o investimento em influência."
+    },
+    {
+      "id": "MAX-04",
+      "topicNumber": 25,
+      "topicTitle": "Lançamento MaxPro — Campanha e Reunião Comercial (06/11)",
+      "area": "MaxPro",
+      "title": "Propor aula temática MaxPro em academia (Velocity ou estúdio spinning/hyrox)",
+      "assignee": "Messias",
+      "deadline": "19/11/2026",
+      "priority": "Média",
+      "status": "Pendente",
+      "context": "Evento de ativação: aula temática MaxPro em academia parceira (Velocity Franca/Sorocaba ou estúdio de spinning/hyrox, que estão em alta). Formato em avaliação: aula + degustação + conteúdo.",
+      "notes": "Conversar com Fabrício e possíveis embaixadores locais."
+    },
+    {
+      "id": "MAX-05",
+      "topicNumber": 25,
+      "topicTitle": "Lançamento MaxPro — Campanha e Reunião Comercial (06/11)",
+      "area": "MaxPro",
+      "title": "Definir nome da família de produtos hiperproteicos (não usar 'Nutrition')",
+      "assignee": "Ventura / Léo",
+      "deadline": "19/11/2026",
+      "priority": "Média",
+      "status": "Pendente",
+      "context": "Decisão da reunião com gestores: o nome 'MaxPro Nutrition' não pode ser usado (inglês/não remete a leite). Candidatas: linha 'equilíbrio' ou palavra que remeta a praticidade sem sair do universo lácteo.",
+      "notes": "Base para o projeto maior de família de produtos hiperproteicos."
+    },
+    {
+      "id": "MAX-06",
+      "topicNumber": 25,
+      "topicTitle": "Lançamento MaxPro — Campanha e Reunião Comercial (06/11)",
+      "area": "MaxPro",
+      "title": "Fechar entrada do MaxPro no Mercado Livre (canais até 16/12, vendas em janeiro)",
+      "assignee": "Léo / Ventura",
+      "deadline": "16/12/2026",
+      "priority": "Alta",
+      "status": "Em Andamento",
+      "context": "Entrada como revenda no Mercado Livre (1P): obrigação de visibilidade na 1ª pesquisa (92% dos cliques em SP). Canais finalizados até 16/12; vendas fortes começam em janeiro. Entrega Brasil em 48h pelo centro de distribuição deles.",
+      "notes": "Já existe loja parceira montada; conteúdo em vídeo com link de compra."
+    },
+    {
+      "id": "MAX-07",
+      "topicNumber": 25,
+      "topicTitle": "Lançamento MaxPro — Campanha e Reunião Comercial (06/11)",
+      "area": "MaxPro",
+      "title": "Incluir claim de proteína nas embalagens do leite (integral, semi, desnatado)",
+      "assignee": "Ventura",
+      "deadline": "12/11/2026",
+      "priority": "Alta",
+      "status": "Pendente",
+      "context": "Decisão da reunião: destacar proteína na embalagem de TODAS as linhas de leite (movimento 'voo de galinha' — ninguém fez ainda). O leite 250ml tem 8g de proteína por R$ 6 — argumento de custo-benefício contra whey (R$ 200+).",
+      "notes": "Nova embalagem já em troca; aproveitar a troca para incluir o claim."
+    },
+    {
+      "id": "SPR-01",
+      "topicNumber": 26,
+      "topicTitle": "SPRIM — Semana de 10/11 (cenografia, slides e vídeo Heleni)",
+      "area": "SPRIM",
+      "title": "Gravar vídeo da Heleni em 2 versões (rede social + encerramento)",
+      "assignee": "Paulo",
+      "deadline": "10/11/2026",
+      "priority": "Alta",
+      "status": "Em Andamento",
+      "context": "Roteiro validado com a Heleni. Gravação de 2 versões: uma para redes sociais, outra para o encerramento do evento SPRIM de 24/11. Personalização da embalagem da sobremesa para o evento é job novo.",
+      "notes": "Insumos já formalizados; compras em andamento."
+    },
+    {
+      "id": "SON-04",
+      "topicNumber": 27,
+      "topicTitle": "Projeto Sonhos — Pós-reunião 05/11",
+      "area": "Sonhos",
+      "title": "Reunião Leo + Bruno Borges sobre questões contratuais e jurídicas",
+      "assignee": "Léo",
+      "deadline": "12/11/2026",
+      "priority": "Crítica",
+      "status": "Pendente",
+      "context": "Projeto Sonhos travado em validações contratuais. Leo marcou reunião à parte com Bruno Borges (jurídico) em 05/11 para alinhar: ônus pelo uso da imagem, multas e proteção da Jussara em cenários futuros.",
+      "notes": "Bloqueia o andamento do projeto como um todo."
+    },
+    {
+      "id": "GER-01",
+      "topicNumber": 28,
+      "topicTitle": "Gestão interna — Rotina e Planejamento 2027",
+      "area": "Planejamento",
+      "title": "Montar esqueleto do Planejamento 2027 (reunião após Fadu)",
+      "assignee": "Léo / Ventura",
+      "deadline": "12/11/2026",
+      "priority": "Alta",
+      "status": "Pendente",
+      "context": "Com a agenda corrida, o planejamento 2027 ficou para depois da reunião com o Fadu. Preparar esqueleto preliminar para discussão na terça 10/11.",
+      "notes": "Item mais crítico da aba Ações desde 30/10."
+    },
+    {
+      "id": "GER-02",
+      "topicNumber": 28,
+      "topicTitle": "Gestão interna — Rotina e Planejamento 2027",
+      "area": "Planejamento",
+      "title": "Emitir nota de dezembro da Ventura dentro de novembro",
+      "assignee": "Léo",
+      "deadline": "25/11/2026",
+      "priority": "Média",
+      "status": "Pendente",
+      "context": "Nota fiscal da Ventura referente a dezembro deve ser emitida dentro de novembro (mudança no processo de eleição/fechamento).",
+      "notes": "Regra nova alinhada em 05/11."
+    },
+    {
+      "id": "GER-03",
+      "topicNumber": 28,
+      "topicTitle": "Gestão interna — Rotina e Planejamento 2027",
+      "area": "Institucional",
+      "title": "Avaliar Juju Lovers: ranking de cumprimento e liberação de kits",
+      "assignee": "Paulo / Ventura",
+      "deadline": "18/11/2026",
+      "priority": "Média",
+      "status": "Pendente",
+      "context": "Meta da Juju Lovers encerra sábado 14/11. Na segunda 16/11, levantar ranking de quem cumpriu (estimativa: ~16 participantes, ~9 pendências). Resultado final para liberar kits por volta do dia 18/11.",
+      "notes": "Programa de fidelização com as famílias."
+    },
+    {
+      "id": "GER-04",
+      "topicNumber": 28,
+      "topicTitle": "Gestão interna — Rotina e Planejamento 2027",
+      "area": "Institucional",
+      "title": "Revisar contrato da Mel (influenciadora) — renegociação em andamento",
+      "assignee": "Paulo",
+      "deadline": "12/11/2026",
+      "priority": "Alta",
+      "status": "Em Andamento",
+      "context": "A Mel está renegociando o contrato e volta com tudo. Alinhado em 05/11 que ela continua, mas o valor e o escopo precisam ser refeitos.",
+      "notes": "Squad MaxPro depende disso."
+    },
+    {
+      "id": "GER-05",
+      "topicNumber": 28,
+      "topicTitle": "Gestão interna — Rotina e Planejamento 2027",
+      "area": "Institucional",
+      "title": "Avaliar proposta da Personil (desafio de esteira no shopping)",
+      "assignee": "Messias",
+      "deadline": "19/11/2026",
+      "priority": "Média",
+      "status": "Pendente",
+      "context": "A Personil vai apresentar formato de evento: desafio de esteira estilo Guinness (correr até a exaustão) em shopping. Visual e atrativo para conteúdo. Messias conversa na semana que vem.",
+      "notes": "Linha de eventos esportivos (Track&Field)."
     }
   ],
   "ata": {
@@ -605,7 +787,16 @@
     "16": "Vídeos de chão de fábrica entregues, aguardando devolutiva da Camila (RH). Banner Trabalhe Conosco publicado.",
     "17": "Abertura do Planejamento 2027. Stand-by: Gerações, Websérie, Assessoria de Imprensa e Reciclagem. <b>Fyt Reset: cancelado.</b>",
     "18": "Itens que estavam abertos na pauta de 30/10 e não foram citados em 03/11 — ficam aqui para não desaparecerem.",
-    "24": "Caixa de boas-vindas às quatro crianças, proposta pelo Messias em 09/09: itens de vestuário e garrafa já produzidos com a marca Sonhos, mais um livro escolhido para o perfil de cada criança. A seleção dos títulos é da Joelma."
+    "24": "Caixa de boas-vindas às quatro crianças, proposta pelo Messias em 09/09: itens de vestuário e garrafa já produzidos com a marca Sonhos, mais um livro escolhido para o perfil de cada criança. A seleção dos títulos é da Joelma.",
+    "25": "Reunião de 06/11 na Jussara com o time de gestores comerciais para apresentar a linha MaxPro. Números: 16% de penetração no Brasil (espaço enorme), mercado cresceu 10x em embalagens e 6x em consumidores nos últimos 10 anos, chocolate caiu de ~50% para 30% do mix (café cresce, puxado por 3 Corações). Posicionamento: marca Jussara em evidência na embalagem, slogan «Máx de sabor pro seu dia». Canais: redes sociais, anúncio geolocalizado, influenciadores, eventos, mochila de fim de ano, Mercado Livre e tráfego pago. Materiais de apoio prontos (impresso 15x26cm frente-verso + digital para WhatsApp).",
+    "26": "Semana de 10/11 concentra as entregas da SPRIM: cenografia aramada e adereços (terça 10/11), roteiro da Heleni (Paulo) e slides da apresentação conjunta (Tchuco), também na terça. Evento com as nutricionistas em 24/11 — menos de 20 dias.",
+    "27": "Pós-reunião de 05/11: projeto Sonhos travado em questões contratuais. Leo marca reunião à parte com Bruno Borges (jurídico). Nova ideia em avaliação: embalagem temática por criança (imagem real transposta para ilustração da lateral).",
+    "28": "Gestão interna: planejamento 2027 fica para depois da reunião com o Fadu; nota de dezembro da Ventura emite em novembro; Juju Lovers encerra 14/11 com ranking na segunda 16/11; contrato da Mel em renegociação.",
+    "19": "Da transcrição 05/11: Carol pilota a pauta e filtra as prioridades máximas para nada importante escapar.",
+    "20": "Da transcrição 05/11: verificar com o Guilherme a possibilidade de reunião depois do almoço.",
+    "21": "Da transcrição 05/11: documento de lançamento MaxPro enviado para revisão e impressão (30 cópias frente-verso, gramatura grossa).",
+    "22": "Da transcrição 05/11: levantamento de perfis de influenciadores para o squad MaxPro (6 perfis pré-selecionados).",
+    "23": "Da transcrição 05/11: estratégia de influência MaxPro — aula temática em academia e kits para pessoas reais (não só influenciadores)."
   },
-  "atualizado": "05/11/2026"
+  "atualizado": "06/11/2026"
 }
