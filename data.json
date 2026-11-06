@@ -766,6 +766,97 @@
       "status": "Pendente",
       "context": "A Personil vai apresentar formato de evento: desafio de esteira estilo Guinness (correr até a exaustão) em shopping. Visual e atrativo para conteúdo. Messias conversa na semana que vem.",
       "notes": "Linha de eventos esportivos (Track&Field)."
+    },
+    {
+      "id": "PLN-01",
+      "topicNumber": 29,
+      "topicTitle": "Planejamento 2026 — Cronograma",
+      "area": "Planejamento",
+      "title": "Dezembro 2026: Natal + Réveillon + produção final de ano",
+      "assignee": "Léo / Ventura",
+      "deadline": "15/12/2026",
+      "priority": "Alta",
+      "status": "Pendente",
+      "context": "Campanhas de Natal e Réveillon; brainstorm e levantamento de pontos da produção final de ano (pauta 11/09). Última janela forte do ano antes do planejamento 2027.",
+      "notes": "Slide 40 do deck 2026. Inclui: bonequinhos, cristais, resgate nostálgico, drinks sem álcool (slide 41)."
+    },
+    {
+      "id": "PLN-02",
+      "topicNumber": 30,
+      "topicTitle": "Planejamento 2027 — Construção guiada",
+      "area": "Planejamento",
+      "title": "Etapa 1 — Diagnóstico: revisar resultados 2026 por pilar",
+      "assignee": "Léo / Ventura / Gabriel",
+      "deadline": "20/11/2026",
+      "priority": "Crítica",
+      "status": "Pendente",
+      "context": "Revisar o que executou bem e o que ficou em stand-by em 2026 (Gerações, Websérie, Assessoria, Reciclagem). Base: objetivos 2026 (rentabilidade, reduzir dependência UHT, redes médias/grandes, Creator Economy) vs realizado. Consolidar sell-out por campanha (ex.: Irmãos Patrocínio +150%).",
+      "notes": "Insumo: aba Ações do painel + relatórios de vendas."
+    },
+    {
+      "id": "PLN-03",
+      "topicNumber": 30,
+      "topicTitle": "Planejamento 2027 — Construção guiada",
+      "area": "Planejamento",
+      "title": "Etapa 2 — Objetivos 2027: definir metas de negócio e comunicação",
+      "assignee": "Léo / Ventura",
+      "deadline": "27/11/2026",
+      "priority": "Crítica",
+      "status": "Pendente",
+      "context": "Repetir o modelo 2026: 4-5 objetivos de negócio (rentabilidade, portfólio, redes) + pilares de comunicação (ex.: Sabor que conecta, Jussara cuida do futuro). Validar com Laércio e Bergson antes de avançar.",
+      "notes": "Modelo: slides 24 e 26 do deck 2026."
+    },
+    {
+      "id": "PLN-04",
+      "topicNumber": 30,
+      "topicTitle": "Planejamento 2027 — Construção guiada",
+      "area": "Planejamento",
+      "title": "Etapa 3 — SWOT e contexto externo 2027",
+      "assignee": "Léo / Ventura",
+      "deadline": "04/12/2026",
+      "priority": "Alta",
+      "status": "Pendente",
+      "context": "Atualizar SWOT e mapear eventos do ano: férias, datas sazonais, eleições municipais, lançamentos de produto (whey, MaxPro linha completa).",
+      "notes": "Modelo: slides 28-29 do deck 2026."
+    },
+    {
+      "id": "PLN-05",
+      "topicNumber": 30,
+      "topicTitle": "Planejamento 2027 — Construção guiada",
+      "area": "Planejamento",
+      "title": "Etapa 4 — Cronograma mês a mês 2027",
+      "assignee": "Léo / Ventura",
+      "deadline": "11/12/2026",
+      "priority": "Crítica",
+      "status": "Pendente",
+      "context": "Distribuir campanhas nos 12 meses seguindo o padrão 2026: JAN lançamento produto, FEV carnaval/volta às aulas, MAR consumidor/nutrição, ABR páscoa+evento esportivo, MAI mães/inverno, JUN junina, JUL férias, AGO pais, SET semana do brasil, OUT crianças, NOV black friday, DEZ natal. Cada ação com pilar, responsável e verba.",
+      "notes": "Modelo: slides 30-38 do deck 2026. Usar a aba Acoes do painel com área 'Planejamento'."
+    },
+    {
+      "id": "PLN-06",
+      "topicNumber": 30,
+      "topicTitle": "Planejamento 2027 — Construção guiada",
+      "area": "Planejamento",
+      "title": "Etapa 5 — Orçamento 2027: verba por linha e cenários",
+      "assignee": "Léo / Bergson / Laércio",
+      "deadline": "18/12/2026",
+      "priority": "Crítica",
+      "status": "Pendente",
+      "context": "Montar tabela de investimento por linha (Trade, Ativação, Assessoria, Influenciadores, Mídia, Filmes, Conteúdos, Time, CRM, ESG, Eventos, Sonhos, IA/RA, Oportunidades) em 2 cenários: completo e reduzido. 2026: R$ 3,97M completo vs R$ 2,10M reduzido (corte R$ 1,88M ainda não decidido).",
+      "notes": "Modelo: slides 42-44. Decidir cedo qual cenário — impacta todo o cronograma."
+    },
+    {
+      "id": "PLN-07",
+      "topicNumber": 30,
+      "topicTitle": "Planejamento 2027 — Construção guiada",
+      "area": "Planejamento",
+      "title": "Etapa 6 — Aprovação e carga no painel",
+      "assignee": "Léo / Ventura",
+      "deadline": "20/12/2026",
+      "priority": "Alta",
+      "status": "Pendente",
+      "context": "Apresentar o planejamento 2027 para diretoria (Laércio, Bergson, Dayanne). Após aprovação, carregar cada ação do cronograma na aba Ações do painel com área, responsável, prazo e prioridade — o painel passa a gerir o plano como geriu o 2026.",
+      "notes": "O painel já está pronto: área 'Planejamento', tópicos por etapa, visão Frentes mostra o card macro."
     }
   ],
   "ata": {
@@ -796,7 +887,9 @@
     "20": "Da transcrição 05/11: verificar com o Guilherme a possibilidade de reunião depois do almoço.",
     "21": "Da transcrição 05/11: documento de lançamento MaxPro enviado para revisão e impressão (30 cópias frente-verso, gramatura grossa).",
     "22": "Da transcrição 05/11: levantamento de perfis de influenciadores para o squad MaxPro (6 perfis pré-selecionados).",
-    "23": "Da transcrição 05/11: estratégia de influência MaxPro — aula temática em academia e kits para pessoas reais (não só influenciadores)."
+    "23": "Da transcrição 05/11: estratégia de influência MaxPro — aula temática em academia e kits para pessoas reais (não só influenciadores).",
+    "29": "Cronograma 2026 extraído do deck Canva (44 slides): 12 meses mapeados, de JAN (lançamento Vai de Leite) a DEZ (Natal + produção final de ano). Pautas da reunião 11/09 registradas no slide 40; ideias de campanha (bonequinhos, cristais, resgate nostálgico, drinks sem álcool) no slide 41.",
+    "30": "Estrutura guiada de construção do Planejamento 2027, espelhada no modelo 2026: 6 etapas — Diagnóstico (20/11) → Objetivos (27/11) → SWOT e contexto (04/12) → Cronograma (11/12) → Orçamento em 2 cenários (18/12) → Aprovação e carga no painel (20/12). Cada etapa vira ação com prazo e responsável."
   },
   "atualizado": "06/11/2026"
 }
