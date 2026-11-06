@@ -349,7 +349,7 @@
       "priority": "Média",
       "status": "Pendente",
       "context": "Início do planejamento estratégico, cronograma de campanhas e alocação orçamentária 2027. Stand-by: Gerações, Websérie, Assessoria de Imprensa, Reciclagem.",
-      "notes": ""
+      "notes": "Consolidado em 06/11: fundido com GER-01 (mesma ação, duplicata). Inclui a conversa da terça 10/11 com o Messias."
     },
     {
       "id": "CAD-01",
@@ -470,8 +470,8 @@
     },
     {
       "id": "NOVO-01",
-      "topicNumber": 19,
-      "topicTitle": "Organização da pauta",
+      "topicNumber": 32,
+      "topicTitle": "Operacional — rotina do Leo",
       "area": "Planejamento",
       "title": "Filtrar prioridades máximas da pauta",
       "assignee": "Carol",
@@ -483,8 +483,8 @@
     },
     {
       "id": "NOVO-02",
-      "topicNumber": 20,
-      "topicTitle": "Agendamento de reunião",
+      "topicNumber": 32,
+      "topicTitle": "Operacional — rotina do Leo",
       "area": "Planejamento",
       "title": "Verificar disponibilidade de Guilherme",
       "assignee": "A definir",
@@ -711,14 +711,14 @@
       "assignee": "Léo / Ventura",
       "deadline": "12/11/2026",
       "priority": "Alta",
-      "status": "Pendente",
+      "status": "Concluído",
       "context": "Com a agenda corrida, o planejamento 2027 ficou para depois da reunião com o Fadu. Preparar esqueleto preliminar para discussão na terça 10/11.",
-      "notes": "Item mais crítico da aba Ações desde 30/10."
+      "notes": "Duplicata de ACT-27 — consolidado em 06/11 a pedido do Messias. O esqueleto segue na ACT-27."
     },
     {
       "id": "GER-02",
-      "topicNumber": 28,
-      "topicTitle": "Gestão interna — Rotina e Planejamento 2027",
+      "topicNumber": 32,
+      "topicTitle": "Operacional — rotina do Leo",
       "area": "Planejamento",
       "title": "Emitir nota de dezembro da Ventura dentro de novembro",
       "assignee": "Léo",
@@ -726,7 +726,7 @@
       "priority": "Média",
       "status": "Pendente",
       "context": "Nota fiscal da Ventura referente a dezembro deve ser emitida dentro de novembro (mudança no processo de eleição/fechamento).",
-      "notes": "Regra nova alinhada em 05/11."
+      "notes": "Especifico do Leo — movido para fora da lista do time em 06/11 (pedido do Messias)."
     },
     {
       "id": "GER-03",
@@ -791,7 +791,7 @@
       "priority": "Crítica",
       "status": "Pendente",
       "context": "Revisar o que executou bem e o que ficou em stand-by em 2026 (Gerações, Websérie, Assessoria, Reciclagem). Base: objetivos 2026 (rentabilidade, reduzir dependência UHT, redes médias/grandes, Creator Economy) vs realizado. Consolidar sell-out por campanha (ex.: Irmãos Patrocínio +150%).",
-      "notes": "Insumo: aba Ações do painel (59 ações) + relatórios de vendas."
+      "notes": "Insumo: aba Ações do painel + relatórios de vendas."
     },
     {
       "id": "PLN-03",
@@ -857,6 +857,58 @@
       "status": "Pendente",
       "context": "Apresentar o planejamento 2027 seguindo o fluxo de aprovação: Messias primeiro, Laércio depois, TetraPak valida o orçamento. Após aprovação, carregar cada ação do cronograma na aba Ações do painel com área, responsável, prazo e prioridade.",
       "notes": "O painel já está pronto: área Planejamento, tópicos por etapa, visão Frentes mostra o card macro. Guilherme não decide o plano."
+    },
+    {
+      "id": "GER-06",
+      "topicNumber": 28,
+      "topicTitle": "Gestão interna — Rotina e Planejamento 2027",
+      "area": "Planejamento",
+      "title": "Notificar o time quando alguém alterar um card (alerta no painel + e-mail)",
+      "assignee": "Lola",
+      "deadline": "13/11/2026",
+      "priority": "Alta",
+      "status": "Pendente",
+      "context": "Pedido do Messias (06/11): quando qualquer pessoa alterar um card, as outras precisam saber — alerta no próprio card (\"há novidades que você não viu\") e, depois, notificação por e-mail de qualquer alteração.",
+      "notes": "Fase 1: selo de \"não lido\" no card. Fase 2: e-mail resumindo as alterações do dia (o Apps Script já envia o relatório 8h para o Leo — estender para o time)."
+    },
+    {
+      "id": "GER-08",
+      "topicNumber": 28,
+      "topicTitle": "Gestão interna — Rotina e Planejamento 2027",
+      "area": "Planejamento",
+      "title": "Consolidar tópico Planejamento: fundir esqueletos duplicados e mover itens fora de escopo",
+      "assignee": "Lola",
+      "deadline": "10/11/2026",
+      "priority": "Alta",
+      "status": "Concluído",
+      "context": "Pedido do Messias (06/11): no tópico Planejamento só deve ficar o que é de fato planejamento. \"Estruturar esqueleto\" (ACT-27) e \"Montar esqueleto\" (GER-01) são a mesma coisa — virar uma só. \"Filtrar prioridades da pauta\" (NOVO-01) e \"Verificar disponibilidade de Guilherme\" (NOVO-02) saem do Planejamento. \"Emitir nota de dezembro\" (GER-02) é específico do Leo — retirar da lista do time.",
+      "notes": "Executado em 06/11: GER-01 marcada como duplicata de ACT-27; NOVO-01, NOVO-02 e GER-02 movidos para o tópico 32 (Operacional — rotina do Leo)."
+    },
+    {
+      "id": "GER-09",
+      "topicNumber": 28,
+      "topicTitle": "Gestão interna — Rotina e Planejamento 2027",
+      "area": "Planejamento",
+      "title": "Orientar o time: áudio máx. 15 min (20MB) ou subir a transcrição",
+      "assignee": "Léo",
+      "deadline": "10/11/2026",
+      "priority": "Baixa",
+      "status": "Pendente",
+      "context": "Na aba Reuniões, áudio tem limite de 20MB (~15 min de gravação). Para reuniões longas, subir a transcrição em .txt. Comunicar no tutorial da semana que vem.",
+      "notes": "Parte do tutorial da reunião de abertura."
+    },
+    {
+      "id": "GER-10",
+      "topicNumber": 28,
+      "topicTitle": "Gestão interna — Rotina e Planejamento 2027",
+      "area": "Planejamento",
+      "title": "Fazer tutorial do painel na reunião de abertura da semana que vem",
+      "assignee": "Léo",
+      "deadline": "13/11/2026",
+      "priority": "Alta",
+      "status": "Pendente",
+      "context": "Pedido do Messias (06/11): na abertura da reunião da semana que vem, explicar o painel — as frentes (clicar no card expande), filtros, aba Reuniões e o chat (cada um usa a própria chave Gemini, não compartilha).",
+      "notes": "Lola pode gerar o roteiro do tutorial."
     }
   ],
   "ata": {
@@ -889,7 +941,9 @@
     "22": "Da transcrição 05/11: levantamento de perfis de influenciadores para o squad MaxPro (6 perfis pré-selecionados).",
     "23": "Da transcrição 05/11: estratégia de influência MaxPro — aula temática em academia e kits para pessoas reais (não só influenciadores).",
     "29": "Cronograma 2026 extraído do deck Canva (44 slides): 12 meses mapeados, de JAN (lançamento Vai de Leite) a DEZ (Natal + produção final de ano). Pautas da reunião 11/09 registradas no slide 40; ideias de campanha (bonequinhos, cristais, resgate nostálgico, drinks sem álcool) no slide 41.",
-    "30": "Estrutura guiada de construção do Planejamento 2027, espelhada no modelo 2026: 6 etapas — Diagnóstico (20/11) → Objetivos (27/11) → SWOT e contexto (04/12) → Cronograma (11/12) → Orçamento em 2 cenários (18/12) → Aprovação e carga no painel (20/12). <b>Fluxo de aprovação:</b> Messias aprova primeiro → Laércio aprova depois → TetraPak valida o orçamento. Guilherme não tem poder de decisão sobre o plano."
+    "30": "Estrutura guiada de construção do Planejamento 2027, espelhada no modelo 2026: 6 etapas — Diagnóstico (20/11) → Objetivos (27/11) → SWOT e contexto (04/12) → Cronograma (11/12) → Orçamento em 2 cenários (18/12) → Aprovação e carga no painel (20/12). <b>Fluxo de aprovação:</b> Messias aprova primeiro → Laércio aprova depois → TetraPak valida o orçamento. Guilherme não tem poder de decisão sobre o plano.",
+    "31": "Reunião Leo + Messias de 06/11 sobre o dashboard. Alterações pedidas: (1) notificar o time quando alguém alterar um card — alerta no card e depois por e-mail; (2) acompanhamento do planejamento dentro da ferramenta, com alertas 2-3 meses antes da execução; (3) renomear a frente SPRIM para «Proteína do Leite»; (4) consolidar o tópico Planejamento (esqueletos duplicados viram um; itens fora de escopo saem; nota de dezembro sai da lista do time); (5) tutorial do painel na reunião de abertura da semana que vem; (6) áudio nas reuniões: máx. 15 min (20MB) ou subir a transcrição. <b>Decisão do Leo (17h49):</b> aprovadas 1, 2, 4 e 5. A 3 (renomear SPRIM) NÃO será feita.",
+    "32": "Itens operacionais do Leo que não pertencem ao planejamento do time: filtrar prioridades da pauta, verificar agenda do Guilherme e emitir nota de dezembro da Ventura. Movidos em 06/11 a pedido do Messias para deixar o tópico Planejamento só com o que é de fato planejamento."
   },
   "atualizado": "06/11/2026"
 }
