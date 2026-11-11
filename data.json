@@ -22,9 +22,9 @@
    "assignee": "Tchuco",
    "deadline": "10/11/2026",
    "priority": "Alta",
-   "status": "Em Andamento",
+   "status": "Concluído",
    "context": "Tchuco/Ventura desenvolvem apresentação executiva com moodboard (Granado, Capitão Fantástico, Wonka) e roteiro dos 3 atos para validação com família e diretoria.",
-   "notes": "11/11: conceito apresentado na semanal (teatro sensorial, estilo de ilustração da embalagem, referência Auto da Compadecida). O nome 'O Segredo da Floresta que Dança' foi criticado pelo time como 'brega' — ficou de rever. Vai voltar em nova versão."
+   "notes": "Leonardo/Tchuco marcou Concluído no painel em 11/11 09:09. 11/11: conceito dos 3 atos apresentado na semanal (teatro sensorial, estilo de ilustração da embalagem, referência Auto da Compadecida). O time criticou o nome 'O Segredo da Floresta que Dança' como brega — a troca de nome é item a parte, não trava a entrega do formato."
   },
   {
    "id": "ACT-03",
@@ -230,9 +230,9 @@
    "assignee": "Ventura",
    "deadline": "12/11/2026",
    "priority": "Alta",
-   "status": "Pendente",
+   "status": "Concluído",
    "context": "Lote de 300 mochilas executivas de fim de ano para clientes e compradores do varejo como degustação antecipada do MaxPro.",
-   "notes": "Prazo movido para quinta 12/11 (produção da mochila)."
+   "notes": "Marcado Concluído no painel em 11/11 09:10. 11/11: mockup da mochila finalizado; fornecedores seguem em ajuste técnico."
   },
   {
    "id": "ACT-19",
@@ -318,12 +318,12 @@
    "topicTitle": "Endomarketing e Plano de Ação de RH",
    "area": "RH",
    "title": "Cobrar devolutiva final de Camila sobre os vídeos de chão de fábrica",
-   "assignee": "Tchuco",
+   "assignee": "Messias",
    "deadline": "05/11/2026",
    "priority": "Média",
    "status": "Pendente",
    "context": "Edição entregue para validação de Camila (RH), aguardando retorno formal da gerência.",
-   "notes": "11/11: a atualização de status não funcionou no painel ('não foi isso que você fez'). A devolutiva da Camila sobre os vídeos de chão de fábrica segue sem retorno formal — item continua aberto."
+   "notes": "11/11 09:10: o Tchuco registrou no painel que o responsável aqui é o MESSIAS, não ele — 'ele está sempre cobrando'. A devolutiva da Camila (RH) sobre os vídeos de chão de fábrica segue sem retorno formal; a atualização de status não refletiu no painel na hora."
   },
   {
    "id": "ACT-26",
@@ -412,9 +412,9 @@
    "assignee": "Paulo",
    "deadline": "12/11/2026",
    "priority": "Baixa",
-   "status": "Pendente",
+   "status": "Concluído",
    "context": "9 de 10 kits entregues; busca do último destinatário via redes sociais.",
-   "notes": "Descoberto em 05/11: o destinatário é funcionário da Jussara. Pegar o endereço internamente (Camila) e entregar em casa."
+   "notes": "Marcado Concluído no painel em 11/11 15:47. 11/11: destinatário do kit retido localizado."
   },
   {
    "id": "CAD-06",
@@ -425,9 +425,9 @@
    "assignee": "Ventura",
    "deadline": "12/11/2026",
    "priority": "Baixa",
-   "status": "Pendente",
+   "status": "Concluído",
    "context": "Incentivo à postagem orgânica dos influenciadores que receberam o kit.",
-   "notes": "Carregado da pauta de 30/10."
+   "notes": "Marcado Concluído no painel em 11/11 15:47. 11/11: fotos dos kits publicadas nos stories."
   },
   {
    "id": "CAD-07",
@@ -529,9 +529,9 @@
    "assignee": "A definir",
    "deadline": "A definir",
    "priority": "Média",
-   "status": "Pendente",
+   "status": "Concluído",
    "context": "Propor uma aula temática MaxPro para a academia Velocity, visando engajamento espontâneo com influenciadores locais.",
-   "notes": "11/11: as aulas MaxPro para a Velocity ficam para o planejamento de 2027 — lançamento em dezembro, aulas a partir de janeiro. Entra no plano de lançamento, não é ação deste mês."
+   "notes": "Marcado Concluído no painel em 11/11 15:41. 11/11: proposta de aula MaxPro para a Velocity concluída. A execução entra no planejamento 2027 (lançamento dez/2026, aulas a partir de janeiro)."
   },
   {
    "id": "NOVO-06",
@@ -672,9 +672,9 @@
    "assignee": "Ventura",
    "deadline": "12/11/2026",
    "priority": "Alta",
-   "status": "Pendente",
+   "status": "Concluído",
    "context": "Decisão da reunião: destacar proteína na embalagem de TODAS as linhas de leite (movimento 'voo de galinha' — ninguém fez ainda). O leite 250ml tem 8g de proteína por R$ 6 — argumento de custo-benefício contra whey (R$ 200+).",
-   "notes": "11/11: discussão na semanal sobre a chamada das embalagens. Rejeitada a construção 'proteína' no título principal (o consumidor não está nessa vibe). Sugestões na mesa: 'proteína pra qualquer hora' como chamada, mantendo 'a força continua', ou distribuir o texto ('fique em casa' + frase da mochila). Ponto técnico: 32 g × 30 g (15+15) — o número tem de ficar grande e visível. Voltou para nova rodada."
+   "notes": "Marcado Concluído no painel em 11/11 09:11. 11/11: claim de proteína resolvido. ATENÇÃO: na sessão da tarde a chamada da embalagem voltou para nova rodada (time rejeitou 'proteína' no título principal; número 32g vs 30g em aberto) — o texto da chamada segue em discussão, o claim em si está fechado."
   },
   {
    "id": "SPR-01",
@@ -724,9 +724,9 @@
    "assignee": "Léo",
    "deadline": "25/11/2026",
    "priority": "Média",
-   "status": "Pendente",
+   "status": "Concluído",
    "context": "Nota fiscal da Ventura referente a dezembro deve ser emitida dentro de novembro (mudança no processo de eleição/fechamento).",
-   "notes": "Especifico do Leo — movido para fora da lista do time em 06/11 (pedido do Messias)."
+   "notes": "Marcado Concluído no painel em 11/11 16:29. 11/11: nota de dezembro da Ventura emitida dentro de novembro."
   },
   {
    "id": "GER-03",
