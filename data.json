@@ -279,12 +279,12 @@
    "topicTitle": "Projeto A Vida Pede Leite (SPRIM) — Visitação e Cenografia (24/11)",
    "area": "SPRIM",
    "title": "Apresentar projeto de cenografia aramada e arte dos adereços interativos",
-   "assignee": "Ventura",
+   "assignee": "Tchuco / Ventura",
    "deadline": "10/11/2026",
    "priority": "Crítica",
    "status": "Em Andamento",
    "context": "Prioridade máxima. Cenografia aramada em metal (fornecedor em Franca) e adereços interativos (garrafa MaxPro 32g, copão, haltere, smartwatch).",
-   "notes": "11/11: projeto de cenografia apresentado na semanal e aprovado na conversa. O material serve também para 3 stories da apresentação."
+   "notes": "11/11 (sessão de trabalho): duas referências na mesa — espelho interativo (a pessoa tira foto e a imagem vira display; já existe na Velocity, muito usado em casamentos) e backdrop em MDF/PS com camadas. Decisão de caminho: fazer DUAS versões de backdrop — uma sem espelho e uma mais lisa — porque mexer com espelho é crítico de operar no local ('melhor usar um espelho que já existe'). Prioridade: garantir o backdrop primeiro e evoluir o resto conforme orçamento."
   },
   {
    "id": "ACT-23",
@@ -306,11 +306,11 @@
    "area": "SPRIM",
    "title": "Entregar roteiro e slides da apresentação conjunta institucional SPRIM",
    "assignee": "Tchuco",
-   "deadline": "10/11/2026",
+   "deadline": "30/11/2026",
    "priority": "Alta",
-   "status": "Pendente",
+   "status": "Em Andamento",
    "context": "Deck institucional de 20 minutos abordando autoridade láctea, saudabilidade e inovação para o público médico/nutricional.",
-   "notes": "Separado em 05/11: roteiro do vídeo da Heleni é do Paulo; slides da apresentação conjunta são do Tchuco. Entrega terça 10/11."
+   "notes": "11/11: estrutura da apresentação às nutricionistas montada — abertura com a tabela de valor da Jussara ('7 anos de amor e sabor'), filme institucional de 2024 e a narrativa da marca. Novidades que serão reveladas: embalagem com as 4 crianças reais do Projeto Sonhos, relançamento do MaxPro e a Jussara como maior fabricante de bebidas proteicas do Brasil. Prazo: fim de novembro (o Leo avaliou como apertado, pode extrapolar um pouco)."
   },
   {
    "id": "ACT-25",
@@ -1052,6 +1052,32 @@
    "status": "Pendente",
    "context": "Contrato da Mel RENOVADO em 11/11. Ponto em aberto: a agência dela enviou itens que não estavam na negociação (cláusula de exclusividade).",
    "notes": "Aberto na semanal de 11/11/2026."
+  },
+  {
+   "id": "SPR-02",
+   "topicNumber": 26,
+   "topicTitle": "SPRIM — Semana de 10/11 (cenografia, slides e vídeo Heleni)",
+   "area": "SPRIM",
+   "title": "Revisar a tabela nutricional das embalagens (percentual × gramas por porção)",
+   "assignee": "Ventura / Messias",
+   "deadline": "18/11/2026",
+   "priority": "Alta",
+   "status": "Pendente",
+   "context": "Na sessão de 11/11 o time revisou os percentuais de gordura por versão (integral ~3%, semidesnatado ~1,5%, desnatado ~0,3%, ~61 kcal por porção) e identificou uma confusão: a leitura do rótulo mistura percentual com gramas por porção. O valor é POR PORÇÃO, não por 100 ml, e isso tem de ficar claro na peça antes de fechar a lâmina.",
+   "notes": "Aberto em 11/11/2026."
+  },
+  {
+   "id": "PLN-08",
+   "topicNumber": 30,
+   "topicTitle": "Planejamento 2027 — Construção guiada",
+   "area": "Planejamento",
+   "title": "Fechar o calendário e o orçamento 2027 com base no ano anterior",
+   "assignee": "Léo / Ventura",
+   "deadline": "30/11/2026",
+   "priority": "Alta",
+   "status": "Pendente",
+   "context": "Na sessão de 11/11 ficou definido usar o calendário de 2026 como base e replicar a estrutura, mantendo orçamento e ferramentas. A grande virada do posicionamento 2027: o leite deixa de ser só 'saudável' e vira 'saudável E de performance', com três argumentos técnicos (proteína de alto valor biológico, reposição de eletrólitos, cálcio). Ideia em avaliação: lançar complemento de linha no meio do ano, com força no MaxPro.",
+   "notes": "Aberto em 11/11/2026. Há deck montado no Gamma com os insights principais."
   }
  ],
  "ata": {
@@ -1075,7 +1101,7 @@
   "18": "Itens da pauta anterior que não foram citados na reunião de 03/11. Na semanal de 11/11 foram encerrados os seguintes: lâminas de pré-venda MaxPro, reunião de vendas e trade, lateral da embalagem Sonhos (na Tetra Pak, aguardando prova), produção e livros dos kits de boas-vindas, e o case Irmãos Patrocínio. Ficaram com responsável corrigido: produção espontânea de conteúdo passou de Léo/Messias para Bia (EDC). Versão final do 1º episódio continua aberta, com prazo solto, aguardando data do EDC.",
   "24": "Caixa de boas-vindas às quatro crianças, proposta pelo Messias em 09/09: itens de vestuário e garrafa já produzidos com a marca Sonhos, mais um livro escolhido para o perfil de cada criança. A seleção dos títulos é da Joelma.",
   "25": "Reunião de 06/11 na Jussara com o time de gestores comerciais para apresentar a linha MaxPro. Números: 16% de penetração no Brasil (espaço enorme), mercado cresceu 10x em embalagens e 6x em consumidores nos últimos 10 anos, chocolate caiu de ~50% para 30% do mix (café cresce, puxado por 3 Corações). Posicionamento: marca Jussara em evidência na embalagem, slogan «Máx de sabor pro seu dia». Canais: redes sociais, anúncio geolocalizado, influenciadores, eventos, mochila de fim de ano, Mercado Livre e tráfego pago. Materiais de apoio prontos (impresso 15x26cm frente-verso + digital para WhatsApp).",
-  "26": "Semana de 10/11 concentra as entregas da SPRIM: cenografia aramada e adereços (terça 10/11), roteiro da Heleni (Paulo) e slides da apresentação conjunta (Tchuco), também na terça. Evento com as nutricionistas em 24/11 — menos de 20 dias.",
+  "26": "Semana de 10/11: cenografia aramada e arte dos adereços interativos apresentadas na semanal e na sessão de trabalho de 11/11. Duas referências para o backdrop das nutricionistas: espelho interativo (a pessoa tira foto e a imagem vira display, já usado na Velocity e em casamentos) e backdrop em MDF/PS com camadas. Decisão: fazer DUAS versões — uma sem espelho e uma mais lisa — porque operar o espelho no local é crítico. Prioridade é garantir o backdrop; o resto evolui conforme o orçamento. Léo reforçou que toda peça precisa carregar mensagem (proteína, força) e não ser apenas bonita. Apresentação às nutricionistas estruturada: tabela de valor, filme institucional de 2024 e narrativa da marca; novidades de 2027 (embalagem com as crianças reais do Sonhos, relançamento MaxPro, maior fabricante de bebidas proteicas do Brasil). Prazo apertado para fim de novembro. Revisão da tabela nutricional em aberto: confusão entre percentual e gramas por porção.",
   "27": "Pós-reunião de 05/11: projeto Sonhos travado em questões contratuais. Em 11/11 o Messias fez a reunião com Bruno Borges, que simplificou o roteiro (modelo genérico em vez de um por criança) para viabilizar a validação do psicanalista; contrato sendo ajustado nesses termos, aguardando o advogado até a semana que vem. Nova ideia em avaliação: embalagem temática por criança (imagem real transposta para ilustração da lateral). Ponto de atenção da semanal: a data de entrega do 1º episódio ficou solta e precisa de posição do EDC. O nome 'O Segredo da Floresta que Dança' foi criticado como brega e será revisto.",
   "28": "Gestão interna: planejamento 2027 fica para depois da reunião com o Fadu; nota de dezembro da Ventura emite em novembro; Juju Lovers encerra 14/11 com ranking na segunda 16/11; contrato da Mel em renegociação.",
   "19": "Da transcrição 05/11: Carol pilota a pauta e filtra as prioridades máximas para nada importante escapar.",
