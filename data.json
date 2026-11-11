@@ -71,12 +71,12 @@
    "topicTitle": "Projeto Sonhos — Maria Luísa (Malu)",
    "area": "Sonhos",
    "title": "Alinhar com Sabino e Marquinho a avaliação e mentoria técnica",
-   "assignee": "Léo",
-   "deadline": "10/11/2026",
+   "assignee": "Messias / Léo",
+   "deadline": "11/11/2026",
    "priority": "Média",
-   "status": "Em Andamento",
-   "context": "Léo entrar em contato com Marquinho para entender a escolha da história da Malu e alinhar com Sabino a grade pedagógica de bateria.",
-   "notes": "Reunião com Marcos Sabino em 10/11 às 11h30. Em 10/11 à tarde ficou claro com o Fadul: as aulas são do Marquinhos; a mentoria do Fadul é outra camada, com escopo definido a partir da leitura do desenvolvimento dela."
+   "status": "Concluído",
+   "context": "Alinhar com o Marquinhos Sabino (professor de bateria da Malu no Projeto Guri) a avaliação técnica e o caminho do instrumento.",
+   "notes": "Reunião feita pelo Messias com o Marquinhos em 11/11/2026. Ele aprovou o caminho proposto (dar uma bateria à Malu) e disse que pode ser um kit simples; vai indicar o modelo de melhor custo-benefício e considera o dimensionamento da Fischer muito elevado (não precisa de R$ 15 mil). Concorda com apresentação final de 2 a 3 músicas em ambiente controlado. Vai enviar proposta de aulas em 2 cenários entre 13/11 e 16/11. Não vê oposição a um segundo professor (diversidade de visão). Ata: artifacts/ata-sonhos-reuniao-messias-marquinhos-1111.md"
   },
   {
    "id": "ACT-07",
@@ -102,7 +102,7 @@
    "priority": "Alta",
    "status": "Pendente",
    "context": "Parceria com Fischer cancelada por custos. Messias e Ventura contatarem Pinguim e mais duas marcas para patrocínio do instrumento.",
-   "notes": "Em 10/11: conversa em andamento com a Pinguim; orçamento da bateria na casa de R$ 9.000. O instrumento é a peça que trava a jornada da Malu — sem patrocínio, sai do aporte de R$ 9 mil dela e encurta todo o resto do investimento."
+   "notes": "11/11: o Marquinhos Sabino tem contato com um dos proprietários da Odery e se propôs a fazer a introdução e passar o contato. Ele também indicou o Luizinho, loja de instrumentos musicais de Franca, como interessado em potencial. Bateria estimada em kit simples e bem abaixo dos R$ 15 mil orçados pela Fischer."
   },
   {
    "id": "ACT-09",
@@ -921,7 +921,7 @@
    "priority": "Alta",
    "status": "Em Andamento",
    "context": "Fadul aceitou a mentoria em 10/11. O escopo sai da leitura dele sobre o desenvolvimento da Malu, não de um pacote fechado. Primeiro passo: encontro para montar a agenda e definir repertório.",
-   "notes": "Sugestão discutida: encontro semanal, com rotina diária de estudo por fora dela."
+   "notes": "Sugestão discutida: encontro semanal, com rotina diária de estudo por fora dela. Em 11/11 o Marquinhos reforçou que o formato do Guri (1h/semana em grupo) limita o resultado — ela precisa de mais aulas e da bateria para praticar."
   },
   {
    "id": "SON-06",
@@ -945,16 +945,68 @@
    "assignee": "Léo / Messias",
    "deadline": "12/11/2026",
    "priority": "Crítica",
+   "status": "Em Andamento",
+   "context": "O apoio por criança é de R$ 9.000 (R$ 1.500 × 6 meses). A bateria orçada em ~R$ 9.000 consome 100% do aporte dela se não houver doação ou marca parceira — e a série fica sem verba para o resto da jornada. Em 11/11 o professor Marquinhos contestou o dimensionamento da Fischer e estima valor bem menor.",
+   "notes": "Anda junto com o retorno da Pinguim (ACT-08) e com a indicação de kit do Marquinhos (SON-09). Alternativa aberta: marca entrar como parceira em troca de exposição (3 milhões de pessoas/mês)."
+  },
+  {
+   "id": "SON-08",
+   "topicNumber": 4,
+   "topicTitle": "Projeto Sonhos — Maria Luísa (Malu)",
+   "area": "Sonhos",
+   "title": "Receber e validar a proposta de aulas do Marquinhos em 2 cenários",
+   "assignee": "Marquinhos / Messias",
+   "deadline": "16/11/2026",
+   "priority": "Alta",
    "status": "Pendente",
-   "context": "O apoio por criança é de R$ 9.000 (R$ 1.500 × 6 meses). A bateria orçada em ~R$ 9.000 consome 100% do aporte dela se não houver doação ou marca parceira — e a série fica sem verba para o resto da jornada.",
-   "notes": "Prazo sugerido: anda junto com o retorno da Pinguim (ACT-08). Alternativa aberta: marca entrar como parceira em troca de exposição (3 milhões de pessoas/mês)."
+   "context": "Marquinhos Sabino se comprometeu a enviar a proposta das aulas dele em dois cenários até sexta 13/11 ou segunda 16/11. É a base para fechar o formato de aulas da Malu e comparar com a hipótese de um segundo professor.",
+   "notes": "Aberto em 11/11/2026 (reunião Messias × Marquinhos)."
+  },
+  {
+   "id": "SON-09",
+   "topicNumber": 4,
+   "topicTitle": "Projeto Sonhos — Maria Luísa (Malu)",
+   "area": "Sonhos",
+   "title": "Revisar o orçamento da bateria com a indicação de kit do Marquinhos",
+   "assignee": "Messias / Léo",
+   "deadline": "16/11/2026",
+   "priority": "Alta",
+   "status": "Pendente",
+   "context": "O professor avalia que o dimensionamento da Fischer está muito elevado e que não é preciso R$ 15 mil: dá para reduzir bastante com um kit simples. Refazer o orçamento com a indicação dele antes de decidir entre compra e patrocínio.",
+   "notes": "Aberto em 11/11/2026. Alimenta a decisão da SON-07."
+  },
+  {
+   "id": "SON-10",
+   "topicNumber": 4,
+   "topicTitle": "Projeto Sonhos — Maria Luísa (Malu)",
+   "area": "Sonhos",
+   "title": "Articular introdução com a Odery (contato do Marquinhos)",
+   "assignee": "Marquinhos / Messias",
+   "deadline": "A definir",
+   "priority": "Alta",
+   "status": "Pendente",
+   "context": "Marquinhos tem contato com um dos proprietários da Odery e se propôs a fazer a introdução e passar o contato para apresentar o projeto e buscar patrocínio/doação do instrumento.",
+   "notes": "Aberto em 11/11/2026. Grafia 'Odery' confirmada a partir de marca de baterias; o áudio diz 'Odre'."
+  },
+  {
+   "id": "SON-11",
+   "topicNumber": 4,
+   "topicTitle": "Projeto Sonhos — Maria Luísa (Malu)",
+   "area": "Sonhos",
+   "title": "Acionar o Luizinho (loja de instrumentos de Franca) como interessado em potencial",
+   "assignee": "Messias",
+   "deadline": "A definir",
+   "priority": "Média",
+   "status": "Pendente",
+   "context": "O Marquinhos indicou o Luizinho, lojista de instrumentos musicais de Franca, como eventual interessado em apoiar a bateria da Malu.",
+   "notes": "Aberto em 11/11/2026."
   }
  ],
  "ata": {
   "1": "Reunião geral passou para sexta 15h. Pauta de conteúdo com a Culturall vai para terça 14h. Mensal de Performance na 1ª quinta do mês. Visita das nutricionistas confirmada em 24/11. <b>Correção:</b> as férias do Messias são de <b>03 a 10/12</b>.",
   "2": "Conceito aprovado: teatro interativo em <b>3 atos</b>, cenário que nasce de uma mala antiga e trilha ao vivo pela família. Referências: Capitão Fantástico, Wonka e a vitrine da Granado. Peça de 30 a 40 minutos, com o João como protagonista.",
   "3": "Luana já está no Rio produzindo material. Visto e passaporte prontos, aéreo e hospedagem garantidos. Faltam <b>R$ 8,0 a 8,5 mil</b> para os 3 campeonatos e permanência. Viagem aos EUA em 15/11.",
-  "4": "Bateria postergada para a etapa final. Prioridade são as aulas e o aperfeiçoamento musical. Fischer passou contatos quentes: Pinguim, Odery e mais uma marca. Em 03/11 entrou a definição do local do desafio musical. Reunião de 10/11/2026 com o Fadul: ele aceitou ser mentor da Malu. Quem dá aula segue sendo o Marquinhos; a mentoria é camada separada. Fio condutor Beatles, resolução num show gravado no estúdio do Beto Eliezé, com 2 imersões. Frequência sugerida semanal, a definir após a primeira leitura do desenvolvimento dela. O Projeto Guri foi descartado institucionalmente (interlocução travada na mantenedora Santa Marcelina, em São Paulo).",
+  "4": "Bateria postergada para a etapa final. Prioridade são as aulas e o aperfeiçoamento musical. Fischer passou contatos quentes: Pinguim, Odery e mais uma marca. Em 03/11 entrou a definição do local do desafio musical. Reunião de 10/11/2026 com o Fadul: ele aceitou ser mentor da Malu; quem dá aula segue sendo o Marquinhos. Fio condutor Beatles, resolução num show gravado no estúdio do Beto Eliezé, com 2 imersões. Em 11/11/2026 o Messias reuniu com o Marquinhos Sabino, professor da Malu no Guri: ele aprovou o caminho, disse que a bateria pode ser um kit simples, vai indicar o modelo de melhor custo-benefício, considera o orçamento da Fischer (R$ 15 mil) muito acima do necessário e vai enviar proposta de aulas em 2 cenários até 16/11. Apontou também que o formato do Guri (1h/semana em grupo) limita o resultado: ela precisa de mais aulas e de ter a bateria para praticar. Contatos comerciais: Odery (tem relação com um dos proprietários e fará a introdução) e Luizinho, loja de instrumentos de Franca. Não vê oposição a um segundo professor. O Projeto Guri foi descartado institucionalmente (interlocução travada na mantenedora Santa Marcelina, em São Paulo).",
   "5": "Mochila com carta primeiro, equipamentos depois. Matrícula no curso de YouTuber do Mundo Lúdico com o Fabrício. Visita ao SESI na fase 2, sem investimento financeiro.",
   "6": "Bruno (EDC) respondeu aos apontamentos do jurídico da Jussara. Próxima etapa é o protocolo dos pedidos de autorização judicial dos menores.",
   "7": "Chamada institucional definitiva: <b>Sabor que conecta aos sonhos</b> — o Conectações foi eliminado. Logo do Projeto Sonhos e QR Code das embalagens na folhinha de mesa.",
