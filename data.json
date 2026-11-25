@@ -24,7 +24,7 @@
    "priority": "Alta",
    "status": "Concluído",
    "context": "Tchuco/Ventura desenvolvem apresentação executiva com moodboard (Granado, Capitão Fantástico, Wonka) e roteiro dos 3 atos para validação com família e diretoria.",
-   "notes": "Leonardo/Tchuco marcou Concluído no painel em 11/11 09:09. 11/11: conceito dos 3 atos apresentado na semanal (teatro sensorial, estilo de ilustração da embalagem, referência Auto da Compadecida). O time criticou o nome 'O Segredo da Floresta que Dança' como brega — a troca de nome é item a parte, não trava a entrega do formato."
+   "notes": "25/11: o formato dos 3 atos foi VALIDADO pela família/diretoria — conceito aprovado. O Sítio Santa Terra não tem mais nada aberto nem pendente; o próximo job é a construção do ROTEIRO (SON-15)."
   },
   {
    "id": "ACT-03",
@@ -124,11 +124,11 @@
    "area": "Sonhos",
    "title": "Articular visita institucional aos professores de Robótica do SESI",
    "assignee": "Messias",
-   "deadline": "12/11/2026",
+   "deadline": "27/11/2026",
    "priority": "Baixa",
-   "status": "Pendente",
+   "status": "Em Andamento",
    "context": "Diálogo institucional com professores e direção do SESI para estruturar apoio à infraestrutura pedagógica (fase 2).",
-   "notes": ""
+   "notes": "25/11: visita CONFIRMADA para sexta-feira 27/11, no período da tarde. O Francisco e os outros alunos e o professor do grupo dele passam a tarde no laboratório de robótica do SESI, numa imersão desenhada com os alunos do SESI e troca de professores. A visita do grupo de pesquisa das escolas Scarabucci é a mesma ação."
   },
   {
    "id": "ACT-11",
@@ -695,12 +695,12 @@
    "topicTitle": "Projeto Sonhos — Pós-reunião 05/11",
    "area": "Sonhos",
    "title": "Reunião Leo + Bruno Borges sobre questões contratuais e jurídicas",
-   "assignee": "Messias / Léo",
-   "deadline": "12/11/2026",
+   "assignee": "Messias / Bruno Borges",
+   "deadline": "25/11/2026",
    "priority": "Crítica",
-   "status": "Em Andamento",
+   "status": "Concluído",
    "context": "Projeto Sonhos travado em validações contratuais. Leo marcou reunião à parte com Bruno Borges (jurídico) em 05/11 para alinhar: ônus pelo uso da imagem, multas e proteção da Jussara em cenários futuros.",
-   "notes": "11/11: reunião com Bruno Borges realizada pelo Messias. Bruno simplificou a parte de roteiro (modelo genérico) porque a validação do psicanalista era inviável com roteiro individual por criança. Aguardando validação do advogado para o contrato andar. Prazo: até a semana que vem."
+   "notes": "25/11: reunião REALIZADA — foi o Messias com o Bruno Borges (não o Leo). Bruno deu o feedback e o jurídico está avaliando de novo. O próximo estágio é a avaliação do jurídico, que já tem tópico próprio (ACT-11)."
   },
   {
    "id": "GER-01",
@@ -934,7 +934,7 @@
    "priority": "Alta",
    "status": "Concluído",
    "context": "Fadul se ofereceu para falar com o Beto e viabilizar as imersões. Ele tem bateria eletrônica em casa para os primeiros encontros.",
-   "notes": "25/11: decisão tomada — as imersões no estúdio do Beto Eliezé ficam para o FINAL do projeto, quando forem feitas as gravações. Sai da pauta ativa e volta mais perto do encerramento."
+   "notes": "25/11: definido — a gravação no estúdio do Beto Eliezé fica para os momentos FINAIS do projeto, provavelmente acessada no 3º/4º mês. Sai da pauta ativa e volta perto do encerramento."
   },
   {
    "id": "SON-07",
@@ -947,7 +947,7 @@
    "priority": "Crítica",
    "status": "Em Andamento",
    "context": "O apoio por criança é de R$ 9.000 (R$ 1.500 × 6 meses). A bateria orçada em ~R$ 9.000 consome 100% do aporte dela se não houver doação ou marca parceira — e a série fica sem verba para o resto da jornada. Em 11/11 o professor Marquinhos contestou o dimensionamento da Fischer e estima valor bem menor.",
-   "notes": "25/11: a doação segue como caminho. Messias cobrou a resposta da moça da Odery (Cate) — a resposta veio vaga; ele quer apresentar o projeto a ela pessoalmente. A Vanessa (Pinguim/Toneli) apresentou; a Cate disse que não viu e pediu para mandar de novo. Luizinho também na mesa — Messias vai pessoalmente à loja porque ele fica lá."
+   "notes": "25/11: duas frentes aguardando resposta — Odery (Cate) e Pinguim (Vanessa). A doação segue como caminho principal."
   },
   {
    "id": "SON-08",
@@ -960,7 +960,7 @@
    "priority": "Alta",
    "status": "Em Andamento",
    "context": "Marquinhos Sabino se comprometeu a enviar a proposta das aulas dele em dois cenários até sexta 13/11 ou segunda 16/11. É a base para fechar o formato de aulas da Malu e comparar com a hipótese de um segundo professor.",
-   "notes": "25/11: as propostas chegaram e entram na reunião de avaliação."
+   "notes": "25/11: a proposta do Fadul CHEGOU e está detalhada: projeto de 6 meses com repertório Beatles (mês 1-2 base e independência; 3-4 identidade e linguagem; 5-6 textura e desafio técnico, culminando no solo de The End). Inclui partituras, transcrições e play-alongs. Mensalidade fixa R$ 300,00 (vencimento dia 5), o que dá R$ 75 por aula. IMPORTANTE: o Fadul NÃO tem espaço nem bateria — o espaço custa R$ 80/hora em estúdio."
   },
   {
    "id": "SON-09",
@@ -973,7 +973,7 @@
    "priority": "Alta",
    "status": "Em Andamento",
    "context": "O professor avalia que o dimensionamento da Fischer está muito elevado e que não é preciso R$ 15 mil: dá para reduzir bastante com um kit simples. Refazer o orçamento com a indicação dele antes de decidir entre compra e patrocínio.",
-   "notes": "25/11: entra na avaliação junto com as propostas."
+   "notes": "25/11: com a proposta do Fadul em mãos, o custo real passa a ser R$ 300/mês de aula + R$ 80/h de espaço. Entra na decisão da bateria (SON-07)."
   },
   {
    "id": "SON-10",
@@ -986,7 +986,7 @@
    "priority": "Alta",
    "status": "Em Andamento",
    "context": "Marquinhos acionou o Alexandre Cunha na Odery, mas Cunha não atua na loja nem na fábrica e o irmão dele (que cuida de loja e fábrica) não trata de marketing/patrocínio. O contato correto é a Cate, do marketing/patrocínio, passado pelo próprio Cunha.",
-   "notes": "25/11: a Cate (Odery) deu resposta vaga e disse que não viu o material. Messias vai insistir para apresentar o projeto pessoalmente."
+   "notes": "25/11: a Cate (Odery) respondeu — a mensagem dela tinha ficado para trás e ela pediu desculpa; disse que vai olhar o material. Ainda sem resposta sobre a doação."
   },
   {
    "id": "SON-11",
@@ -1038,7 +1038,7 @@
    "priority": "Alta",
    "status": "Concluído",
    "context": "Evento na floresta no dia 20/11 (sábado): início às 14h, passeio às 15h, café e drinque na floresta, trio e DJ no fim da tarde. Camila canta. O local lembra a Toscana — igrejinha e fazendinha — e é apontado como ótimo cenário de captação.",
-   "notes": "Debatido na semanal de 11/11. Confirmar a programação e a captação de imagem. · Concluído por Tchuco em 19/11 (registro do Log da planilha)."
+   "notes": "25/11: evento realizado em 20/11 — fluiu bem. Foi a reunião no Sítio (dia 19) onde o formato foi apresentado e validado."
   },
   {
    "id": "GER-11",
@@ -1168,6 +1168,71 @@
    "priority": "Alta",
    "status": "Pendente",
    "context": "O Otávio apontou 2 cláusulas: multa por cancelamento e titularidade da autoria. A sugestão é o Felipe conversar com ele para amenizar. Combinado com ele: não publica, mas pode mostrar em reunião. Leo devolve ao jurídico.",
+   "notes": "Aberto em 25/11/2026."
+  },
+  {
+   "id": "SON-15",
+   "topicNumber": 2,
+   "topicTitle": "Projeto Sonhos — Sítio Santa Terra (João)",
+   "area": "Sonhos",
+   "title": "Construir o roteiro do 3 atos a partir do briefing que a família vai enviar",
+   "assignee": "Tchuco / Messias",
+   "deadline": "09/12/2026",
+   "priority": "Alta",
+   "status": "Pendente",
+   "context": "O formato dos 3 atos foi validado: eles gostaram e entenderam que era só um formato — não o conteúdo. Agora a família está preparando um briefing dizendo o que quer falar e qual é a mensagem; a partir dele o time constrói o roteiro. Não adianta escrever antes do briefing.",
+   "notes": "Aberto em 25/11/2026 (conversa Leo × Messias)."
+  },
+  {
+   "id": "SON-16",
+   "topicNumber": 4,
+   "topicTitle": "Projeto Sonhos — Maria Luísa (Malu)",
+   "area": "Sonhos",
+   "title": "Fechar o formato das aulas da Malu: Marquinhos como base + encontros com o Fadul",
+   "assignee": "Léo / Messias",
+   "deadline": "05/12/2026",
+   "priority": "Alta",
+   "status": "Pendente",
+   "context": "A proposta do Fadul chegou (R$ 300/mês, R$ 75/aula) mas ele NÃO tem espaço nem bateria — o estúdio custa R$ 80/hora. Discussão na conversa: manter as aulas com o Marquinhos como base e fazer encontros pontuais com o Fadul, porque a ideia do Fadul é mais ampla e foge do foco agora. O papel dele precisa ser mais objetivo.",
+   "notes": "Aberto em 25/11/2026."
+  },
+  {
+   "id": "CRM-08",
+   "topicNumber": 17,
+   "topicTitle": "Itens em Stand-by e Planejamento Estratégico Jussara 2027",
+   "area": "Planejamento",
+   "title": "Trazer o Guilherme e a Flávia para a discussão do CRM antes de decidir construir ou comprar",
+   "assignee": "Léo / Messias",
+   "deadline": "12/12/2026",
+   "priority": "Alta",
+   "status": "Pendente",
+   "context": "Decisão de 25/11: não contar a ideia antes de ter o Guilherme dentro — ele precisa comprar a ideia e talvez ser parte do projeto. A Flávia tem muita vivência comercial e vende bem; agrega na discussão. Ordem definida: primeiro o Guilherme, depois a Flávia.",
+   "notes": "Aberto em 25/11/2026. Também foi levantado o Matheus (ex-Ploomes) como alguém que conhece o sistema antigo por dentro."
+  },
+  {
+   "id": "CRM-09",
+   "topicNumber": 17,
+   "topicTitle": "Itens em Stand-by e Planejamento Estratégico Jussara 2027",
+   "area": "Planejamento",
+   "title": "Definir o modelo do CRM: plataforma pronta personalizada × desenvolvimento próprio",
+   "assignee": "Léo / Bergson",
+   "deadline": "A definir",
+   "priority": "Alta",
+   "status": "Pendente",
+   "context": "Discussão de 25/11: nenhuma plataforma pronta atende perfeitamente — a que chega mais perto é a que se constrói sem pressa. Proposta: começar com uma plataforma personalizável e evoluir. O CRM tem de ser repositório central de dados comerciais com indicadores de conversão que atendam todos os níveis (vendedor, supervisor, gerente, diretoria) e já nascer pensando em IA.",
+   "notes": "Aberto em 25/11/2026. O Leo quer aplicar na Jussara o modelo que está construindo na Lev (assessor de IA por trás)."
+  },
+  {
+   "id": "ACT-31",
+   "topicNumber": 3,
+   "topicTitle": "Projeto Sonhos — Luana (Torneio RJ e Viagem Internacional)",
+   "area": "Sonhos",
+   "title": "Definir o formato de captação da viagem da Luana aos EUA",
+   "assignee": "Léo / Felipe (EDC)",
+   "deadline": "05/12/2026",
+   "priority": "Alta",
+   "status": "Pendente",
+   "context": "A Luana já foi ao Rio, produziu o material e voltou. Agora falta definir o formato da captação da viagem aos EUA. Discussão de 25/11: 4 diárias a US$ 100, cerca de US$ 650 no total — a avaliação é fechar umas 2 diárias e usar o que ela mesma produzir. O que importa é retratar o momento, não o resultado do torneio.",
    "notes": "Aberto em 25/11/2026."
   }
  ],
