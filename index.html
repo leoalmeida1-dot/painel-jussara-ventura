@@ -60,6 +60,8 @@
     <button data-v="macro" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Frentes</button>
     <button data-v="chat" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Chat</button>
     <button data-v="reuniao" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">Reuniões</button>
+    <button data-v="lembretes" class="vb px-2.5 py-1.5 rounded-md whitespace-nowrap">📌 Lembretes <span id="lemCount" class="text-[10px] opacity-70"></span></button>
+    <button data-v="notif" class="vb relative px-2.5 py-1.5 rounded-md whitespace-nowrap">🔔 Notificações<span id="notifBadge" class="hidden"></span></button>
    </div>
   </div>
   <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
@@ -100,6 +102,8 @@
  <div id="vPauta" class="hidden space-y-3"></div>
  <div id="vMacro" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
 
+ <div id="vLembretes" class="hidden"></div>
+ <div id="vNotif" class="hidden"></div>
  <div id="vReuniao" class="hidden">
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
    <div class="bg-white rounded-xl border border-slate-200 p-4 space-y-3">
@@ -256,5 +260,6 @@
 
 <script src="app.js"></script>
 <script src="app-log.js"></script>
+<script src="app-extra.js"></script>
 </body>
 </html>
