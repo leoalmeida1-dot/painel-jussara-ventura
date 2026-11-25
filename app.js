@@ -3,7 +3,7 @@ var KEY="jussara_dash_v5";
 var GKEY="jussara_gemini_key",HIST=[],enviando=false;
 var faltaFiltro="todos";
 var MACRO_ABERTO=null;
-var MULTI={area:[],resp:[],status:[],prio:[]};
+var MULTI={area:[],resp:[],status:["Pendente","Em Andamento"],prio:[]};
 var MULTI_QTD={area:0,resp:0,status:0,prio:0};
 function semDono(t){var a=String(t.assignee||"").trim().toLowerCase();return !a||a==="a definir"||a==="definir"||a==="—"||a==="-"}
 function semPrazo(t){var p=String(t.deadline||"").trim().toLowerCase();return !p||p==="a definir"||p==="—"||p==="-"}
@@ -76,7 +76,8 @@ logTl(sel,v,true),logEv({faca:"registrou na linha do tempo",id:sel,acao:nomeAcao
 document.getElementById("mTlInput").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();document.getElementById("mTlAdd").click()}});
 }
 function kpis(){var d=T.filter(function(t){return t.status==="Concluído"}).length,p=Math.round(d/(T.length||1)*100);
-document.getElementById("kTotal").textContent=T.length;
+var abertas=T.filter(function(t){return t.status!=="Concluído"&&t.status!=="Cancelado"}).length;
+document.getElementById("kOpen").textContent=abertas;
 document.getElementById("k05").textContent=T.filter(function(t){return t.deadline==="05/11/2026"}).length;
 document.getElementById("k12").textContent=T.filter(function(t){return t.deadline==="12/11/2026"}).length;
 document.getElementById("kDone").textContent=d;
@@ -237,7 +238,7 @@ c.innerHTML=ordem.map(function(area){
  html+='</div>';
  return html}).join("")}
 function render(){var l=filtrados();
-document.getElementById("contador").textContent="Exibindo "+l.length+" de "+T.length+" ações";var tg=[],dp=document.getElementById("fPrazo"),q=document.getElementById("q").value.trim();
+document.getElementById("contador").textContent="Exibindo "+l.length+" "+(l.length===1?"ação":"ações");var tg=[],dp=document.getElementById("fPrazo"),q=document.getElementById("q").value.trim();
 if(dp.value!=="ALL")tg.push("Prazo: "+dp.value);
 if(MULTI.area.length)tg.push("Área: "+MULTI.area.join(" ou "));
 if(MULTI.resp.length)tg.push("Resp: "+MULTI.resp.join(" ou "));
