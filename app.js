@@ -249,13 +249,15 @@ document.querySelectorAll(".faltaBtn").forEach(function(b){
 var ativo=(b.dataset.falta===faltaFiltro);
 b.className="faltaBtn px-2.5 py-1 rounded-full text-[11px] font-medium "+(ativo?"bg-slate-800 text-white border border-slate-800":"bg-amber-100 text-amber-900 hover:bg-amber-200 border border-amber-300")});
 document.getElementById("tags").innerHTML=tg.map(function(x){return '<span class="px-2 py-0.5 rounded-full bg-sky-100 text-sky-800">'+esc(x)+'</span>'}).join("");
-var vs=["vCards","vTable","vKanban","vPauta","vMacro","vChat","vReuniao"];vs.forEach(function(id){document.getElementById(id).classList.add("hidden")});
+var vs=["vCards","vTable","vKanban","vPauta","vMacro","vChat","vReuniao","vLembretes","vNotif"];vs.forEach(function(id){document.getElementById(id).classList.add("hidden")});
 if(view==="cards"){document.getElementById("vCards").classList.remove("hidden");document.getElementById("vCards").classList.add("grid");cards(l)}
 else if(view==="table"){document.getElementById("vTable").classList.remove("hidden");tabela(l)}
 else if(view==="kanban"){var k=document.getElementById("vKanban");k.classList.remove("hidden");k.classList.add("grid");kanban(l)}
 else if(view==="macro"){var m=document.getElementById("vMacro");m.classList.remove("hidden");m.classList.add("grid");macroArea(l)}
 else if(view==="chat"){document.getElementById("vChat").classList.remove("hidden");renderChat()}
 else if(view==="reuniao"){document.getElementById("vReuniao").classList.remove("hidden")}
+else if(view==="lembretes"){document.getElementById("vLembretes").classList.remove("hidden");if(typeof renderLembretes==="function")renderLembretes()}
+else if(view==="notif"){document.getElementById("vNotif").classList.remove("hidden");if(typeof renderNotificacoes==="function")renderNotificacoes();if(typeof renderNotifBadge==="function")renderNotifBadge()}
 else{document.getElementById("vPauta").classList.remove("hidden");pauta(l)}}
 function toggle(id){var t=T.filter(function(x){return x.id===id})[0];if(!t)return;var de=t.status;t.status=t.status==="Concluído"?"Em Andamento":"Concluído";logTl(id,"Status: "+de+" → "+t.status),logEv({faca:"mudou status",id:id,acao:t.title,campo:"Status",de:de,para:t.status});salvar();render();toast(t.title.slice(0,28)+"… → "+t.status,"ok")}
 
